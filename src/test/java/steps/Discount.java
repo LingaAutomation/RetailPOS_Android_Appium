@@ -57,4 +57,28 @@ public class Discount {
         new Discount_Selection_Page().verifyTheTax_BeforeTaxDiscount(tax, disc);
         new Discount_Selection_Page().verifyTheDiscount_AfterTax_Amount(disc);
     }
+
+    @And("Calculate the value of Item Based Discount for Before Tax - {string} percentage with discount percentage {string}")
+    public void calculateTheValueOfItemBasedDiscountForBeforeTaxPercentageWithDiscountPercentage(String tax, String disc) {
+        new Discount_Selection_Page().verifyTheTotal_BeforeTaxDiscount_Percentage(tax,disc);
+        new Discount_Selection_Page().verifyTheSubTotal();
+        new Discount_Selection_Page().verifyTheTax_BeforeTaxDiscount_Percentage(tax, disc);
+        new Discount_Selection_Page().verifyTheDiscount_AfterTax_SetPercentage(disc);
+    }
+
+    @And("Calculate the value of Item Based Discount for Before Tax - {string} percentage with Set Price {string}")
+    public void calculateTheValueOfItemBasedDiscountForBeforeTaxPercentageWithSetPrice(String tax, String disc) {
+        new Discount_Selection_Page().verifyTheTotal_BeforeTaxDiscount(tax,disc);
+        new Discount_Selection_Page().verifyTheSubTotal();
+        new Discount_Selection_Page().verifyTheTax_BeforeTaxDiscount(tax, disc);
+        new Discount_Selection_Page().verifyTheDiscount_AfterTax_SetPrice(disc);
+    }
+
+    @And("Calculate the value of Item Based Discount for Before Tax - {string} percentage with Free Item as {string}")
+    public void calculateTheValueOfItemBasedDiscountForBeforeTaxPercentageWithFreeItemAs(String tax, String disc) {
+        new Discount_Selection_Page().verifyTheTotal(tax);
+        new Discount_Selection_Page().verifyTheSubTotal();
+        new Discount_Selection_Page().verifyTheTax(tax);
+        new Discount_Selection_Page().verifyTheDiscount_AfterTax_FreeItem();
+    }
 }

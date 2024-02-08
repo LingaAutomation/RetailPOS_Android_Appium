@@ -674,11 +674,20 @@ public class Discount_Selection_Page extends Appium_Base_Class{
 
     public void verifyTheDiscount_AfterTax_FreeItem(){
 
-        //list for ordered item
         List<?> s = driver.findElements(By.xpath("(//*[@text='X'])"));
 
-        double sa = s.size();
+        int sa = s.size();
 
+        int rs = 0;
+
+        // for loop for clicking on every time in the list
+        for (int i = 1; i <= sa; i++) {
+
+            String qu = driver.findElement(By.xpath("(//*[@text='X'])[" + i + "]" + "/../..//android.widget.TextView[4]")).getText();
+            int qa = Integer.parseInt(qu);
+            rs = rs + qa;
+        }
+        sa = rs;
 
         //list for all free item(Each item contains 7 attributes suppose we have 2 free item then it show 14 attributes)
         List<?> s1 = driver.findElements(By.xpath("//*[@text='X']/../../../android.widget.TextView"));
@@ -785,7 +794,7 @@ public class Discount_Selection_Page extends Appium_Base_Class{
         String discountCalculated = theDiscount_AfterTax_Amount(disc);
         double doubleValue2 = Double.parseDouble(discountCalculated);
 
-        tot = doubleValue + doubleValue1 + doubleValue2;
+        tot = doubleValue + doubleValue1 - doubleValue2;
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
         String totalCalculated;
@@ -808,4 +817,113 @@ public class Discount_Selection_Page extends Appium_Base_Class{
         }
     }
 
+    public String getTheTax_BeforeTaxDiscount_Percentage(String tax, String disc){
+
+        double subtotal, tax1;
+        double calculatedTax,calculatedTax1=0;
+
+        List<?> s = driver.findElements(By.xpath("(//*[@text='X'])"));
+
+        int sa = s.size();
+
+        // for loop for clicking on every time in the list
+        for (int i = 1; i <= sa; i++) {
+
+            //get the quantity from the retail screen
+            String qu = driver.findElement(By.xpath("(//*[@text='X'])[" + i + "]" + "/../..//android.widget.TextView[4]")).getText();
+            int qa = Integer.parseInt(qu);
+
+            //get the price from the retail screen
+            String price = driver.findElement(By.xpath("(//*[@text='X'])[" + i + "]" + "/../..//android.widget.TextView[5]")).getText();
+            double pri = Double.parseDouble(price);
+
+            subtotal = qa * pri;
+
+            subtotal = Math.round(subtotal*100.00)/100.00;
+
+            double price1 = Double.parseDouble(disc);
+
+            price1 = price1/100;
+
+            price1 = Math.round(price1*100.00)/100.00;
+
+            tax1 = subtotal - price1;
+
+            tax1 = Math.round(tax1*100.00)/100.00;
+
+            double ta = Double.parseDouble(tax);
+
+            calculatedTax = tax1 * ta/100;
+
+            calculatedTax =  Math.round(calculatedTax*100.00)/100.00;
+
+            calculatedTax1 += calculatedTax;
+            calculatedTax1 =  Math.round(calculatedTax1*100.00)/100.00;
+        }
+        return String.valueOf(calculatedTax1);
+    }
+
+    public void verifyTheTax_BeforeTaxDiscount_Percentage(String tax, String disc){
+        String taxCalculated = getTheTax_BeforeTaxDiscount_Percentage(tax,disc);
+        double doubleValue = Double.parseDouble(taxCalculated);
+
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        taxCalculated = decimalFormat.format(doubleValue);
+        System.out.println(" Calculated Tax is : "+taxCalculated);
+
+        String taxActual =  new RetailPOS_Order_Page().get_TaxAmount().replaceAll("[a-zA-Z $₹£,:]", "").substring(1);
+        System.out.println("Tax from the Retail Screen : "+taxActual);
+
+        if(taxCalculated.equals(taxActual)){
+            test.log(LogStatus.PASS,"Calculated Tax is correct and the Tax is : "+taxActual);
+        }else{
+            double cal = Double.parseDouble(taxCalculated);
+            double act = Double.parseDouble(taxActual);
+            double diff = act - cal;
+            test.log(LogStatus.INFO,"The calculated Tax  is : "+cal);
+            test.log(LogStatus.INFO,"The actual(displayed) Tax  is : "+act);
+            test.log(LogStatus.FAIL,"The difference in Tax  is : "+diff);
+        }
+    }
+
+    public void verifyTheTotal_BeforeTaxDiscount_Percentage(String tax,String disc){
+        double tot;
+
+        String taxCalculated = getTheTax_BeforeTaxDiscount_Percentage(tax, disc);
+        double doubleValue = Double.parseDouble(taxCalculated);
+//
+//        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+//        taxCalculated = decimalFormat.format(doubleValue);
+
+        String subTotalCalculated = getTheSubTotal();
+        double doubleValue1 = Double.parseDouble(subTotalCalculated);
+//
+//        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+//        subTotalCalculated = decimalFormat.format(doubleValue1);
+
+        String discountCalculated = theDiscount_AfterTax_Amount(disc);
+        double doubleValue2 = Double.parseDouble(discountCalculated);
+
+        tot = doubleValue + doubleValue1 - doubleValue2;
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+
+        String totalCalculated;
+        totalCalculated = decimalFormat.format(tot);
+
+        System.out.println(" Calculated Total is : "+totalCalculated);
+
+        String totalActual =  new RetailPOS_Order_Page().get_TotalAmount().replaceAll("[a-zA-Z $₹£,:]", "").substring(1);
+        System.out.println("Total from the Retail Screen : "+totalActual);
+
+        if(totalCalculated.equals(totalActual)){
+            test.log(LogStatus.PASS,"Calculated Total is correct and the total is : "+totalActual);
+        }else{
+            double cal = Double.parseDouble(totalCalculated);
+            double act = Double.parseDouble(totalActual);
+            double diff = act - cal;
+            test.log(LogStatus.INFO,"The calculated total  is : "+cal);
+            test.log(LogStatus.INFO,"The actual(displayed) total  is : "+act);
+            test.log(LogStatus.FAIL,"The difference in total  is : "+diff);
+        }
+    }
 }

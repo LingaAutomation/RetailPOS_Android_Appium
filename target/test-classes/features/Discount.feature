@@ -57,38 +57,38 @@ Feature: Discounts Validations
     Then Complete the payment using fast cash button
     And Click the Logoff button
 
-#  Scenario: Verify the discount value - Item Based Discount for Before Tax - "10" percentage with discount percentage "7%"
-#    Given Login with the valid credentials
-#    Then Order the Standard Item from the retail Screen
-#    When Click the Discount Option from the given options
-#    And Search for the discount as "IBD_BT_PER"
-#    Then Click the "IBD_BT_PER" discount
-#    And Click the cancel button
-#    And Calculate the value of Item Based Discount for Before Tax - "10" percentage with discount percentage "7"
-#    Then Complete the payment using fast cash button
-#    And Click the Logoff button
-#
-#  Scenario: Verify the discount value - Item Based Discount for Before Tax - "10" percentage with Set Price "11.25"
-#    Given Login with the valid credentials
-#    Then Order the Standard Item from the retail Screen
-#    When Click the Discount Option from the given options
-#    And Search for the discount as "IBD_BT_SP"
-#    Then Click the "IBD_BT_SP" discount
-#    And Click the cancel button
-#    And Calculate the value of Item Based Discount for Before Tax - "10" percentage with Set Price "11.25"
-#    Then Complete the payment using fast cash button
-#    And Click the Logoff button
-#
-#  Scenario: Verify the discount value - Item Based Discount for Before Tax - "10" percentage with Free Item as "Standard Item 1"
-#    Given Login with the valid credentials
-#    Then Order the Standard Item from the retail Screen
-#    When Click the Discount Option from the given options
-#    And Search for the discount as "IBD_BT_FI"
-#    Then Click the "IBD_BT_FI" discount
-#    And Click the cancel button
-#    And Calculate the value of Item Based Discount for Before Tax - "10" percentage with Free Item as "Standard Item 1"
-#    Then Complete the payment using fast cash button
-#    And Click the Logoff button
+  Scenario: Verify the discount value - Item Based Discount for Before Tax - "10" percentage with discount percentage "7%"
+    Given Login with the valid credentials
+    Then Order the Standard Item from the retail Screen
+    When Click the Discount Option from the given options
+    And Search for the discount as "IBD_BT_PER"
+    Then Click the "IBD_BT_PER" discount
+    And Click the cancel button
+    And Calculate the value of Item Based Discount for Before Tax - "10" percentage with discount percentage "7"
+    Then Complete the payment using fast cash button
+    And Click the Logoff button
+
+  Scenario: Verify the discount value - Item Based Discount for Before Tax - "10" percentage with Set Price "11.25"
+    Given Login with the valid credentials
+    Then Order the Standard Item from the retail Screen
+    When Click the Discount Option from the given options
+    And Search for the discount as "IBD_BT_SP"
+    Then Click the "IBD_BT_SP" discount
+    And Click the cancel button
+    And Calculate the value of Item Based Discount for Before Tax - "10" percentage with Set Price "11.25"
+    Then Complete the payment using fast cash button
+    And Click the Logoff button
+
+  Scenario: Verify the discount value - Item Based Discount for Before Tax - "10" percentage with Free Item as "Standard Item 1"
+    Given Login with the valid credentials
+    Then Order the Standard Item from the retail Screen
+    When Click the Discount Option from the given options
+    And Search for the discount as "IBD_BT_FI"
+    Then Click the "IBD_BT_FI" discount
+    And Click the cancel button
+    And Calculate the value of Item Based Discount for Before Tax - "10" percentage with Free Item as "Standard Item 1"
+    Then Complete the payment using fast cash button
+    And Click the Logoff button
 
 #    #############################   Check Based - Discount Validation   #############################
 #  Scenario: Verify the discount value - Check Based Discount for After Tax - "10" percentage with discount amount "1.75"
