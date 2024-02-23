@@ -36,15 +36,10 @@ public class Exchange {
 
     @And("Click the Exchange button and add more retail item")
     public void clickTheExchangeButtonAndAddMoreRetailItem() throws Throwable {
+//        new RetailPOS_Order_Page().getSecondMenuItem_OrderScreen().click();
+//        new RetailPOS_Order_Page().getFirstMenuItem_OrderScreen().click();
         new Standard_Item_POS_Page().Click_ExchangeBtn();
-        new Item_Selection_Page().Single_Random_Menu_Selection();
-    }
-
-    @And("Click the retail item And Click the Exchange button")
-    public void clickTheRetailItemAndClickTheExchangeButton() throws InterruptedException {
-        new RetailPOS_Order_Page().getSecondMenuItem_OrderScreen().click();
-        Thread.sleep(500);
-        new Standard_Item_POS_Page().Click_ExchangeBtn();
+//        new Item_Selection_Page().Single_Random_Menu_Selection();
     }
 
     @And("select or enter the reason")
@@ -193,4 +188,8 @@ public class Exchange {
         new Standard_Item_POS_Page().clickTheExchangedTab();
     }
 
+    @Then("Place the Multiple retail KitAssembly item with Exclusive tax and Inclusive tax")
+    public void placeTheMultipleRetailKitAssemblyItemWithExclusiveTaxAndInclusiveTax() throws Throwable {
+        new Item_Selection_Page().multipleMenu_Selection_Random_Exclusive_Inclusive_KitAssembly();
+    }
 }

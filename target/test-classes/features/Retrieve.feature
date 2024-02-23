@@ -56,12 +56,12 @@ Feature:  Retrieve
     And select the same check
     Then In that check will be reopen in ordering screen
     And The message is appear <Retrieve_message>
-    And Complete the payment using cash button with <Success_Message>
+    And Complete the payment using fast cash button
       And  Click the Logoff button
 
       Examples:
-        | CustomerNum | Message        | Retrieve_message          | Success_Message               |
-        | 123456      | Sale is parked | Parked sales is retrieved | Check got closed successfully |
+        | CustomerNum | Message        | Retrieve_message          | 
+        | 123456      | Sale is parked | Parked sales is retrieved | 
 
 
   Scenario Outline: retail retail standard item with Inclusive tax Retrieve check
@@ -77,12 +77,12 @@ Feature:  Retrieve
     And select the same check
     Then In that check will be reopen in ordering screen
     And The message is appear <Retrieve_message>
-    And Complete the payment using cash button with <Success_Message>
+    And Complete the payment using fast cash button
     And  Click the Logoff button
 
     Examples:
-      | CustomerNum | Message        | Retrieve_message          | Success_Message               |
-      | 123456      | Sale is parked | Parked sales is retrieved | Check got closed successfully |
+      | CustomerNum | Message        | Retrieve_message          | 
+      | 123456      | Sale is parked | Parked sales is retrieved | 
 
   Scenario Outline: retail Variant item with Inclusive tax Retrieve check
     Given Login with the valid credentials
@@ -97,12 +97,12 @@ Feature:  Retrieve
     And select the same check
     Then In that check will be reopen in ordering screen
     And The message is appear <Retrieve_message>
-    And Complete the payment using cash button with <Success_Message>
+    And Complete the payment using fast cash button
     And  Click the Logoff button
 
     Examples:
-      | CustomerNum | Message        | Retrieve_message          | Success_Message               |
-      | 123456      | Sale is parked | Parked sales is retrieved | Check got closed successfully |
+      | CustomerNum | Message        | Retrieve_message          | 
+      | 123456      | Sale is parked | Parked sales is retrieved | 
 
 
   Scenario Outline: retail Variant item with Exclusive tax Retrieve check
@@ -118,12 +118,12 @@ Feature:  Retrieve
     And select the same check
     Then In that check will be reopen in ordering screen
     And The message is appear <Retrieve_message>
-    And Complete the payment using cash button with <Success_Message>
+    And Complete the payment using fast cash button
     And  Click the Logoff button
 
     Examples:
-      | CustomerNum | Message        | Retrieve_message          | Success_Message               |
-      | 123456      | Sale is parked | Parked sales is retrieved | Check got closed successfully |
+      | CustomerNum | Message        | Retrieve_message          | 
+      | 123456      | Sale is parked | Parked sales is retrieved | 
 
   Scenario Outline: retail retail standard item Exclusive tax Retrieve check
     Given Login with the valid credentials
@@ -138,12 +138,12 @@ Feature:  Retrieve
     And select the same check
     Then In that check will be reopen in ordering screen
     And The message is appear <Retrieve_message>
-    And Complete the payment using cash button with <Success_Message>
+    And Complete the payment using fast cash button
     And  Click the Logoff button
 
     Examples:
-      | CustomerNum | Message        | Retrieve_message          | Success_Message               |
-      | 123456      | Sale is parked | Parked sales is retrieved | Check got closed successfully |
+      | CustomerNum | Message        | Retrieve_message          | 
+      | 123456      | Sale is parked | Parked sales is retrieved | 
 
   Scenario Outline: Multiple retail retail standard item Exclusive tax Retrieve check
     Given Login with the valid credentials
@@ -158,12 +158,12 @@ Feature:  Retrieve
     And select the same check
     Then In that check will be reopen in ordering screen
     And The message is appear <Retrieve_message>
-    And Complete the payment using cash button with <Success_Message>
+    And Complete the payment using fast cash button
     And  Click the Logoff button
 
     Examples:
-      | CustomerNum | Message        | Retrieve_message          | Success_Message               |
-      | 123456      | Sale is parked | Parked sales is retrieved | Check got closed successfully |
+      | CustomerNum | Message        | Retrieve_message          | 
+      | 123456      | Sale is parked | Parked sales is retrieved | 
 
   Scenario Outline: Multiple retail retail standard item Inclusive tax Retrieve check
     Given Login with the valid credentials
@@ -178,12 +178,12 @@ Feature:  Retrieve
     And select the same check
     Then In that check will be reopen in ordering screen
     And The message is appear <Retrieve_message>
-    And Complete the payment using cash button with <Success_Message>
+    And Complete the payment using fast cash button
     And  Click the Logoff button
 
     Examples:
-      | CustomerNum | Message        | Retrieve_message          | Success_Message               |
-      | 123456      | Sale is parked | Parked sales is retrieved | Check got closed successfully |
+      | CustomerNum | Message        | Retrieve_message          | 
+      | 123456      | Sale is parked | Parked sales is retrieved | 
 
   Scenario Outline: Multiple retail Variant item with Exclusive tax Retrieve check
     Given Login with the valid credentials
@@ -198,12 +198,12 @@ Feature:  Retrieve
     And select the same check
     Then In that check will be reopen in ordering screen
     And The message is appear <Retrieve_message>
-    And Complete the payment using cash button with <Success_Message>
+    And Complete the payment using fast cash button
     And  Click the Logoff button
 
     Examples:
-      | CustomerNum | Message        | Retrieve_message          | Success_Message               |
-      | 123456      | Sale is parked | Parked sales is retrieved | Check got closed successfully |
+      | CustomerNum | Message        | Retrieve_message          | 
+      | 123456      | Sale is parked | Parked sales is retrieved | 
 
   Scenario Outline: Multiple retail Variant item with Inclusive tax Retrieve check
     Given Login with the valid credentials
@@ -218,12 +218,12 @@ Feature:  Retrieve
     And select the same check
     Then In that check will be reopen in ordering screen
     And The message is appear <Retrieve_message>
-    And Complete the payment using cash button with <Success_Message>
+    And Complete the payment using fast cash button
     And  Click the Logoff button
 
     Examples:
-      | CustomerNum | Message        | Retrieve_message          | Success_Message               |
-      | 123456      | Sale is parked | Parked sales is retrieved | Check got closed successfully |
+      | CustomerNum | Message        | Retrieve_message          | 
+      | 123456      | Sale is parked | Parked sales is retrieved | 
 
   Scenario Outline: Multiple retail Variant and Multiple standard item with Exclusive tax Retrieve check
     Given Login with the valid credentials
@@ -238,12 +238,12 @@ Feature:  Retrieve
     And select the same check
     Then In that check will be reopen in ordering screen
     And The message is appear <Retrieve_message>
-    And Complete the payment using cash button with <Success_Message>
+    And Complete the payment using fast cash button
     And  Click the Logoff button
 
     Examples:
-      | CustomerNum | Message        | Retrieve_message          | Success_Message               |
-      | 123456      | Sale is parked | Parked sales is retrieved | Check got closed successfully |
+      | CustomerNum | Message        | Retrieve_message          | 
+      | 123456      | Sale is parked | Parked sales is retrieved | 
 
   Scenario Outline: Multiple retail Variant and Multiple standard item with Inclusive tax Retrieve check
     Given Login with the valid credentials
@@ -258,12 +258,12 @@ Feature:  Retrieve
     And select the same check
     Then In that check will be reopen in ordering screen
     And The message is appear <Retrieve_message>
-    And Complete the payment using cash button with <Success_Message>
+    And Complete the payment using fast cash button
     And  Click the Logoff button
 
     Examples:
-      | CustomerNum | Message        | Retrieve_message          | Success_Message               |
-      | 123456      | Sale is parked | Parked sales is retrieved | Check got closed successfully |
+      | CustomerNum | Message        | Retrieve_message          | 
+      | 123456      | Sale is parked | Parked sales is retrieved | 
 
     Scenario Outline: Multiple retail Variant item with Inclusive tax and Exclusive tax Retrieve check
     Given Login with the valid credentials
@@ -278,12 +278,12 @@ Feature:  Retrieve
       And select the same check
       Then In that check will be reopen in ordering screen
     And The message is appear <Retrieve_message>
-      And Complete the payment using cash button with <Success_Message>
+      And Complete the payment using fast cash button
     And  Click the Logoff button
 
       Examples:
-        | CustomerNum | Message        | Retrieve_message          | Success_Message               |
-        | 123456      | Sale is parked | Parked sales is retrieved | Check got closed successfully |
+        | CustomerNum | Message        | Retrieve_message          | 
+        | 123456      | Sale is parked | Parked sales is retrieved | 
 
   Scenario Outline: Multiple retail standard item with Inclusive tax and Exclusive tax Retrieve check
     Given Login with the valid credentials
@@ -298,12 +298,12 @@ Feature:  Retrieve
     And select the same check
     Then In that check will be reopen in ordering screen
     And The message is appear <Retrieve_message>
-    And Complete the payment using cash button with <Success_Message>
+    And Complete the payment using fast cash button
     And  Click the Logoff button
 
     Examples:
-      | CustomerNum | Message        | Retrieve_message          | Success_Message               |
-      | 123456      | Sale is parked | Parked sales is retrieved | Check got closed successfully |
+      | CustomerNum | Message        | Retrieve_message          | 
+      | 123456      | Sale is parked | Parked sales is retrieved | 
 
   Scenario Outline: single retail standard item with Inclusive tax and Exclusive tax Retrieve check
     Given Login with the valid credentials
@@ -318,12 +318,12 @@ Feature:  Retrieve
     And select the same check
     Then In that check will be reopen in ordering screen
     And The message is appear <Retrieve_message>
-    And Complete the payment using cash button with <Success_Message>
+    And Complete the payment using fast cash button
     And  Click the Logoff button
 
     Examples:
-      | CustomerNum | Message        | Retrieve_message          | Success_Message               |
-      | 123456      | Sale is parked | Parked sales is retrieved | Check got closed successfully |
+      | CustomerNum | Message        | Retrieve_message          | 
+      | 123456      | Sale is parked | Parked sales is retrieved | 
 
   Scenario Outline: single retail Variant item with Inclusive tax and Exclusive tax Retrieve check
     Given Login with the valid credentials
@@ -338,12 +338,12 @@ Feature:  Retrieve
     And select the same check
     Then In that check will be reopen in ordering screen
     And The message is appear <Retrieve_message>
-    And Complete the payment using cash button with <Success_Message>
+    And Complete the payment using fast cash button
     And  Click the Logoff button
 
     Examples:
-      | CustomerNum | Message        | Retrieve_message          | Success_Message               |
-      | 123456      | Sale is parked | Parked sales is retrieved | Check got closed successfully |
+      | CustomerNum | Message        | Retrieve_message          | 
+      | 123456      | Sale is parked | Parked sales is retrieved | 
     
   Scenario Outline: single retail Variant item and Multiple standard item  with Inclusive tax and Exclusive tax Retrieve check
     Given Login with the valid credentials
@@ -358,12 +358,12 @@ Feature:  Retrieve
     And select the same check
     Then In that check will be reopen in ordering screen
     And The message is appear <Retrieve_message>
-    And Complete the payment using cash button with <Success_Message>
+    And Complete the payment using fast cash button
     And  Click the Logoff button
 
     Examples:
-      | CustomerNum | Message        | Retrieve_message          | Success_Message               |
-      | 123456      | Sale is parked | Parked sales is retrieved | Check got closed successfully |
+      | CustomerNum | Message        | Retrieve_message          | 
+      | 123456      | Sale is parked | Parked sales is retrieved | 
 
   Scenario Outline: single retail standard item and Multiple Variant item  with Inclusive tax and Exclusive tax Retrieve check
     Given Login with the valid credentials
@@ -378,9 +378,9 @@ Feature:  Retrieve
     And select the same check
     Then In that check will be reopen in ordering screen
     And The message is appear <Retrieve_message>
-    And Complete the payment using cash button with <Success_Message>
+    And Complete the payment using fast cash button
     And  Click the Logoff button
 
     Examples:
-      | CustomerNum | Message        | Retrieve_message          | Success_Message               |
-      | 123456      | Sale is parked | Parked sales is retrieved | Check got closed successfully |
+      | CustomerNum | Message        | Retrieve_message          | 
+      | 123456      | Sale is parked | Parked sales is retrieved | 

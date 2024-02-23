@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 	,glue={"steps"},
 		monochrome=true,
 		dryRun = false,
-		tags = "@Disc",
+		tags = "@err1",
 	    plugin= {"pretty",
 		"html:target/cucumber/report.html",
 		"de.monochromata.cucumber.report.PrettyReports:target/cucumber-html-reports",

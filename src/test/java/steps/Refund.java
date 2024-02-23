@@ -17,7 +17,8 @@ public class Refund {
     @And("click the return button")
     public void clickTheReturnButton() throws InterruptedException {
         new Standard_Item_POS_Page().Click_ReturnBtn();
-        Thread.sleep(5000);
+        Thread.sleep(7000);
+        new Standard_Item_POS_Page().verifyTheRetailItemDisabled();
     }
 
     @And("click the Refund all button")
@@ -73,6 +74,11 @@ public class Refund {
         new RetailPOS_Order_Page().AddTheCustomer(CustNum);
     }
 
+    @Then("Adds the customer and the Customer Number is {}")
+    public void addsTheCustomerAndTheCustomerNumberIs(String CustNum) throws InterruptedException {
+        new RetailPOS_Order_Page().AddTheCustomer1(CustNum);
+    }
+
     @And("Add multiple standard item")
     public void addMultipleStandardItem() throws Throwable {
         new Item_Selection_Page().multipleMenu_Selection_Random();
@@ -81,6 +87,7 @@ public class Refund {
     @And("click the Refund Item button")
     public void clickTheRefundItemButton() throws InterruptedException {
         new RetailPOS_Order_Page().getFirstMenuItem_OrderScreen().click();
+        new Standard_Item_POS_Page().verifyTheRetailItemEnabled();
         RetailItem = new RetailPOS_Order_Page().getFirstItem();
         Thread.sleep(1000);
         new Standard_Item_POS_Page().Click_RefundItemsBtn();
@@ -171,5 +178,35 @@ public class Refund {
     @Then("Refund screen should be displayed")
     public void refundScreenShouldBeDisplayed() {
         new Standard_Item_POS_Page().refundScreenVisibility();
+    }
+
+    @Then("Add the refund reason in the free text more than fifty characters - alphabetic")
+    public void addTheRefundReasonInTheFreeTextMoreThanFiftyCharactersAlphabetic() throws InterruptedException {
+        new Standard_Item_POS_Page().enterTheRefundReasonTextBox_withAlphabetic();
+    }
+
+    @Then("Add the refund reason in the free text more than fifty characters - alphanumeric")
+    public void addTheRefundReasonInTheFreeTextMoreThanFiftyCharactersAlphanumeric() throws InterruptedException {
+        new Standard_Item_POS_Page().enterTheRefundReasonTextBox_withAlphaNumeric();
+    }
+
+    @Then("Add the refund reason in the free text more than fifty characters - numeric")
+    public void addTheRefundReasonInTheFreeTextMoreThanFiftyCharactersNumeric() throws InterruptedException {
+        new Standard_Item_POS_Page().enterTheRefundReasonTextBox_withNumeric();
+    }
+
+    @And("Click the remove button of Customer")
+    public void clickTheRemoveButtonOfCustomer() {
+        new Standard_Item_POS_Page().clickRemoveBtn();
+    }
+
+    @And("Refund screen should not be displayed")
+    public void refundScreenShouldNotBeDisplayed() {
+        new Standard_Item_POS_Page().refundScreenVisibility1();
+    }
+
+    @And("Verify the refunded screen")
+    public void verifyTheRefundedScreen() {
+        new Standard_Item_POS_Page().refundScreenVisibility2();
     }
 }

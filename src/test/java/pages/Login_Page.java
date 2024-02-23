@@ -68,6 +68,27 @@ public class Login_Page extends Appium_Base_Class {
 		
 		cm = new Common_xpath();
 		Thread.sleep(4000);
+		try{
+			text_Confirm(Signin_StoreLogin_text, "Store Login");
+		}catch (Exception ignored){}
+		try {
+		text_Confirm_without_Screenshot(Signin_Page_forgotpws, "Forgot Password");
+		}catch (Exception ignored) {
+		}
+		send_data(Signin_Page_Username(), Utility.getProperty("Username"));
+//		driver.hideKeyboard();
+		send_data(Signin_Page_Password(), Utility.getProperty("Password"));
+//		driver.hideKeyboard();
+		click_Ele(Signin_Page_Login_Btn());
+
+		System.err.println("User Signed In Successfully");
+		Thread.sleep(8000);
+	}
+
+	public void Signin_Valid_Cred1() throws Exception {
+
+		cm = new Common_xpath();
+		Thread.sleep(4000);
 
 		try {
 			if (driver.findElement(By.xpath("//*[@text,'While using the app']")).isDisplayed()){
@@ -78,7 +99,7 @@ public class Login_Page extends Appium_Base_Class {
 
 		text_Confirm(Signin_StoreLogin_text, "Store Login");
 		try {
-		text_Confirm_without_Screenshot(Signin_Page_forgotpws, "Forget Password");
+			text_Confirm_without_Screenshot(Signin_Page_forgotpws, "Forgot Password");
 		}catch (Exception ignored) {
 		}
 		send_data(Signin_Page_Username(), Utility.getProperty("Username"));
@@ -104,20 +125,32 @@ public class Login_Page extends Appium_Base_Class {
 		click_Ele(cm.pin_popup_NO_Four);
 		click_Ele(Signin_Page_Login_Btn());
 		Thread.sleep(2000);
+
+	}
+
+	public void enterpin1() throws Throwable {
+
+		Rop = new RetailPOS_Order_Page();
+		cm = new Common_xpath();
+		click_Ele(cm.pin_popup_Clear_Btn2);
+		click_Ele(cm.pin_popup_NO_One);
+		click_Ele(cm.pin_popup_NO_Two);
+		click_Ele(cm.pin_popup_NO_Three);
+		click_Ele(cm.pin_popup_NO_Four);
+		click_Ele(Signin_Page_Login_Btn());
+		Thread.sleep(2000);
 		try {
 			if (cm.Select_Role_popup.isDisplayed()) {
-				
+
 				click_Ele(cm.Select_Role_popup_Admin());
 				Thread.sleep(1000);
 				click_Ele(cm.Select_Role_popup_Ok_Btn);
 				Thread.sleep(2000);
-				
-			} 
-			}catch (Exception e) {
-			}
-		Thread.sleep(2000);
-		//click_Ele(Rop.Order_Screen_LogOff);
 
+			}
+		}catch (Exception e) {
+		}
+		Thread.sleep(2000);
 	}
 	
 	

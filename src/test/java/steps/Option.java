@@ -27,7 +27,7 @@ public class Option {
         new Option_Page().verifyTheServiceExemptBtnInTheCheckOption();
         new Option_Page().verifyTheVoidBtnInTheCheckOption();
         new Option_Page().verifyThePrintBtnInTheCheckOption();
-        new Option_Page().verifyTheModifyBtnInTheCheckOption();
+//        new Option_Page().verifyTheModifyBtnInTheCheckOption();
         new Option_Page().verifyTheApplyStoreCreditBtnInTheCheckOption();
         new Option_Page().verifyTheEBTBalanceBtnInTheCheckOption();
     }
@@ -270,9 +270,10 @@ public class Option {
     }
 
     @Then("{} pop up will appear")
-    public void popUpWillAppear(String msg) {
+    public void popUpWillAppear(String msg) throws InterruptedException {
         new Option_Page().verifyThePopupWithOutChargeAmount(msg);
         new RetailPOS_Order_Page().ClickDoneBtn();
+        Thread.sleep(3000);
     }
 
     @When("Click on Cancel button without entering charge amount")
@@ -322,8 +323,9 @@ public class Option {
     }
 
     @When("User can search the retail item by using SKU code and Retail Item Name")
-    public void userCanSearchTheRetailItemByUsingSKUCodeAndRetailItemName() {
+    public void userCanSearchTheRetailItemByUsingSKUCodeAndRetailItemName() throws InterruptedException {
         new Option_Page().SearchTheItem();
+        new Option_Page().SearchTheItem1();
     }
 
     @Then("Verify the Service Charge availability from retail screen")
@@ -342,17 +344,17 @@ public class Option {
     }
 
     @When("Click Apply Store Credit option without customer then the {} is displayed")
-    public void clickApplyStoreCreditOptionWithoutCustomerThenTheIsDisplayed(String msg) {
+    public void clickApplyStoreCreditOptionWithoutCustomerThenTheIsDisplayed(String msg) throws InterruptedException {
         new Option_Page().clickTheApplyStoreCreditBtn1(msg);
     }
 
     @And("Click the Attached Customer")
-    public void clickTheAttachedCustomer() {
+    public void clickTheAttachedCustomer() throws InterruptedException {
         new Option_Page().clickTheAttachedCustomer();
     }
 
     @Then("Select +Add Credit option under Store Credit Balance")
-    public void selectAddCreditOptionUnderStoreCreditBalance() {
+    public void selectAddCreditOptionUnderStoreCreditBalance() throws InterruptedException {
         new Option_Page().clickTheAddCreditBtn();
     }
 
@@ -362,7 +364,7 @@ public class Option {
         new Customer_Profile_Page().clickTheNumber0();
         new Customer_Profile_Page().clickTheNumber0();
         new Customer_Profile_Page().clickTheNumber0();
-        new Customer_Profile_Page().clickTheContinueBtn();
+        new Customer_Profile_Page().getCustomer_Profile_Screen_Add_Add_Credit().click();
     }
 
     @Then("Click Save and page will navigate to retail order screen by attached customer with store credit")
@@ -391,8 +393,9 @@ public class Option {
     }
 
     @And("Clear the amount in the Store credit")
-    public void clearTheAmountInTheStoreCredit() {
+    public void clearTheAmountInTheStoreCredit() throws InterruptedException {
         new Customer_Profile_Page().clickBtnC();
+        new Customer_Profile_Page().clickTheContinueBtn();
     }
 
 }

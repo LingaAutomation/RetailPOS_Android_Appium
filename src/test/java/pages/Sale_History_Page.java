@@ -47,7 +47,7 @@ public class Sale_History_Page extends Appium_Base_Class{
     @AndroidFindBy(xpath = "//*[contains(@text,'Search Date')]")
     WebElement All_Orders_Search_Date_Text;
 
-    @AndroidFindBy(xpath = "//*[contains(@text,'Receipt No')]")
+    @AndroidFindBy(xpath = "//*[contains(@text,'Check No')]")
     WebElement All_Orders_Receipt_No_Text;
 
     @AndroidFindBy(xpath = "//*[contains(@text,'Customer')]")
@@ -137,7 +137,7 @@ public class Sale_History_Page extends Appium_Base_Class{
     @AndroidFindBy(xpath = "//android.view.View[1]/android.view.View[7]/android.widget.Button")
     WebElement All_Orders_First_Digital_Receipt;
 
-    @AndroidFindBy(xpath = "//android.view.View[1]/android.view.View[9]/android.widget.Button")
+    @AndroidFindBy(xpath = "//android.view.View[1]/android.view.View[7]/android.widget.Button")
     WebElement All_Orders_First_Digital_Receipt_Refund;
 
     @AndroidFindBy(xpath = "//*[contains(@text,'Table-No: Retail')]")
@@ -1617,6 +1617,30 @@ public class Sale_History_Page extends Appium_Base_Class{
         }
     }
 
+    public void verifyTheRetailItemQuantityAndTotalInRetailScreenAndAfterReopenRetailScreen1(String menu, String quan,String tot){
+        String actMenu = getTheRetailItems_FromRetailScreen();
+        String actQuan = getTheQuantityOfRetailItems_FromRetailScreen().replaceAll("-","");
+        String actTot = getTheTotalOfRetailItems_FromRetailScreen().replaceAll("-","");
+
+        if (actMenu.contains(menu)){
+            test.log(LogStatus.FAIL,"Menu Items from retail screen and reopen/return to retail screen are same");
+        }else{
+            test.log(LogStatus.PASS,"Menu Items from retail screen and reopen/return to retail screen are not same");
+        }
+
+        if (actQuan.contains(quan)){
+            test.log(LogStatus.FAIL,"Menu Item's Quantity from retail screen and reopen/return to retail screen are same");
+        }else{
+            test.log(LogStatus.PASS,"Menu Item's Quantity from retail screen and reopen/return to retail screen are not same");
+        }
+
+        if (actTot.contains(tot)){
+            test.log(LogStatus.FAIL,"Menu Item's Total from retail screen and reopen/return to retail screen are same");
+        }else{
+            test.log(LogStatus.PASS,"Menu Item's Total from retail screen and reopen/return to retail screen are not same");
+        }
+    }
+
     public void verifyTheRetailItemQuantityAndTotalInRetailScreenAndAfterReopenRetailScreen(String menu, String quan,String tot){
         String actMenu = getTheRetailItems_FromRetailScreen();
         String actQuan = getTheQuantityOfRetailItems_FromRetailScreen().replaceAll("-","");
@@ -1852,7 +1876,7 @@ public class Sale_History_Page extends Appium_Base_Class{
     }
 
     public String getTheRetailItems_FromRetailScreen(){
-        List<?> s = driver.findElements(By.xpath("(//*[@text='X'])"));
+        List<?> s = driver.findElements(By.xpath("//android.view.View[@resource-id='react-ordder-list-render']/android.view.View"));
 
         int sa = s.size();
         List<String> menus = new ArrayList<>();
@@ -1860,11 +1884,85 @@ public class Sale_History_Page extends Appium_Base_Class{
         // for loop for clicking on every time in the list
         for (int i = 1; i <= sa;  i++) {
 
-            String menu = driver.findElement(By.xpath("(//*[@text='X'])[" + i + "]" + "/../..//android.widget.TextView[1]")).getText();
+            String menu = driver.findElement(By.xpath("//android.view.View[@resource-id='react-ordder-list-render']/android.view.View["+i+"]/android.widget.TextView[1]")).getText();
 
             menus.add(menu);
         }
         return menus.toString();
+    }
+
+    public String getTheSKUCode_FromRetailScreen(){
+        List<?> s = driver.findElements(By.xpath("//android.view.View[@resource-id='react-ordder-list-render']/android.view.View"));
+
+        int sa = s.size();
+        List<String> menus = new ArrayList<>();
+
+        // for loop for clicking on every time in the list
+        for (int i = 1; i <= sa;  i++) {
+
+            String menu = driver.findElement(By.xpath("//android.view.View[@resource-id='react-ordder-list-render']/android.view.View["+i+"]/android.widget.TextView[3]")).getText();
+
+            menus.add(menu);
+        }
+        return menus.toString();
+    }
+
+    public void validateTheSKUCode(String SKU){
+        List<?> s = driver.findElements(By.xpath("//android.view.View[@resource-id='react-ordder-list-render']/android.view.View"));
+
+        int sa = s.size();
+        List<String> menus = new ArrayList<>();
+
+        // for loop for clicking on every time in the list
+        for (int i = 1; i <= sa;  i++) {
+
+            menus.add("-");
+        }
+
+        String sku1 = menus.toString();
+
+        if (SKU.equals(sku1)){
+            test.log(LogStatus.FAIL,"SKU Code not placed when user order the retail item");
+        }else{
+            test.log(LogStatus.PASS,"Correct SKU Code placed when user order the retail item");
+        }
+    }
+
+    public String getTheVariantCode_FromRetailScreen(){
+        List<?> s = driver.findElements(By.xpath("//android.view.View[@resource-id='react-ordder-list-render']/android.view.View"));
+
+        int sa = s.size();
+        List<String> menus = new ArrayList<>();
+
+        // for loop for clicking on every time in the list
+        for (int i = 1; i <= sa;  i++) {
+
+            String menu = driver.findElement(By.xpath("//android.view.View[@resource-id='react-ordder-list-render']/android.view.View["+i+"]/android.widget.TextView[2]")).getText();
+
+            menus.add(menu);
+        }
+        return menus.toString();
+    }
+
+    public void validateTheVariantCode(String SKU){
+        List<?> s = driver.findElements(By.xpath("//android.view.View[@resource-id='react-ordder-list-render']/android.view.View"));
+
+        int sa = s.size();
+        List<String> menus = new ArrayList<>();
+
+        // for loop for clicking on every time in the list
+        for (int i = 1; i <= sa;  i++) {
+
+            menus.add("");
+        }
+
+        String sku1 = menus.toString();
+
+        if (SKU.equals(sku1)){
+            test.log(LogStatus.FAIL,"Variant Code not placed when user order the variant retail item");
+        }else{
+            test.log(LogStatus.PASS,"Correct Variant Code placed when user order the variant retail item");
+        }
     }
 
     public void clearAllTheLayAwaySalesFromTheLayAwayTab(){
@@ -1898,7 +1996,7 @@ public class Sale_History_Page extends Appium_Base_Class{
 
     public String getTheQuantityOfRetailItems_FromRetailScreen(){
 
-        List<?> s = driver.findElements(By.xpath("(//*[@text='X'])"));
+        List<?> s = driver.findElements(By.xpath("//android.view.View[@resource-id='react-ordder-list-render']/android.view.View"));
 
         int sa = s.size();
 
@@ -1907,7 +2005,7 @@ public class Sale_History_Page extends Appium_Base_Class{
         // for loop for clicking on every time in the list
         for (int i = 1; i <= sa; i++) {
 
-            String qu = driver.findElement(By.xpath("(//*[@text='X'])[" + i + "]" + "/../..//android.widget.TextView[4]")).getText();
+            String qu = driver.findElement(By.xpath("//android.view.View[@resource-id='react-ordder-list-render']/android.view.View["+i+"]/android.widget.TextView[4]")).getText();
 
             quan.add(qu);
         }
@@ -1916,7 +2014,7 @@ public class Sale_History_Page extends Appium_Base_Class{
 
     public String getTheTotalOfRetailItems_FromRetailScreen(){
 
-        List<?> s = driver.findElements(By.xpath("(//*[@text='X'])"));
+        List<?> s = driver.findElements(By.xpath("//android.view.View[@resource-id='react-ordder-list-render']/android.view.View"));
 
         int sa = s.size();
 
@@ -1925,12 +2023,16 @@ public class Sale_History_Page extends Appium_Base_Class{
         // for loop for clicking on every time in the list
         for (int i = 1; i <= sa; i++) {
 
-            String total = driver.findElement(By.xpath("(//*[@text='X'])[" + i + "]" + "/../..//android.widget.TextView[7]")).getText();
+            String total = driver.findElement(By.xpath("//android.view.View[@resource-id='react-ordder-list-render']/android.view.View["+i+"]/android.widget.TextView[7]")).getText();
 
             tot.add(total);
         }
         return tot.toString();
     }
 
+    public void clickTheCloseButtonOfMenuItem(){
+        //Click the close button of the menu item
+        driver.findElement(By.xpath("//*[@text='X']")).click();
+    }
 
 }

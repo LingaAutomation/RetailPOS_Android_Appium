@@ -117,6 +117,9 @@ Feature: Android - Retail POS - Standard Item
     Then Order the Standard Item from the retail Screen
     And Get the Check number from the retail screen
     And Complete the payment using fast cash button
+    And Click the sale history
+    Then Screen will navigate to Receipt-Check Status screen
+    And Columns such as Customer, Receipt No, Date, Time, Cashier, Total
     Then Verify the Closed Check from the Sale history screen
     And Click the Logoff button
 
@@ -138,10 +141,104 @@ Feature: Android - Retail POS - Standard Item
       | Item            | Percentage | Price |
       | Standard Item 1 | 50         | 20    |
 
-#  Scenario: Verify all the values in the retail screen after order the Standard Item
-#    Given Login with the valid credentials
-#    And Click the sale history
-#    Then Select the <Date>
-#    And Select the First Check from the List
-#    Then Click the Reopen Check button
+  Scenario: Verify able to sync the Android device to the back office
+    Given Login with the valid credentials
+    Then Page will navigate to the retail order screen
+    And Able to view the Operation button
+    When Click the Settings icon from the Retail Screen
+    Then View the Back Office, Sync Back Office, Operation, Log Off and QSR Mode options
+    Then Click the Sync Back Office option from the List Of options
+    And Click the Logoff button
 
+  Scenario: Verify all the values in the retail screen after order the Standard Item
+    Given Login with the valid credentials
+    Then Order the Standard Item from the retail Screen
+    And Get the menu items,total and quantity from the retail screen
+    Then Delete first item from the ordered list
+    And Verify the retail item, quantity and total changes in Retail POS screen
+    Then Complete the payment using fast cash button
+    And Click the Logoff button
+
+#  Scenario Outline: Verify able to view the SKU code if customer repeat order is placed
+#    Given Login with the valid credentials
+#    And Add the customer and the Customer Number is <CustomerNum>
+#    Then Click the Attached Customer
+#    And Select the options from the previous order
+#    Then Click the Repeat Order button
+#    And Verify the SKU Code for all the listed item
+#    And Complete the payment using fast cash button
+#    Then Click the Logoff button
+#    Examples:
+#      | CustomerNum |
+#      | 123456      |
+#
+#  Scenario: Verify the quantity if user selects any number from notepad in order screen
+#    Given Login with the valid credentials
+#    Then Order the Standard Item from the retail Screen Single item
+#    And verify the quantity of the menu item
+#    Then Get the Quantity and should be more than one
+#    And verify the quantity of the menu item
+#    Then Quantity should change up to increased quantity
+#    And Complete the payment using fast cash button
+#    And Click the Logoff button
+
+#  Scenario: Verify if item discount is allowed for reopen check
+#    Given Login with the valid credentials
+#    Then Page will navigate to the retail order screen
+#    Then Order the Standard Item from the retail Screen
+#    And Get the Check number from the retail screen
+#    Then Get the menu items,total and quantity from the retail screen
+#    And Get the Subtotal amount
+#    And Get the Tax amount
+#    Then Get the Total amount
+#    And Get the Paid amount
+#    Then Get the Balance amount
+#    And Get the Tax, Discount,Gratuity and service charge
+#    And Complete the payment using fast cash button
+#    And Click the sale history
+#    Then Screen will navigate to Receipt-Check Status screen
+#    And select the required check
+#    Then Click the Reopen Check button
+#    When Retail order screen will get displayed with placed Standard retail item without any changes
+#    Then Displays the Receipt No, Search Box, Total Amount Value, Subtotal, Tax, Total, Paid Amount and Balance Amount at the right
+#    And Click the Discount Option from the given options
+#    Then Click the "IBD_AT_AMT" discount and warning "Paid amount exceeds the sale amount" should be displayed
+#    And Click the cancel button
+#    And Click the Payment option
+#    Then Select the Paid amount from the Payment screen
+#    Then Click the Delete button from the Payment screen
+#    And Click the Back button from the Payment Screen
+#    And Click the Discount Option from the given options
+#    Then Click the "IBD_AT_AMT" discount
+#    And Complete the payment using fast cash button
+#    And Click the Logoff button
+#
+#  Scenario: Verify the options in Till Management - Till screen
+#    Given Login with the valid credentials
+#    Then Page will navigate to the retail order screen
+#    And Able to view the Operation button
+#    When Click the Settings icon from the Retail Screen
+#    Then View the Back Office, Sync Back Office, Operation, Log Off and QSR Mode options
+#    When Click the Operation button
+#    Then View the options are POS, Till Management, Print Labels, Process Offline, Hardware Settings, POS Settings, Close Day and Sync Back Office
+#    And Click the Till Management option
+#    Then Check the Till Management screen is displayed or not
+#    And Check the Till option is displayed or not and it should selected by default
+#    And Check the Set Till option is displayed or not and it should selected by default
+#    Then Check the Active Till option is displayed or not
+#    And Check the Held Till option is displayed or not
+#    Then Check the Closed Till option is displayed or not
+#    Then Check the Cash Drop option is displayed or not
+#    And Click the Reports option and it should be selected
+#    Then Click the Cashier Out button
+#    And Check the Yes and No button should be displayed
+#    And Click the No button
+#    Then Click the Menu option
+#    And Click the POS option
+#    Then Click the Logoff button
+
+  Scenario: Verify if number is selected from number pad, Please select any one menu item pop up appears
+    Given Login with the valid credentials
+    And verify the quantity of the menu item
+    Then "Please select any one item." pop up will appear
+    And Click the Logoff button

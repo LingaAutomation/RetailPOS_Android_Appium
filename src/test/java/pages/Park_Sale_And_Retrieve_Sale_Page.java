@@ -90,7 +90,8 @@ public class Park_Sale_And_Retrieve_Sale_Page extends Appium_Base_Class {
 	@AndroidFindBy(xpath = "//*[contains(@text,'No Parked Receipts Found')]")
 	WebElement NoParkedReceiptsFoundText;
 
-
+	@AndroidFindBy(xpath = "//*[contains(@text,'No Results Found')]")
+	WebElement NoResultsFoundText;
 	
 //	@AndroidFindBy(xpath = "(//*[@text='X'])[2]")
 //	WebElement Order_Screen_Menu_Cancel_Btn;
@@ -331,14 +332,18 @@ public class Park_Sale_And_Retrieve_Sale_Page extends Appium_Base_Class {
 		}
 	}
 
-	public void enterTheParkSaleReasonAndClickTheParkButton() throws InterruptedException {
+	public String enterTheParkSaleReasonAndClickTheParkButton() throws InterruptedException {
+
+		String reason = RandomStringUtils.randomAlphanumeric(50);
 		//enter the text
-		send_data(park_Sale_pop_up_reason_inputBOX, RandomStringUtils.randomAlphabetic(30));
+		send_data(park_Sale_pop_up_reason_inputBOX, reason);
 
 		Thread.sleep(500);
 
 		//click the park button
 		click_Ele(park_Sale_pop_up_Park_Btn);
+
+		return reason;
 	}
 
 	public void ClickTheParkButton() throws InterruptedException {
@@ -435,7 +440,7 @@ public class Park_Sale_And_Retrieve_Sale_Page extends Appium_Base_Class {
 		}
 	}
 
-	public void selectTheParkedSale(String checkNumber) throws InterruptedException {
+	public void selectTheParkedSale(String checkNumber, String reason) throws InterruptedException {
 		isEleDisplayed(park_Sale_Retrieve_Sale_PopUp_Search_field, "Retrieve Sale Search field");
 		isEleDisplayed(park_Sale_Retrieve_Sale_PopUp_Cancel_Btn, "Retrieve Sale Cancel field");
 
@@ -443,7 +448,45 @@ public class Park_Sale_And_Retrieve_Sale_Page extends Appium_Base_Class {
 
 		Thread.sleep(2000);
 
-		driver.findElement(By.xpath("//*[contains(@text,'"+checkNumber+" -')]")).click();
+		try{
+			if(driver.findElement(By.xpath("//*[contains(@text,'"+checkNumber+" - "+reason+" -')]")).isDisplayed()){
+				test.log(LogStatus.PASS, "The required check is displayed with the reason");
+
+				driver.findElement(By.xpath("//*[contains(@text,'"+checkNumber+" - "+reason+" -')]")).click();
+
+				text_Confirm(driver.findElement(By.xpath("//*[contains(@text,'Parked sale is retrieved')]")),"Parked sale is retrieved");
+
+			}
+		}catch (Exception e){
+			test.log(LogStatus.FAIL, "The required check is not displayed with the reason");
+		}
+
+	}
+
+	public void selectTheParkedSale1(String checkNumber, String reason) throws InterruptedException {
+		isEleDisplayed(park_Sale_Retrieve_Sale_PopUp_Search_field, "Retrieve Sale Search field");
+		isEleDisplayed(park_Sale_Retrieve_Sale_PopUp_Cancel_Btn, "Retrieve Sale Cancel field");
+
+		park_Sale_Retrieve_Sale_PopUp_Search_field.sendKeys(checkNumber);
+
+		Thread.sleep(2000);
+
+		try{
+			if(NoResultsFoundText.isDisplayed()){
+				test.log(LogStatus.PASS,"The retrieved sale is not available in retrieve window");
+			}
+		}catch (Exception e){
+			try{
+				if(driver.findElement(By.xpath("//*[contains(@text,'"+checkNumber+" - "+reason+" -')]")).isDisplayed()){
+					test.log(LogStatus.FAIL,"The retrieved sale is available in retrieve window");
+				}
+			}
+			catch (Exception eq){
+				test.log(LogStatus.PASS,"The retrieved sale is not available in retrieve window");
+			}
+
+		}
+		clickTheCancelBtn();
 	}
 
 	public void retrieveSale_Popup(String msg) {

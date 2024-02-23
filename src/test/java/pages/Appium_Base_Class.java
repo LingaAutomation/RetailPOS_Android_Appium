@@ -3,9 +3,15 @@ package pages;
 import java.text.DecimalFormat;
 import java.time.Duration;
 import java.util.*;
+import java.util.NoSuchElementException;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 import io.appium.java_client.AppiumBy;
+import io.appium.java_client.PerformsTouchActions;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Pause;
 import org.openqa.selenium.interactions.PointerInput;
@@ -21,6 +27,8 @@ import com.relevantcodes.extentreports.LogStatus;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
+import static io.appium.java_client.touch.offset.PointOption.point;
+
 public class Appium_Base_Class {
 
 	public AppiumDriver driver;
@@ -28,7 +36,7 @@ public class Appium_Base_Class {
 	Utility ut = new Utility();
 	Float Total_Price_Amount = 0.0f;
 	Float total_Total_Amount = 0.0f;
-	
+	Random random = new Random();
 	double totAmount = 0.00;
 	double discAmount = 0.00;
 
@@ -65,32 +73,32 @@ public class Appium_Base_Class {
 
 	public void Random_Selection1(AppiumDriver driver, String xpath) throws Throwable {
 
-		// Getting list of options
+		// Getting list of Menu/Retail items displayed
 		List<?> itemsInDropdown = driver.findElements(By.xpath("" + xpath + ""));
 
 		// Getting size of options available
 		int size = itemsInDropdown.size();
 
 		// Generate a random number with in range
-		int randnMumber = ThreadLocalRandom.current().nextInt(0, size);
+		int randomNumber = ThreadLocalRandom.current().nextInt(2, size);
 
 		// Selecting random value
-		click_Ele((WebElement) itemsInDropdown.get(randnMumber));
+		click_Ele((WebElement) itemsInDropdown.get(randomNumber));
 	}
 
 	public void Random_Selection(AppiumDriver driver, String xpath) throws Throwable {
 
-		// Getting list of options
+		// Getting list of Menu/Retail items displayed
 		List<?> itemsInDropdown = driver.findElements(By.xpath("" + xpath + ""));
 
 		// Getting size of options available
 		int size = itemsInDropdown.size();
 
 		// Generate a random number with in range
-		int randnMumber = ThreadLocalRandom.current().nextInt(0, size);
+		int randomNumber = ThreadLocalRandom.current().nextInt(2, size);
 
 		// Selecting random value
-		click_Ele((WebElement) itemsInDropdown.get(randnMumber));
+		click_Ele((WebElement) itemsInDropdown.get(randomNumber));
 
 		Thread.sleep(1000);
 
@@ -109,16 +117,16 @@ public class Appium_Base_Class {
 					System.out.println("Lists of Mapped" + ListOfAttributesmapped.size());
 
 					// Generate a random number with in range
-					int randnMumber1 = ThreadLocalRandom.current().nextInt(0, ListOfAttributesmapped.size() - 1);
-					//System.out.println("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu "+randnMumber1);
-//					((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", (WebElement) ListOfAttributesmapped.get(randnMumber1));
+					int randomNumber1 = ThreadLocalRandom.current().nextInt(0, ListOfAttributesmapped.size() - 1);
+					//System.out.println("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu "+randomNumber1);
+//					((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", (WebElement) ListOfAttributesmapped.get(randomNumber1));
 //					Thread.sleep(500);
 
-//					scrollToElementPayments(String.valueOf((WebElement) ListOfAttributesmapped.get(randnMumber1)),"down");
+//					scrollToElementPayments(String.valueOf((WebElement) ListOfAttributesmapped.get(randomNumber1)),"down");
 
 //					TouchAction
 					// Selecting random value
-					click_Ele((WebElement) ListOfAttributesmapped.get(randnMumber1));
+					click_Ele((WebElement) ListOfAttributesmapped.get(randomNumber1));
 
 //						String selcted_Attribute = driver.findElement(By.xpath("//*[@focused='true']")).getText();
 
@@ -149,16 +157,16 @@ public class Appium_Base_Class {
 					System.out.println("Lists of Mapped" + ListOfAttributesmapped.size());
 
 					// Generate a random number with in range
-					int randnMumber1 = ThreadLocalRandom.current().nextInt(0, ListOfAttributesmapped.size() - 1);
-					//System.out.println("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu "+randnMumber1);
-//					((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", (WebElement) ListOfAttributesmapped.get(randnMumber1));
+					int randomNumber1 = ThreadLocalRandom.current().nextInt(0, ListOfAttributesmapped.size() - 1);
+					//System.out.println("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu "+randomNumber1);
+//					((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", (WebElement) ListOfAttributesmapped.get(randomNumber1));
 //					Thread.sleep(500);
 
-//					scrollToElementPayments(String.valueOf((WebElement) ListOfAttributesmapped.get(randnMumber1)),"down");
+//					scrollToElementPayments(String.valueOf((WebElement) ListOfAttributesmapped.get(randomNumber1)),"down");
 
 //					TouchAction
 					// Selecting random value
-					click_Ele((WebElement) ListOfAttributesmapped.get(randnMumber1));
+					click_Ele((WebElement) ListOfAttributesmapped.get(randomNumber1));
 
 //						String selcted_Attribute = driver.findElement(By.xpath("//*[@focused='true']")).getText();
 
@@ -168,25 +176,81 @@ public class Appium_Base_Class {
 				click_Ele((WebElement) driver.findElement(By.xpath("//*[contains(@text,'DONE')]")));
 			}
 		}catch (Exception ignored){
+			click_Ele((WebElement) driver.findElement(By.xpath("//*[contains(@text,'DONE')]")));
+		}
+	}
+
+	public void Random_Selection_Items(String discType) throws Throwable {
+
+		//click the required discount combination
+		driver.findElement(By.xpath("//*[contains(@text,'"+discType+"')]")).click();
+
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+		String count = driver.findElement(By.xpath("//android.app.Dialog/android.view.View[2]/android.view.View//android.widget.TextView[@text]")).getText();
+
+		count = count.substring(count.lastIndexOf("(")+1);
+
+		count = count.replace(")","");
+
+		int count1 = Integer.parseInt(count);
+
+		// Getting list of options
+		List<?> itemsInDropdown = driver.findElements(By.xpath("//android.app.Dialog/android.view.View[2]/android.view.View//android.widget.TextView[@text]/..//android.widget.Button"));
+
+		// Getting size of options available
+		int size = itemsInDropdown.size();
+		size = size - count1;
+		// Generate a random number with in range
+		int randomNumber = ThreadLocalRandom.current().nextInt(1, size);
+
+		for(int i = 1; i<= count1;i++){
+
+
+			driver.findElement(By.xpath("//android.app.Dialog/android.view.View[2]/android.view.View//android.widget.TextView[@text]/..//android.widget.Button["+randomNumber+"]")).click();
+			randomNumber++;
+			try{
+				if(driver.findElement(By.xpath("//*[contains(@text,'SELECT OPTIONS')]")).isDisplayed()){
+					List<?> ListOfAttributes = driver.findElements(By.xpath("(//android.view.View[2]/android.view.View/android.view.View/android.view.View)//android.widget.Button/.."));
+
+					System.out.println("Attributes List Size : "+ListOfAttributes.size());
+
+					for (int j = 1; j <= ListOfAttributes.size(); j++) {
+
+						List<?> ListOfAttributesMapped = driver.findElements(By.xpath("(//android.view.View[2]/android.view.View/android.view.View/android.view.View)["+j+"]//android.widget.Button"));
+
+						System.out.println("Lists of Mapped"+ListOfAttributesMapped.size());
+						// Generate a random number with in range
+						int randomNumber1 = ThreadLocalRandom.current().nextInt(0, ListOfAttributesMapped.size()-1);
+
+						click_Ele((WebElement) ListOfAttributesMapped.get(randomNumber1));
+
+					}
+
+					click_Ele((WebElement) driver.findElement(By.xpath("//*[contains(@text,'DONE')]")));
+				}
+			}catch (Exception ignored){}
 
 		}
 
+		driver.findElement(By.xpath("//*[contains(@text,'Done')]")).click();
 
+//		click_Ele((WebElement) driver.findElement(By.xpath("//*[@text='CANCEL']")));
 	}
 
 	public void Random_Selection_KitAssembly(AppiumDriver driver, String xpath) throws Throwable {
 
-		// Getting list of options
+		// Getting list of Menu/Retail items displayed
 		List<?> itemsInDropdown = driver.findElements(By.xpath("" + xpath + ""));
 
 		// Getting size of options available
 		int size = itemsInDropdown.size();
 
 		// Generate a random number with in range
-		int randnMumber = ThreadLocalRandom.current().nextInt(1, size);
+		int randomNumber = ThreadLocalRandom.current().nextInt(1, size);
 
 		// Selecting random value
-		click_Ele((WebElement) itemsInDropdown.get(randnMumber));Thread.sleep(3000);
+		click_Ele((WebElement) itemsInDropdown.get(randomNumber));Thread.sleep(1000);
 		System.out.println("Menu item clicked");
 
 		try {
@@ -205,16 +269,11 @@ public class Appium_Base_Class {
 					System.out.println("Lists of Mapped"+ListOfAttributesmapped.size());
 
 					// Generate a random number with in range
-					int randnMumber1 = ThreadLocalRandom.current().nextInt(0, ListOfAttributesmapped.size()-1);
-					//System.out.println("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu "+randnMumber1);
-//					((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", (WebElement) ListOfAttributesmapped.get(randnMumber1));
-//					Thread.sleep(500);
+					int randomNumber1 = ThreadLocalRandom.current().nextInt(0, ListOfAttributesmapped.size()-1);
 
-//					scrollToElementPayments(String.valueOf((WebElement) ListOfAttributesmapped.get(randnMumber1)),"down");
 
-//					TouchAction
-					// Selecting random value
-					click_Ele((WebElement) ListOfAttributesmapped.get(randnMumber1));
+
+					click_Ele((WebElement) ListOfAttributesmapped.get(randomNumber1));
 
 //						String selcted_Attribute = driver.findElement(By.xpath("//*[@focused='true']")).getText();
 
@@ -222,24 +281,20 @@ public class Appium_Base_Class {
 
 				Thread.sleep(2000);
 				click_Ele((WebElement) driver.findElement(By.xpath("//*[contains(@text,'DONE')]")));
-			} else {
-
-				int i = 1/0;
-
 			}
-
 		} catch (Exception ignored) {
+			click_Ele((WebElement) driver.findElement(By.xpath("//*[contains(@text,'DONE')]")));
 		}
 
 //		click_Ele((WebElement) driver.findElement(By.xpath("//*[@text='CANCEL']")));
 	}
-	
-	
 
-	
-	public void Random_ForMultipule_Selection(AppiumDriver driver, String xpath) throws Throwable {
 
-		// Getting list of options
+
+
+	public void Random_ForMultiple_Selection(AppiumDriver driver, String xpath) throws Throwable {
+
+		// Getting list of Menu/Retail items displayed
 		List<?> itemsInDropdown = driver.findElements(By.xpath("" + xpath + ""));
 
 		// Getting size of options available
@@ -248,18 +303,35 @@ public class Appium_Base_Class {
 		Thread.sleep(2000);
 
 			// Generate a random number with in range
-			int randnMumber = ThreadLocalRandom.current().nextInt(2, size);
-			if(randnMumber<1){
-				randnMumber = 2;
+			int randomNumber = ThreadLocalRandom.current().nextInt(2, size);
+			if(randomNumber<=2){
+				randomNumber = 3;
 			}
-			for(int i = 2; i <= randnMumber;i++){
+			for(int i = 2; i <= randomNumber;i++){
 				click_Ele((WebElement) itemsInDropdown.get(i));
 			}
 
 	}
-	
+
+	public void Random_ForSingle_Selection(AppiumDriver driver, String xpath) throws Throwable {
+
+		// Getting list of Menu/Retail items displayed
+		List<?> itemsInDropdown = driver.findElements(By.xpath("" + xpath + ""));
+
+		// Getting size of options available
+		int size = itemsInDropdown.size();
+
+		Thread.sleep(2000);
+
+		// Generate a random number with in range
+		int randomNumber = ThreadLocalRandom.current().nextInt(2, size);
+
+		click_Ele((WebElement) itemsInDropdown.get(randomNumber));
+
+	}
+
 	public void Click_and_close_ParkedSales(AppiumDriver driver, String xpath) throws Throwable {
-		
+
 		        // Getting list of options
 				List<?> itemsInDropdown = driver.findElements(By.xpath("" + xpath + ""));
 
@@ -281,14 +353,14 @@ public class Appium_Base_Class {
 				}
 
 				Thread.sleep(2000);
-		
-		
+
+
 
 	}
 
 	public void click_On_EveryItem_INLIST(AppiumDriver driver, String xpath) throws Throwable {
 
-		// Getting list of options
+		// Getting list of Menu/Retail items displayed
 		List<?> itemsInDropdown = driver.findElements(By.xpath("" + xpath + ""));
 
 		// Getting size of options available
@@ -306,7 +378,7 @@ public class Appium_Base_Class {
 		Thread.sleep(2000);
 
 	}
-	
+
 	public void Removing_Sing_MenuItem() throws Throwable {
 
 		Thread.sleep(1000);
@@ -324,17 +396,17 @@ public class Appium_Base_Class {
 		List<Float> Menu_Quntaity_List = new ArrayList<Float>();
 		List<Float> Calculated_Price_Amount = new ArrayList<Float>();
 		Float total_SubTotal_Value = 0.0f;
-		
+
         //Removing Icon Count
 		List<?> itemsInDropdownForRemovingMenu = driver.findElements(By.xpath("(//*[@text='X'])"));
-		
+
 		int CountForRemovingIcon = itemsInDropdownForRemovingMenu.size();
 
 		// Getting size of options available
 		//int size = itemsInDropdown.size() - CountForRemovingIcon;
 
 		System.out.println(CountForRemovingIcon);
-		
+
 		//For Loop for getting the quantity for the Menu Items
 		for (int i = 1; i <= CountForRemovingIcon; i++) {
 
@@ -358,9 +430,9 @@ public class Appium_Base_Class {
 
 			Thread.sleep(1000);
 		}
-		
+
 		for (int i = 0; i < CountForRemovingIcon; i++) {
-			
+
 			float value = Menu_Quntaity_List.get(i)*Price_Amount_List.get(i);
 			Calculated_Price_Amount.add(value);
 			System.out.println("Added value of Subtotal : "+Calculated_Price_Amount);
@@ -377,23 +449,23 @@ public class Appium_Base_Class {
 		}
 
 		Thread.sleep(2000);
-		
+
 		System.out.println("**Calculated Total price Amount**: "+total_SubTotal_Value);
-		
+
 		//DecimalFormat df = new DecimalFormat("0.00");
 		float Total_Calculated_Sub_Total_Value = (float) (Math.round(total_SubTotal_Value * 100.00)/100.00);
-		
+
 		 // DecimalFormat, default is RoundingMode.HALF_EVEN
-//	      System.out.println("Total Calculated Sub Total Value: " + df.format(total_SubTotal_Value)); 
-	      
+//	      System.out.println("Total Calculated Sub Total Value: " + df.format(total_SubTotal_Value));
+
 	      this.Total_Price_Amount = Total_Calculated_Sub_Total_Value;
-	      
+
 	      System.out.println("**Calculated Total price Amount with tow decimal conversion**: "+Total_Calculated_Sub_Total_Value);
 
 		  return Total_Calculated_Sub_Total_Value;
 
 	}
-	
+
 	public Float Get_Total_Amount_For_Every_MenuItem(AppiumDriver driver, String xpath, String xpath2)
 			throws Throwable {
 
@@ -404,15 +476,15 @@ public class Appium_Base_Class {
 
 		// Getting size of options available
 //		int size = itemsInDropdown.size() / 2;
-		
+
 		//Removing Icon Count
 				List<?> itemsInDropdownForRemovingMenu = driver.findElements(By.xpath("(//*[@text='X'])"));
-				
+
 				int CountForRemovingIcon = itemsInDropdownForRemovingMenu.size();
 
 		System.out.println(CountForRemovingIcon);
-		
-		
+
+
 
 		// for loop for clicking on every time in the list
 		for (int i = 1; i <= CountForRemovingIcon; i++) {
@@ -432,83 +504,83 @@ public class Appium_Base_Class {
 		}
 
 		System.out.println("**Calculated Total Amount**: "+toatl_Amount_Value);
-		
+
 //		DecimalFormat df = new DecimalFormat("0.00");
-		
+
 		float Total_Calculated_Total_Value = (float) (Math.round(toatl_Amount_Value * 100.00)/100.00);
-		
+
 		 // DecimalFormat, default is RoundingMode.HALF_EVEN
-//	      System.out.println("Total Calculated Total Value: " + df.format(toatl_Amount_Value)); 
-	      
+//	      System.out.println("Total Calculated Total Value: " + df.format(toatl_Amount_Value));
+
 	      this.total_Total_Amount = Total_Calculated_Total_Value;
-	      
+
 	      System.out.println("**Calculated Total Amount with two decimal conversion**: "+Total_Calculated_Total_Value);
 
 		  return Total_Calculated_Total_Value;
 
 	}
-	
+
 	public double Get_ItemBasedDisc_Amount_AfterTax_For_Every_MenuItem(AppiumDriver driver, String xpath, String xpath2, String disc)
 			throws Throwable {
 
 		// Getting list of options
 		List<Double> Total_Amount_List = new ArrayList<Double>();
 		List<Double> Total_Disc_List = new ArrayList<Double>();
-		
+
 		double toatl_Amount_Value = 0.00;
 		double toatl_Disc_Value = 0.00;
 
 		//Removing Icon Count
 				List<?> itemsInDropdownForRemovingMenu = driver.findElements(By.xpath("(//*[@text='X'])"));
-				
+
 				int CountForRemovingIcon = itemsInDropdownForRemovingMenu.size();
 
 		System.out.println(CountForRemovingIcon);
-		
-		
+
+
 		// for loop for clicking on every time in the list
 		for (int i = 1; i <= CountForRemovingIcon; i++) {
-			
+
 			String Qty = driver.findElement(By.xpath("" + xpath + "[" + i + "]/../..//android.widget.TextView[4]")).getText().replaceAll("[a-zA-Z $ ₹ £ , :]", "");
 			double AQty = Double.parseDouble(Qty);
-			
+
 			String subt = driver.findElement(By.xpath("" + xpath + "[" + i + "]/../..//android.widget.TextView[5]")).getText().replaceAll("[a-zA-Z $ ₹ £ , :]", "");
 			double Asubt = Double.parseDouble(subt);
-			
+
 			double price = AQty * Asubt;
 			price = Math.round(price*100.00)/100.00;
 
 			double AdiscPer = Double.parseDouble(disc);
-			
+
 			double Disc = price * (AdiscPer / 100);
 			Disc = Math.round(Disc*100.00)/100.00;
 			System.out.println("The Calculated Discount Value for the Item "+i+" is : "+Disc);
-			
+
 			String taxPer = Utility.getProperty("Exclusive_Tax_Percentage");
 			double AtaxPer = Double.parseDouble(taxPer);
-			
+
 			double Tax = price * (AtaxPer / 100);
 			Tax = Math.round(Tax*100.00)/100.00;
 			System.out.println("The Calculated Tax Value for the Item "+i+" is : "+Tax);
-			
+
 			double Total = (price - Disc) + Tax;
 			Total = Math.round(Total*100.00)/100.00;
 			System.out.println("The Calculated Total Value for the Item "+i+" is : "+Total);
-			
-			
+
+
 			String Disc_Amount = driver.findElement(By.xpath("" + xpath + "[" + i + "]"+xpath2)).getText().replaceAll("[a-zA-Z $ ₹ £ , :]", "");
 			double ActDisc = Double.parseDouble(Disc_Amount);
-			
+
 			String Total_Amount = driver.findElement(By.xpath("" + xpath + "[" + i + "]/../..//android.widget.TextView[7]")).getText().replaceAll("[a-zA-Z $ ₹ £ , :]", "");
 			double ActTot = Double.parseDouble(Total_Amount);
 
-			
+
 			if(Disc == ActDisc || Total == ActTot)
 			{
 				System.out.println("Discount and Total Values are calculated for the Item "+i+" and the values are : "+Disc+"(Discount) and "+Total+"(Total)");
 				Total_Amount_List.add(Total);
 				Total_Disc_List.add(Disc);
-				
+
 				System.out.println("The values are (Discount and Total) : " + Disc+ " "+Total);
 			}
 
@@ -516,7 +588,7 @@ public class Appium_Base_Class {
 		}
 
 		for (int i = 0; i < Total_Amount_List.size(); i++) {
-			
+
 			toatl_Disc_Value += Total_Disc_List.get(i);
 			toatl_Amount_Value += Total_Amount_List.get(i);
 
@@ -524,19 +596,19 @@ public class Appium_Base_Class {
 
 		System.out.println("**Calculated Disc Amount**: "+toatl_Disc_Value);
 		System.out.println("**Calculated Total Amount**: "+toatl_Amount_Value);
-		
+
 //		DecimalFormat df = new DecimalFormat("0.00");
-		
+
 		double Total_Calculated_Disc_Value = (double) (Math.round(toatl_Disc_Value * 100.00)/100.00);
-		
+
 		double Total_Calculated_Total_Value = (double) (Math.round(toatl_Amount_Value * 100.00)/100.00);
 		 // DecimalFormat, default is RoundingMode.HALF_EVEN
-//	      System.out.println("Total Calculated Total Value: " + df.format(toatl_Amount_Value)); 
-	      
+//	      System.out.println("Total Calculated Total Value: " + df.format(toatl_Amount_Value));
+
 	      this.totAmount = Total_Calculated_Total_Value;
-	      
+
 	      this.discAmount = Total_Calculated_Disc_Value;
-	      
+
 	      System.out.println("**Calculated Discount Amount with two decimal conversion**: "+Total_Calculated_Disc_Value);
 
 	      System.out.println("**Calculated Total Amount with two decimal conversion**: "+Total_Calculated_Total_Value);
@@ -825,31 +897,31 @@ public class Appium_Base_Class {
 		}
 
 	}
-	
+
 	public String Get_Text(WebElement ele) {
-		
+
 		String value = ele.getText();
-		
+
 		return value;
 
 	}
-	
+
 	public double Exclusive_Tax(String value) throws Throwable {
-		
+
 		String Report_Taxes = value.replaceAll("[a-zA-Z $ ₹ £ , :]", "").substring(1);
 		double actual_Tax_Value = Float.parseFloat(Report_Taxes);
 		double Tax_Value_Conversion = Float.parseFloat(Utility.getProperty("Exclusive_Tax_Percentage"));
 		double calculated_Tax_value = ((actual_Tax_Value * Tax_Value_Conversion )/100);
 		//DecimalFormat df = new DecimalFormat("0.00");
 		 // DecimalFormat, default is RoundingMode.HALF_EVEN
-	   // System.out.println("Total Calculated Tax Value: " + df.format(caculated_Tax_value)); 
+	   // System.out.println("Total Calculated Tax Value: " + df.format(caculated_Tax_value));
 		calculated_Tax_value = Math.round(calculated_Tax_value * 100.00)/100.00;
 		System.out.println("Total Calculated Tax Value: " + calculated_Tax_value);
 		return calculated_Tax_value;
 	}
-	
+
     public float Inclusive_Tax(String value) throws Throwable {
-		
+
 		String Report_Taxes = value.replaceAll("[a-zA-Z $ ₹ £ , :]", "").substring(1);
 		float actual_Tax_Value = Float.parseFloat(Report_Taxes);
 		float Tax_Value_Conversion = Float.parseFloat(Utility.getProperty("Inclusive_Tax_Percentage"));
@@ -859,7 +931,7 @@ public class Appium_Base_Class {
 		 // DecimalFormat, default is RoundingMode.HALF_EVEN
 	    System.out.println("Total Calculated Total Value: " + df.format(calculated_Tax_value));
 		return calculated_Tax_value;
-		
+
 	}
 
 	public void text_Confirm_without_Screenshot(WebElement ele, String text) {
@@ -1017,6 +1089,38 @@ public class Appium_Base_Class {
 		}
 		return numberOfSelections;
 	}
+
+
+	public void changeVariant() throws Throwable {
+
+		try {
+
+			if (driver.findElement(By.xpath("(//android.view.View[2]/android.view.View/android.view.View/android.view.View)//android.widget.Button/..")).isDisplayed() && driver.findElement(By.xpath("//*[contains(@text,'SELECT OPTIONS')]")).isDisplayed()) {
+
+				List<?> ListOfAttributes = driver.findElements(By.xpath("(//android.view.View[2]/android.view.View/android.view.View/android.view.View)//android.widget.Button/.."));
+
+				System.out.println("Arributes List Size : "+ListOfAttributes.size());
+
+				for (int i = 1; i <= ListOfAttributes.size(); i++) {
+
+					List<?> ListOfAttributesmapped = driver.findElements(By.xpath("(//android.view.View[2]/android.view.View/android.view.View/android.view.View)["+i+"]//android.widget.Button"));
+
+					System.out.println("Lists of Mapped"+ListOfAttributesmapped.size());
+
+					// Generate a random number with in range
+					int randomNumber1 = ThreadLocalRandom.current().nextInt(0, ListOfAttributesmapped.size()-1);
+
+					click_Ele((WebElement) ListOfAttributesmapped.get(randomNumber1));
+				}
+
+				Thread.sleep(2000);
+				click_Ele((WebElement) driver.findElement(By.xpath("//*[contains(@text,'DONE')]")));
+			}
+		} catch (Exception ignored) {
+			click_Ele((WebElement) driver.findElement(By.xpath("//*[contains(@text,'DONE')]")));
+		}
+	}
+
 
 
 }

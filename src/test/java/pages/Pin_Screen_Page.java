@@ -47,12 +47,23 @@ public class Pin_Screen_Page extends Appium_Base_Class {
 		return Node_Text.getText().substring(0, 3);
 	}
 
-	@AndroidFindBy(xpath = "//*[contains(@text,'To login enter your ID')]")
-	public
-	WebElement Pin_Screen_pinentry_text;
-	
-	public WebElement Pin_Screen_pinentry_text() {
+	@AndroidFindBy(xpath = "//*[@text='Linga']/../android.widget.TextView[2]")
+	public WebElement Pin_Screen_pinentry_text;
+	//*[contains(@text,'Enter PIN, Swipe Card or Use Face ID')]//*[contains(@text,'To login enter your ID')]
+	public WebElement Pin_Screen_pinEntry_text() {
 		return Pin_Screen_pinentry_text;
+	}
+
+	public void validateThePinScreenText(){
+		try{
+			if(Pin_Screen_pinEntry_text().getText().equals("Enter PIN, Swipe Card or Use Face ID")){
+				test.log(LogStatus.PASS,"Enter PIN, Swipe Card or Use Face ID text is displayed correctly in the Login pin screen");
+			}
+		}catch (Exception s){
+			if(!Pin_Screen_pinEntry_text().getText().equals("Enter PIN, Swipe Card or Use Face ID")){
+				test.log(LogStatus.FAIL,"Enter PIN, Swipe Card or Use Face ID text is not displayed correctly in the Login pin screen");
+			}
+		}
 	}
 
 	public WebElement Pin_Screen_SignOut_Btn() {
@@ -270,7 +281,7 @@ public class Pin_Screen_Page extends Appium_Base_Class {
 		
 		Thread.sleep(2000);
 		text_Confirm(Pin_Screen_Store_Name(), Utility.getProperty("Store_Name"));
-		text_Confirm_without_Screenshot(Pin_Screen_pinentry_text(), "To login enter your ID number");
+		text_Confirm_without_Screenshot(Pin_Screen_pinEntry_text(), "To login enter your ID number");
 		sync_Checks();
 		Sync();
 		clock_In();
@@ -287,7 +298,7 @@ public class Pin_Screen_Page extends Appium_Base_Class {
 		ut = new Utility();
 
 		text_Confirm(Pin_Screen_Store_Name(), Utility.getProperty("Store_Name"));
-		text_Confirm_without_Screenshot(Pin_Screen_pinentry_text(), "To login enter your ID number or swipe the card");
+		text_Confirm_without_Screenshot(Pin_Screen_pinEntry_text(), "Enter PIN, Swipe Card Or Use Face ID");//To login enter your ID number or swipe the card
 		try {
 			if(Pin_Screen_BackOffice().isDisplayed()) {
 				test.log(LogStatus.PASS, "Back Office button is displayed");

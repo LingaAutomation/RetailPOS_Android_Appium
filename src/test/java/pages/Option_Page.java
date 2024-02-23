@@ -168,7 +168,7 @@ public class Option_Page extends Appium_Base_Class{
     @AndroidFindBy(xpath = "//android.widget.EditText[@focused='true']")
     WebElement Order_Screen_Search_Focused;
 
-    @AndroidFindBy(xpath = "//android.widget.ListView/android.view.View[1]/android.view.View/android.view.View[1]")
+    @AndroidFindBy(xpath = "//android.view.View[@resource-id='mat-option-0']")
     WebElement Order_Screen_Search_First_Item;
 
     @AndroidFindBy(xpath = "//*[@text='Search Customer']/../../android.view.View[1]/android.view.View/android.widget.TextView")
@@ -177,7 +177,7 @@ public class Option_Page extends Appium_Base_Class{
     @AndroidFindBy(xpath = "//*[@text='+Add Credit']")
     WebElement Customer_Profile_Screen_Add_CreditBtn;
 
-    @AndroidFindBy(xpath = "//*[@text='Edit']")
+    @AndroidFindBy(xpath = "(//*[@text='Edit'])[3]")
     WebElement Customer_Profile_Screen_EditBtn;
 
     @AndroidFindBy(xpath = "//*[@text='Save']")
@@ -312,14 +312,16 @@ public class Option_Page extends Appium_Base_Class{
 
 
 
-    public void clickTheAttachedCustomer(){
+    public void clickTheAttachedCustomer() throws InterruptedException {
         //click the attached customer
         click_Ele(getOrder_Screen_Attached_Customer());
+        Thread.sleep(3000);
     }
 
-    public void clickTheAddCreditBtn(){
+    public void clickTheAddCreditBtn() throws InterruptedException {
         //click the add credit button
         click_Ele(getCustomer_Profile_Screen_Add_CreditBtn());
+        Thread.sleep(700);
     }
 
     public void clickTheEditBtn(){
@@ -358,13 +360,28 @@ public class Option_Page extends Appium_Base_Class{
         }
     }
 
-    public void SearchTheItem(){
+    public void SearchTheItem() throws InterruptedException {
+        String s = "Standard Item 3";
         //search the item
-        getOrder_Screen_Search_Focused().sendKeys("Standard Item 3");
-
+        getOrder_Screen_Search_Focused().sendKeys(s);
+        getOrder_Screen_Search_Focused().click();
         driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS);
+        Thread.sleep(1000);
 
-        click_Ele(getOrder_Screen_Search_First_Item());
+        driver.findElement(By.xpath("//*[contains(@resource-id,'mat-option') and contains(@text,'"+s+"')]")).click();
+        //click_Ele(getOrder_Screen_Search_First_Item());
+    }
+
+    public void SearchTheItem1() throws InterruptedException {
+        String s = "151623524558";
+        //search the item
+        getOrder_Screen_Search_Focused().sendKeys(s);
+        getOrder_Screen_Search_Focused().click();
+        driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS);
+        Thread.sleep(1000);
+
+        driver.findElement(By.xpath("//*[contains(@resource-id,'mat-option')]")).click();
+        //click_Ele(getOrder_Screen_Search_First_Item());
     }
 
     public void verifyTheSearchIsFocused_RetailScreen(){
@@ -1015,16 +1032,17 @@ public class Option_Page extends Appium_Base_Class{
         click_Ele(getOrder_Screen_Check_Option_Apply_Store_Credit());
     }
 
-    public void clickTheApplyStoreCreditBtn1(String msg){
+    public void clickTheApplyStoreCreditBtn1(String msg) throws InterruptedException {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         //click the Apply Store Credit
         click_Ele(getOrder_Screen_Check_Option_Apply_Store_Credit());
-
+        Thread.sleep(1500);
         try{
             text_Confirm_without_Screenshot(Store_Credit_Popup_Text,msg);
         }catch (Exception e){
             test.log(LogStatus.FAIL,"Please attach customer to apply store credits notification is not displayed when click the apply store credit from the Check option");
         }
+//        clickTheCancelBtn();
     }
 
     public void clickTheCancelBtn(){

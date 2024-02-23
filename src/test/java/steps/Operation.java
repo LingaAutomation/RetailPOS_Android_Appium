@@ -48,4 +48,10 @@ public class Operation {
     public void clickTheTillManagementOption() {
         new Operation_Page().clickTheTillManagement();
     }
+
+    @Then("Click the Sync Back Office option from the List Of options")
+    public void clickTheSyncBackOfficeOptionFromTheListOfOptions() {
+        new Operation_Page().clickTheSyncBackOfficeOption();
+        new Operation_Page().Syncing_With_BO();
+    }
 }

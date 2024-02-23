@@ -7,7 +7,7 @@ import pages.*;
 
 public class Sale_History {
 
-    String menu,quantity,subtotal,firstRetailItem;
+    String menu,quantity,subtotal,firstRetailItem,SKU,variant;
 
     @And("Page will navigate to the retail order screen")
     public void pageWillNavigateToTheRetailOrderScreen() throws Exception {
@@ -637,4 +637,35 @@ public class Sale_History {
     public void selectTheRequiredCheckFromRefunded() throws Exception {
         new Sale_History_Page().clickTheFirstRefundedCheck();
     }
+
+    @And("Verify the retail item, quantity and total changes in Retail POS screen")
+    public void verifyTheRetailItemQuantityAndTotalChangesInRetailPOSScreen() throws Exception {
+        new Sale_History_Page().verifyTheRetailItemQuantityAndTotalInRetailScreenAndAfterReopenRetailScreen1(menu,quantity,subtotal);
+    }
+
+    @Then("Verify the Previously ordered item")
+    public void verifyThePreviouslyOrderedItem() throws Exception {
+        new Sale_History_Page().verifyTheRetailItemQuantityAndTotalInRetailScreenAndAfterReopenRetailScreen(menu,quantity,subtotal);
+    }
+
+    @Then("Get the SKU code from the retail screen")
+    public void getTheSKUCodeFromTheRetailScreen() throws Exception {
+        SKU = new Sale_History_Page().getTheSKUCode_FromRetailScreen();
+    }
+
+    @And("Validate the SKU code")
+    public void validateTheSKUCode() throws Exception {
+        new Sale_History_Page().validateTheSKUCode(SKU);
+    }
+
+    @Then("Get the Variant code from the retail screen")
+    public void getTheVariantCodeFromTheRetailScreen() throws Exception {
+        variant = new Sale_History_Page().getTheVariantCode_FromRetailScreen();
+    }
+
+    @And("Validate the Variant code")
+    public void validateTheVariantCode() throws Exception {
+        new Sale_History_Page().validateTheVariantCode(variant);
+    }
+
 }

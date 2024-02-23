@@ -25,15 +25,16 @@ public class Hooks {
     public static void beforeAll() throws Exception
     {
 
-        System.out.println("Before All Started...!");
-      //  Base_DriverManagerClass.setUpDriver();
-
-        new DriverManager().initializeDriver();
-
-        driver=new DriverManager().getDriver();
-        Thread.sleep(5000);
-
-        new Login_Page().Signin_Valid_Cred();
+//        System.out.println("Before All Started...!");
+//      //  Base_DriverManagerClass.setUpDriver();
+//
+//        new DriverManager().initializeDriver();
+//
+//        driver=new DriverManager().getDriver();
+//        System.out.println("------------------------------------------------------------");
+//        Thread.sleep(5000);
+//
+//        new Login_Page().Signin_Valid_Cred();
     }
 
     @Before
@@ -50,7 +51,7 @@ public class Hooks {
         System.out.println("Before Hook Started...!");
 
         ScenarioName=scenario.getName();
-        DriverManager.test.log(LogStatus.INFO, "------------------------------------"+ScenarioName+"------------------------------------");
+        DriverManager.test.log(LogStatus.INFO, "    * * * * * * *    "+ScenarioName+"    * * * * * * *    ");
 
 
         if(driver==null)
@@ -58,14 +59,17 @@ public class Hooks {
             new DriverManager().initializeDriver();
 
             driver=new DriverManager().getDriver();
-            Thread.sleep(10000);
+            Thread.sleep(7000);
+
+            new Login_Page().Signin_Valid_Cred();
         }
         try{
-            pin.Pin_Screen_pinentry_text().isDisplayed();
-        }catch (Exception e){
+            Thread.sleep(2000);
+             new Pin_Screen_Page().validateThePinScreenText();
+       }catch (Exception e){
             driver.quit();
 
-            Thread.sleep(5000);
+            Thread.sleep(7000);
             new DriverManager().initializeDriver();
 
             driver=new DriverManager().getDriver();

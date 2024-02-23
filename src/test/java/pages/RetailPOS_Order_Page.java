@@ -40,8 +40,16 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 	WebElement Order_Screen_Receipt_NoTxt;
 	@AndroidFindBy(xpath = "//*[@text='Receipt No']/../android.widget.TextView[3]")
 	WebElement Order_Screen_Check_No;
-	@AndroidFindBy(xpath = "//*[@text='Receipt No']/../android.widget.TextView[3]")
+
+	@AndroidFindBy(xpath = "//*[@text='Search Customer']/../../android.view.View[1]/android.view.View/android.widget.TextView")
 	WebElement Order_Screen_Customer;
+
+	@AndroidFindBy(xpath = "//android.widget.GridView[@resource-id='checkTables']/android.view.View[2]/android.view.View/android.view.View/android.view.View[1]/android.view.View[1]")
+	WebElement Order_Screen_Customer_RefundScreen;
+
+	@AndroidFindBy(xpath = "//android.widget.Image[@resource-id='Layer_1']/..//android.widget.TextView")
+	WebElement Order_Screen_Customer_Refund;
+
 	@AndroidFindBy(xpath = "//*[@resource-id='operations']")
 	WebElement Order_Screen_OperationsBtn;
 	@AndroidFindBy(xpath = "//*[@text='Void']")
@@ -72,7 +80,7 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 	WebElement Order_Screen_AdjustBtn;
 	@AndroidFindBy(xpath = "//*[@text='Back']")
 	WebElement Order_Screen_BackBtn;
-	@AndroidFindBy(xpath = "//*[@text='Add Customer']")
+	@AndroidFindBy(xpath = "//*[contains(@text,'Add Customer')]")
 	WebElement Order_Screen_Add_CustomerBtn;
 	@AndroidFindBy(xpath = "//*[@text='Search Customer']")
 	WebElement Order_Screen_Search_CustomerBtn;
@@ -232,6 +240,9 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 	@AndroidFindBy(xpath = "//android.widget.EditText")
 	WebElement SearchBox_SearchCustomerScreen;
 
+	@AndroidFindBy(xpath = "(//android.widget.EditText)[3]")
+	WebElement SearchBox_SearchCustomerScreen1;
+
 	@AndroidFindBy(xpath = "//*[@text='Save']")
 	WebElement Customer_Profile_SaveBtn;
 
@@ -247,7 +258,6 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 	public void AddTheCustomer(String num) throws InterruptedException {
 		//wait until the particular Element displayed
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
-
 		//click the search customer button
 //		getOrder_Screen_Search_CustomerBtn().click();
 		getOrder_Screen_Add_CustomerBtn().click();
@@ -256,28 +266,57 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 		//clear the search field in the Search customer
 		SearchBox_SearchCustomerScreen.clear();
 
-//		for(int i = 0; i <= num.length();i++){
-//			String d = String.valueOf(num.charAt(i));
-//			System.out.println("jjjjjjjjjjjjjjj : "+d);
-//			//click the number
-//			driver.findElement(By.xpath("//*[contains(@text,'"+d+"')]")).click();Thread.sleep(500);
-//			//SearchBox_SearchCustomerScreen.sendKeys(d);Thread.sleep(500);
-//		}
-
 		//enter the number in search field in the Search customer
 		SearchBox_SearchCustomerScreen.sendKeys(num);
 
-		Thread.sleep(2000);
+		Thread.sleep(3000);
 		//wait until the particular Element displayed
-		SearchBox_SearchCustomerScreen.click();	Thread.sleep(2000);
+		SearchBox_SearchCustomerScreen.click();	Thread.sleep(3000);
 		//wait until the particular Element displayed
 
-		//click the customer from the searched result
-		driver.findElement(By.xpath("(//*[contains(@text,'"+num+"')])[2]")).click();
+
+		try{
+			//click the customer from the searched result
+			driver.findElement(By.xpath("(//*[contains(@text,'"+ num +"')])[2]")).click();
+		}catch (Exception e){
+			//click the customer from the searched result
+			driver.findElement(By.xpath("//android.widget.ListView/android.view.View/android.view.View/android.view.View[1]")).click();
+		}
+
+
 
 //				Thread.sleep(4000);		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
 //		//Click the save button from the Customer Profile Screen
 //		Customer_Profile_SaveBtn.click();
+		Thread.sleep(2000);
+	}
+
+	public void AddTheCustomer1(String num) throws InterruptedException {
+		//wait until the particular Element displayed
+		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+		//click the search customer button
+//		getOrder_Screen_Search_CustomerBtn().click();
+		getOrder_Screen_Add_CustomerBtn().click();
+
+		Thread.sleep(500);
+		//clear the search field in the Search customer
+		SearchBox_SearchCustomerScreen1.clear();
+
+		//enter the number in search field in the Search customer
+		SearchBox_SearchCustomerScreen1.sendKeys(num);
+
+		Thread.sleep(3000);
+		//wait until the particular Element displayed
+		SearchBox_SearchCustomerScreen1.click();	Thread.sleep(3000);
+		//wait until the particular Element displayed
+
+		try{
+			//click the customer from the searched result
+			driver.findElement(By.xpath("(//*[contains(@text,'"+ num +"')])[2]")).click();
+		}catch (Exception e){
+			//click the customer from the searched result
+			driver.findElement(By.xpath("//android.widget.ListView/android.view.View/android.view.View/android.view.View[1]")).click();
+		}
 		Thread.sleep(2000);
 	}
 
@@ -501,6 +540,14 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 		return Order_Screen_Customer;
 	}
 
+	public WebElement getOrder_Screen_Customer_RefundScreen(){
+		return Order_Screen_Customer_RefundScreen;
+	}
+
+	public WebElement getOrder_Screen_Customer_Refund(){
+		return Order_Screen_Customer_Refund;
+	}
+
 	public WebElement getOrder_Screen_OperationsBtn() {
 		return Order_Screen_OperationsBtn;
 	}
@@ -590,7 +637,7 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 	}
 
 	public void clickDiscount(){
-		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(8,TimeUnit.SECONDS);
 
 		//click the delete btn
 		click_Ele(getOrder_Screen_Discount());
@@ -631,6 +678,34 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 		}catch (Exception e){
 			test.log(LogStatus.FAIL,"Back Button is not displayed");
 		}
+	}
+
+	public String enterTheGivenMobileNumber_GetTheCustomerName(String result) throws InterruptedException {
+		//wait until the particular Element displayed
+		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+
+		//click the search customer button
+//		getOrder_Screen_Search_CustomerBtn().click();
+		getOrder_Screen_Add_CustomerBtn().click();
+
+		Thread.sleep(500);
+		//clear the search field in the Search customer
+		SearchBox_SearchCustomerScreen.clear();
+
+		for (int i = 0; i < result.length(); i++){
+
+			char s = result.charAt(i);
+
+			//click the mobile number from number pad
+			driver.findElement(By.xpath("//*[@text='"+s+"']")).click();
+		}
+		Thread.sleep(2000);
+		String name = driver.findElement(By.xpath("//android.view.View[contains(@text,'"+result+"')]")).getText();
+
+		name = name.replace(result,"");
+		name = name.trim();
+		System.out.println("----------------- name : "+name);
+		return name;
 	}
 
 	public WebElement getOrder_Screen_Add_CustomerBtn() {
@@ -777,6 +852,13 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 	public void Void_MenuItems() {
 		click_Ele(Order_Screen_Void_Btn);
 		text_Confirm(Order_Screen_Void_POP_up_Text, "All Orders Are Voided");
+		click_Ele(Order_Screen_Void_pop_up_Done_Btn);
+	}
+
+	public void pleasePayPopup() {
+		if(Order_Screen_Void_POP_up_Text.getText().contains("Please pay")){
+			test.log(LogStatus.INFO,"Please Pay popup is displayed");
+		}
 		click_Ele(Order_Screen_Void_pop_up_Done_Btn);
 	}
 
@@ -1472,6 +1554,14 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 		return Get_Text(getOrder_Screen_Customer());
 	}
 
+	public String getCustomerName_RefundScreen(){
+		return Get_Text(getOrder_Screen_Customer_RefundScreen());
+	}
+
+	public String getCustomerName_Refund(){
+		return Get_Text(getOrder_Screen_Customer_Refund());
+	}
+
 	public void verifyTheCustomerName(String customerName){
 		try{
 			if(getCustomerName().equals(customerName)){
@@ -1690,6 +1780,13 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 		}
 	}
 
+	@AndroidFindBy(xpath = "//*[contains(@text,'Change Variant')]")
+	WebElement Order_Screen_Change_Variant;
+
+	public void clickTheChangeVariantOption(){
+		click_Ele(Order_Screen_Change_Variant);
+	}
+
 	@AndroidFindBy(xpath = "//android.view.View//*[contains(@text,'For Taxes')]")
 	WebElement Order_Screen_Category_ForTaxes;
 
@@ -1733,11 +1830,9 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 		click_Ele(Order_Screen_Category_Inclusive_KitAssembly);
 		Thread.sleep(1000);
 		Random_Selection_KitAssembly(driver, "//*[contains(@resource-id,'menu-item')]");
-		Thread.sleep(2000);
 		Random_Selection_KitAssembly(driver, "//*[contains(@resource-id,'menu-item')]");
-		Thread.sleep(2000);
 		Random_Selection_KitAssembly(driver, "//*[contains(@resource-id,'menu-item')]");
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		click_Ele(Menu_Screen_Category_Cancel_Btn);
 		Thread.sleep(1000);
 
@@ -1748,12 +1843,7 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 		Thread.sleep(1000);
 		click_Ele(Order_Screen_Category_Inclusive_Standard);
 		Thread.sleep(1000);
-		Random_ForMultipule_Selection(driver, "//*[contains(@resource-id,'menu-item')]");
-//		Random_Selection_KitAssembly(driver, "//*[contains(@resource-id,'menu-item')]");
-//		Thread.sleep(2000);
-//		Random_Selection_KitAssembly(driver, "//*[contains(@resource-id,'menu-item')]");
-//		Thread.sleep(2000);
-//		Random_Selection_KitAssembly(driver, "//*[contains(@resource-id,'menu-item')]");
+		Random_ForMultiple_Selection(driver, "//*[contains(@resource-id,'menu-item')]");
 		Thread.sleep(2000);
 		click_Ele(Menu_Screen_Category_Cancel_Btn);
 		Thread.sleep(1000);
@@ -1767,9 +1857,7 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 		click_Ele(Order_Screen_Category_Inclusive_Variant);
 		Thread.sleep(1000);
 		Random_Selection_KitAssembly(driver, "//*[contains(@resource-id,'menu-item')]");
-		Thread.sleep(1000);
 		Random_Selection_KitAssembly(driver, "//*[contains(@resource-id,'menu-item')]");
-		Thread.sleep(1000);
 		Random_Selection_KitAssembly(driver, "//*[contains(@resource-id,'menu-item')]");
 		Thread.sleep(1000);
 		click_Ele(Menu_Screen_Category_Cancel_Btn);
@@ -1784,9 +1872,9 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 		Thread.sleep(1000);
 		click_Ele(Order_Screen_Category_Inclusive_Variant);
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("//*[contains(@text,'InclusiveTax_Variant')]")).click();
+		Random_Selection_KitAssembly(driver, "//*[contains(@resource-id,'menu-item')]");
 		Thread.sleep(1000);
-		selectOptions();
+//		selectOptions();
 		Thread.sleep(2000);
 		click_Ele(Menu_Screen_Category_Cancel_Btn);
 		Thread.sleep(1000);
@@ -1794,14 +1882,14 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 
 	public void Single_Random_Menu_Selection_ForInclusiveTaxes_KitAssembly() throws Throwable {
 		cm = new Common_xpath();
-
+		Thread.sleep(1000);
 		click_Ele(Order_Screen_Category_ForTaxes);
 		Thread.sleep(1000);
 		click_Ele(Order_Screen_Category_Inclusive_KitAssembly);
+		Thread.sleep(2000);
+		Random_Selection_KitAssembly(driver, "//*[contains(@resource-id,'menu-item')]");
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("//*[contains(@text,'InclusiveTax_KitAssembly')]")).click();
-		Thread.sleep(1000);
-		selectOptions();
+//		selectOptions();
 		Thread.sleep(2000);
 		click_Ele(Menu_Screen_Category_Cancel_Btn);
 		Thread.sleep(1000);
@@ -1828,7 +1916,7 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 		click_Ele(Order_Screen_Category_For_QuantityBasedTax);
 		Thread.sleep(1000);
 		Random_Selection_KitAssembly(driver, "//*[contains(@resource-id,'menu-item')]");
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		click_Ele(Menu_Screen_Category_Cancel_Btn);
 		Thread.sleep(1000);
 	}
@@ -1852,10 +1940,10 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 		click_Ele(Order_Screen_Category_ForTaxes);
 		Thread.sleep(1000);
 		click_Ele(Order_Screen_Category_For_CheckBasedTax);
+		Thread.sleep(2000);
+		Random_Selection_KitAssembly(driver, "//*[contains(@resource-id,'menu-item')]");
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("//*[contains(@text,'Variant_CBT')]")).click();
-		Thread.sleep(1000);
-		selectOptions();
+//		selectOptions();
 		Thread.sleep(2000);
 		click_Ele(Menu_Screen_Category_Cancel_Btn);
 		Thread.sleep(1000);
@@ -2583,6 +2671,12 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 			test.log(LogStatus.FAIL, "Open Item price displayed wrongly in Order Screen");
 		}
 
+	}
+
+	public void verifyTheNumpadWithOutRetailItem(){
+		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+		//Click the number from numpad
+		getOrder_Screen_NumberPad_2().click();
 	}
 
 	public void Check_Quantity_Validations() throws Throwable {

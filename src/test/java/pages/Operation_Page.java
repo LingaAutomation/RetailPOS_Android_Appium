@@ -137,6 +137,8 @@ public class Operation_Page extends Appium_Base_Class{
     @AndroidFindBy(xpath = "//*[contains(@text,'Till Balance')]")
     WebElement Operation_TillBalance_Column;
 
+    @AndroidFindBy(xpath = "//*[contains(@text,'Syncing with backoffice')]")
+    WebElement syncing_Back_Office_txt;
 
 
 
@@ -174,6 +176,79 @@ public class Operation_Page extends Appium_Base_Class{
     public WebElement getOperation_QSR_Mode_Text() {return Operation_QSR_Mode_Text;}
 
     public WebElement getOperation_Sync_BackOffice_Text() {return Operation_Sync_BackOffice_Text;}
+
+    public WebElement syncing_Back_Office_txt() {
+        return syncing_Back_Office_txt;
+    }
+
+    public WebElement getOperation_Cash_Drop_Tab_Selected() {return Operation_Cash_Drop_Tab_Selected;}
+
+    public WebElement getOperation_Cash_Drop_Tab() {return Operation_Cash_Drop_Tab;}
+
+    public WebElement getOperation_Open_Cash_Drawer_Tab() {return Operation_Open_Cash_Drawer_Tab;}
+
+    public WebElement getOperation_Menu_Button() {return Operation_Menu_Button;}
+
+    public WebElement getOperation_Open_Cash_Drawer_Tab_Selected() {return Operation_Open_Cash_Drawer_Tab_Selected;}
+
+    public WebElement getOperation_Pay_In_Tab() {return Operation_Pay_In_Tab;}
+
+    public WebElement getOperation_ActiveTill_Tab() {return Operation_ActiveTill_Tab;}
+
+    public WebElement getOperation_ClosedTill_Tab() {return Operation_ClosedTill_Tab;}
+
+    public WebElement getOperation_HeldTill_Tab() {return Operation_HeldTill_Tab;}
+
+    public WebElement getOperation_Pay_In_Tab_Selected() {return Operation_Pay_In_Tab_Selected;}
+
+    public WebElement getOperation_GlobalTill_Text() {return Operation_GlobalTill_Text;}
+
+    public WebElement getOperation_Pay_Out_Tab() {return Operation_Pay_Out_Tab;}
+
+    public WebElement getOperation_Pay_Out_Tab_Selected() {return Operation_Pay_Out_Tab_Selected;}
+
+    public WebElement getOperation_OpenBy_Text() {return Operation_OpenBy_Text;}
+
+    public WebElement getOperation_Reports_Tab() {return Operation_Reports_Tab;}
+
+    public WebElement getOperation_AdjustTill_Text() {return Operation_AdjustTill_Text;}
+
+    public WebElement getOperation_OpenTill_Text() {return Operation_OpenTill_Text;}
+
+    public WebElement getOperation_Reports_Tab_Selected() {return Operation_Reports_Tab_Selected;}
+
+    public WebElement getOperation_CloseTill_Text() {return Operation_CloseTill_Text;}
+
+    public WebElement getOperation_HoldTill_Text() {return Operation_HoldTill_Text;}
+
+    public WebElement getOperation_SetTill_Tab_Selected() {return Operation_SetTill_Tab_Selected;}
+
+    public WebElement getOperation_DateAndTime_Column() {return Operation_DateAndTime_Column;}
+
+    public WebElement getOperation_Till_Tab_Selected() {return Operation_Till_Tab_Selected;}
+
+    public WebElement getOperation_Device_Column() {return Operation_Device_Column;}
+
+    public WebElement getOperation_TillName_Column() {return Operation_TillName_Column;}
+
+    public WebElement getOperation_Total_Text() {return Operation_Total_Text;}
+
+    public WebElement getOperation_User_Column() {return Operation_User_Column;}
+
+    public WebElement getOperation_TillBalance_Column() {return Operation_TillBalance_Column;}
+
+    public WebElement getSyncing_Back_Office_txt() {return syncing_Back_Office_txt;}
+
+
+
+    public void Syncing_With_BO() {
+        try {
+            if(syncing_Back_Office_txt().isDisplayed())
+                test.log(LogStatus.PASS, "Syncing with Backoffice text is displayed");
+        }catch(Exception d) {
+            test.log(LogStatus.FAIL, "Syncing with Backoffice text is not displayed");
+        }
+    }
 
     public void verifyTheSettingsIcon(){
         try{
@@ -328,6 +403,11 @@ public class Operation_Page extends Appium_Base_Class{
         }catch (Exception e){
             test.log(LogStatus.FAIL,"Sync Back Office text/option is not displayed when user click the operation button from the Sale History Screen");
         }
+    }
+
+    public void clickTheSyncBackOfficeOption(){
+        //click the sync back office btn
+        click_Ele(getOperation_SyncBackOffice_Text());
     }
 
     public void verifyTheUpgradeToNewVersionText(){

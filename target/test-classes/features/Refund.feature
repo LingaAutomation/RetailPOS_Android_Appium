@@ -1,21 +1,6 @@
 @Refund    @Reg
 Feature: Refund Retail
 
-  @initial
-  Scenario: Login with Retail POS
-#    Given Sign In with the valid credentials
-    Then Check the Back Office button is available or not in the pin screen
-    Then Check the Operation button is available or not in the pin screen
-    Then Check the Clock In button is available or not in the pin screen
-    Then Check the Clock Out button is available or not in the pin screen
-    Then Check the Sync button is available or not in the pin screen
-    Then Check the Sync Receipts button is available or not in the pin screen
-    Then Check the Devices button is available or not in the pin screen
-    Then Check the Low Stock Items button is available or not in the pin screen
-    Then Check the Sign Out button is available or not in the pin screen
-    And Login with the valid credentials
-    And Click the Logoff button
-
   Scenario: verify the refund check in refund tab with Cash Payment
     Given Login with the valid credentials
     And Order the Standard Item from the retail Screen
@@ -25,9 +10,11 @@ Feature: Refund Retail
     And select the required check
     And click the return button
     And click the Refund all button
+    And Refund screen should be displayed
     Then Refund screen should be displayed
     Then Add the refund reason
     And Click the payment type as Cash
+    And Verify the refunded screen
     Then Click the done button
     When User verify the corresponding check in the refund tab
     And Click the Logoff button
@@ -40,9 +27,11 @@ Feature: Refund Retail
 #    Then Click the sale history
 #    And select the required check
 #    And click the return button
-#    And click the Refund all button
+#    And click the Refund all button   
+# And Refund screen should be displayed
 #    Then Add the refund reason
 #    And Click the payment type as Others
+#        And Verify the refunded screen
 #    Then Click the done button
 #    When User verify the corresponding check in the refund tab
 #    And Click the Logoff button
@@ -55,31 +44,35 @@ Feature: Refund Retail
 #    Then Click the sale history
 #    And select the required check
 #    And click the return button
-#    And click the Refund all button
+#    And click the Refund all button   
+# And Refund screen should be displayed
 #    Then Add the refund reason
 #    And Click the payment type as Side CC
+#        And Verify the refunded screen
 #    Then Click the done button
 #    When User verify the corresponding check in the refund tab
 #    And Click the Logoff button
-#
-#  Scenario Outline: Verify the closed check and Return with HA payment type
-#    Given Login with the valid credentials
-#    And Order the Standard Item from the retail Screen
-#    And Get the Check number from the retail screen
-#    Then Complete the payment using fast cash button
-#    Then Click the sale history
-#    And select the required check
-#    And click the return button
-#    And click the Refund all button
-#    Then Add the refund reason
-#    And Click the payment type as HA Payment and the card number is <CardNumber>
-#    Then Click the done button
-#    When User verify the corresponding check in the refund tab
-#    And Click the Logoff button
-#    Examples:
-#      | CardNumber |
-#      | 150        |
-#
+
+  Scenario Outline: Verify the closed check and Return with HA payment type
+    Given Login with the valid credentials
+    And Order the Standard Item from the retail Screen
+    And Get the Check number from the retail screen
+    Then Complete the payment using fast cash button
+    Then Click the sale history
+    And select the required check
+    And click the return button
+    And click the Refund all button
+    And Refund screen should be displayed
+    Then Add the refund reason
+    And Click the payment type as HA Payment and the card number is <CardNumber>
+    And Verify the refunded screen
+    Then Click the done button
+    When User verify the corresponding check in the refund tab
+    And Click the Logoff button
+    Examples:
+      | CardNumber |
+      | 150        |
+
 #  Scenario Outline: Verify the closed check and Return with Gift Card type
 #    Given Login with the valid credentials
 #    And Order the Standard Item from the retail Screen
@@ -88,9 +81,11 @@ Feature: Refund Retail
 #    Then Click the sale history
 #    And select the required check
 #    And click the return button
-#    And click the Refund all button
+#    And click the Refund all button   
+# And Refund screen should be displayed
 #    Then Add the refund reason
 #    And Click the payment type as Gift Card and the card number is <CardNumber>
+#        And Verify the refunded screen
 #    Then Click the done button
 #    When User verify the corresponding check in the refund tab
 #    And Click the Logoff button
@@ -107,8 +102,10 @@ Feature: Refund Retail
     And select the required check
     And click the return button
     And click the Refund all button
+    And Refund screen should be displayed
     Then Add the refund reason in the free text
     And Click the payment type as Cash
+    And Verify the refunded screen
     Then Click the done button
     When User verify the corresponding check in the refund tab
     And Click the Logoff button
@@ -124,8 +121,11 @@ Feature: Refund Retail
     Then Add the customer and the Customer Number is <CustomerNum>
     Then Get the Customer Name from the retail screen
     And click the Refund all button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
     Then Add the refund reason in the free text
     And Click the payment type as Cash
+    And Verify the refunded screen
     Then Click the done button
     When User verify the corresponding check in the refund tabs
     And Click the Logoff button
@@ -144,36 +144,17 @@ Feature: Refund Retail
     Then Add the customer and the Customer Number is <CustomerNum>
     Then Get the Customer Name from the retail screen
     And click the Refund all button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
     Then Add the refund reason in the free text
     And Click the payment type as Cash
+    And Verify the refunded screen
     Then Click the done button
-    When Verify the check no is changed in the Refunded tab
+    When User verify the corresponding check in the refund tabs
     And Click the Logoff button
     Examples:
       | CustomerNum |
       | 123456      |
-
-    # As of now Refund Item having some issue, After completing the sale user select the check for Refund in retail screen all the menu items are non selectable
-  #so we hold the refund item - 27/12/2023
-#  Scenario Outline: verify the refund for particular retail item
-#    Given Login with the valid credentials
-#    And Add multiple standard item
-#    And Get the Check number from the retail screen
-#    Then Complete the payment using fast cash button
-#    Then Click the sale history
-#    And select the required check
-#    And click the return button
-#    Then Add the customer and the Customer Number is <CustomerNum>
-#    Then Get the Customer Name from the retail screen
-#    And click the Refund Item button
-#    Then Add the refund reason in the free text
-#    And Click the payment type as Cash
-#    Then Click the done button
-#    When Verify the check no is changed in the Refunded tab and only that retail item is refunded
-#    And Click the Logoff button
-#    Examples:
-#      | CustomerNum |
-#      | 123456      |
 
   Scenario Outline: verify the refund check in cash with customer and Exclusive tax
     Given Login with the valid credentials
@@ -186,8 +167,11 @@ Feature: Refund Retail
     Then Add the customer and the Customer Number is <CustomerNum>
     Then Get the Customer Name from the retail screen
     And click the Refund all button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
     Then Add the refund reason in the free text
     And Click the payment type as Cash
+    And Verify the refunded screen
     Then Click the done button
     When User verify the corresponding check in the refund tabs
     And Click the Logoff button
@@ -207,8 +191,11 @@ Feature: Refund Retail
     Then Add the customer and the Customer Number is <CustomerNum>
     Then Get the Customer Name from the retail screen
     And click the Refund all button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
     Then Add the refund reason in the free text
     And Click the payment type as Cash
+    And Verify the refunded screen
     Then Click the done button
     When User verify the corresponding check in the refund tabs
     And Click the Logoff button
@@ -228,8 +215,11 @@ Feature: Refund Retail
     Then Add the customer and the Customer Number is <CustomerNum>
     Then Get the Customer Name from the retail screen
     And click the Refund all button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
     Then Add the refund reason in the free text
     And Click the payment type as Cash
+    And Verify the refunded screen
     Then Click the done button
     When User verify the corresponding check in the refund tabs
     And Click the Logoff button
@@ -249,8 +239,11 @@ Feature: Refund Retail
     Then Add the customer and the Customer Number is <CustomerNum>
     Then Get the Customer Name from the retail screen
     And click the Refund all button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
     Then Add the refund reason in the free text
     And Click the payment type as Cash
+    And Verify the refunded screen
     Then Click the done button
     When User verify the corresponding check in the refund tabs
     And Click the Logoff button
@@ -269,9 +262,12 @@ Feature: Refund Retail
 #    And click the return button
 #    Then Add the customer and the Customer Number is <CustomerNum>
 #    Then Get the Customer Name from the retail screen
-#    And click the Refund all button
+#    And click the Refund all button   
+# And Refund screen should be displayed
+#    Then Verify the Customer name in the Refund screen
 #    Then Add the refund reason in the free text
 #    And Click the payment type as Cash
+#        And Verify the refunded screen
 #    Then Click the done button
 #    When User verify the corresponding check in the refund tabs
 #    And Click the Logoff button
@@ -294,38 +290,44 @@ Feature: Refund Retail
     Then Add the customer and the Customer Number is <CustomerNum>
     And Get the Customer Name from the retail screen
     And click the Refund all button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
     Then Add the refund reason in the free text
     And Click the payment type as Cash
+    And Verify the refunded screen
     Then Click the done button
     When User verify the corresponding check in the refund tabs
     And Click the Logoff button
     Examples:
       | CustomerNum | Discount_Name | Discount |
       | 123456      | IBD1          | 5        |
-#
-#  Scenario Outline: verify the refund check in cash with customer and with Check Based discount
-#    Given Login with the valid credentials
-#    Then Order the Standard Item from the retail Screen
-#    And Get the Check number from the retail screen
-#    Then Click the Option from the retail screen
-#    And Click the Discount Option from the given options
-#    And Click the <Discount_Name> after tax - item based tax
-#    And Calculate the Check Based Discount for the <Discount> percentage with After Tax
-#    Then Complete the payment using fast cash button
-#    Then Click the sale history
-#    And select the required check
-#    And click the return button
-#    Then Add the customer and the Customer Number is <CustomerNum>
-#    Then Get the Customer Name from the retail screen
-#    And click the Refund all button
-#    Then Add the refund reason in the free text
-#    And Click the payment type as Cash
-#    Then Click the done button
-#    When User verify the corresponding check in the refund tabs
-#    And Click the Logoff button
-#    Examples:
-#      | CustomerNum | Discount_Name | Discount |
-#      | 123456      | CBD           | 7        |
+
+  Scenario Outline: verify the refund check in cash with customer and with Check Based discount
+    Given Login with the valid credentials
+    Then Order the Standard Item from the retail Screen
+    And Get the Check number from the retail screen
+    Then Click the Option from the retail screen
+    And Click the Discount Option from the given options
+    And Click the <Discount_Name> after tax - item based tax
+    And Calculate the Check Based Discount for the <Discount> percentage with After Tax
+    Then Complete the payment using fast cash button
+    Then Click the sale history
+    And select the required check
+    And click the return button
+    Then Add the customer and the Customer Number is <CustomerNum>
+    Then Get the Customer Name from the retail screen
+    And click the Refund all button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
+    Then Add the refund reason in the free text
+    And Click the payment type as Cash
+    And Verify the refunded screen
+    Then Click the done button
+    When User verify the corresponding check in the refund tabs
+    And Click the Logoff button
+    Examples:
+      | CustomerNum | Discount_Name | Discount |
+      | 123456      | CBD           | 7        |
 #
 #    Open item discount is not available in Retail POS - in iPAD open item discount is available on menu option but
 #    in Retail POS menu option is not available need to confirm with DEV/BA team - 29/12/2023
@@ -343,9 +345,12 @@ Feature: Refund Retail
 #    And click the return button
 #    Then Add the customer and the Customer Number is <CustomerNum>
 #    Then Get the Customer Name from the retail screen
-#    And click the Refund all button
+#    And click the Refund all button   
+# And Refund screen should be displayed
+#    Then Verify the Customer name in the Refund screen
 #    Then Add the refund reason in the free text
 #    And Click the payment type as Cash
+#        And Verify the refunded screen
 #    Then Click the done button
 #    When User verify the corresponding check in the refund tabs
 #    And Click the Logoff button
@@ -369,9 +374,12 @@ Feature: Refund Retail
 #    And click the return button
 #    Then Add the customer and the Customer Number is <CustomerNum>
 #    Then Get the Customer Name from the retail screen
-#    And click the Refund all button
+#    And click the Refund all button   
+# And Refund screen should be displayed
+#    Then Verify the Customer name in the Refund screen
 #    Then Add the refund reason in the free text
 #    And Click the payment type as Cash
+#        And Verify the refunded screen
 #    Then Click the done button
 #    When User verify the corresponding check in the refund tabs
 #    And Click the Logoff button
@@ -394,8 +402,11 @@ Feature: Refund Retail
     Then Add the customer and the Customer Number is <CustomerNum>
     Then Get the Customer Name from the retail screen
     And click the Refund all button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
     Then Add the refund reason in the free text
     And Click the payment type as Cash
+    And Verify the refunded screen
     Then Click the done button
     When User verify the corresponding check in the refund tabs
     And Click the Logoff button
@@ -414,8 +425,11 @@ Feature: Refund Retail
     Then Add the customer and the Customer Number is <CustomerNum>
     Then Get the Customer Name from the retail screen
     And click the Refund all button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
     Then Add the refund reason in the free text
     And Click the payment type as Cash
+    And Verify the refunded screen
     Then Click the done button
     When User verify the corresponding check in the refund tabs
     And Click the Logoff button
@@ -423,24 +437,28 @@ Feature: Refund Retail
       | CustomerNum |
       | 123456      |
 
-#  Scenario Outline: verify the refund check in cash with customer for Kit/Assembly item
-#    Given Login with the valid credentials
-#    And Order the Kit Assembly item from the retail Screen
-#    Then Complete the payment using fast cash button
-#    Then Click the sale history
-#    And select the required check
-#    And click the return button
-#    Then Add the customer and the Customer Number is <CustomerNum>
-#    Then Get the Customer Name from the retail screen
-#    And click the Refund all button
-#    Then Add the refund reason in the free text
-#    And Click the payment type as Cash
-#    Then Click the done button
-#    When User verify the corresponding check in the refund tabs
-#    And Click the Logoff button
-#    Examples:
-#      | CustomerNum |
-#      | 123456      |
+  Scenario Outline: verify the refund check in cash with customer for Kit/Assembly item
+    Given Login with the valid credentials
+    And Order the Kit Assembly item from the retail Screen
+    And Get the Check number from the retail screen
+    Then Complete the payment using fast cash button
+    Then Click the sale history
+    And select the required check
+    And click the return button
+    Then Add the customer and the Customer Number is <CustomerNum>
+    Then Get the Customer Name from the retail screen
+    And click the Refund all button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
+    Then Add the refund reason in the free text
+    And Click the payment type as Cash
+    And Verify the refunded screen
+    Then Click the done button
+    When User verify the corresponding check in the refund tabs
+    And Click the Logoff button
+    Examples:
+      | CustomerNum |
+      | 123456      |
 
   Scenario Outline: verify the refund check in cash with customer for Open item
     Given Login with the valid credentials
@@ -453,8 +471,11 @@ Feature: Refund Retail
     Then Add the customer and the Customer Number is <CustomerNum>
     Then Get the Customer Name from the retail screen
     And click the Refund all button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
     Then Add the refund reason in the free text
     And Click the payment type as Cash
+    And Verify the refunded screen
     Then Click the done button
     When User verify the corresponding check in the refund tabs
     And Click the Logoff button
@@ -462,7 +483,7 @@ Feature: Refund Retail
       | CustomerNum |
       | 123456      |
 
- Scenario Outline: verify the refund check in cash with customer with all four item
+  Scenario Outline: verify the refund check in cash with customer with all four item
     Given Login with the valid credentials
     And Order the Standard Item from the retail Screen
     And Order the Variant item from the retail Screen
@@ -476,14 +497,17 @@ Feature: Refund Retail
     Then Add the customer and the Customer Number is <CustomerNum>
     Then Get the Customer Name from the retail screen
     And click the Refund all button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
     Then Add the refund reason in the free text
     And Click the payment type as Cash
+    And Verify the refunded screen
     Then Click the done button
     When User verify the corresponding check in the refund tabs
     And Click the Logoff button
-   Examples:
-     | CustomerNum |
-     | 123456      |
+    Examples:
+      | CustomerNum |
+      | 123456      |
 
   Scenario Outline: verify the refund check in cash with customer for standard item with upcharge
     Given Login with the valid credentials
@@ -496,8 +520,11 @@ Feature: Refund Retail
     Then Add the customer and the Customer Number is <CustomerNum>
     Then Get the Customer Name from the retail screen
     And click the Refund all button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
     Then Add the refund reason in the free text
     And Click the payment type as Cash
+    And Verify the refunded screen
     Then Click the done button
     When User verify the corresponding check in the refund tabs
     And Click the Logoff button
@@ -516,8 +543,11 @@ Feature: Refund Retail
     Then Add the customer and the Customer Number is <CustomerNum>
     Then Get the Customer Name from the retail screen
     And click the Refund all button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
     Then Add the refund reason in the free text
     And Click the payment type as Cash
+    And Verify the refunded screen
     Then Click the done button
     When User verify the corresponding check in the refund tabs
     And Click the Logoff button
@@ -525,25 +555,28 @@ Feature: Refund Retail
       | CustomerNum |
       | 123456      |
 
-#  Scenario Outline: verify the refund check in cash with customer for Kit/Assembly item with upcharge
-#    Given Login with the valid credentials
-#    And Order the Multiple Kit Assembly item with Upcharge
-#    And Get the Check number from the retail screen
-#    Then Complete the payment using fast cash button
-#    Then Click the sale history
-#    And select the required check
-#    And click the return button
-#    Then Add the customer and the Customer Number is <CustomerNum>
-#    Then Get the Customer Name from the retail screen
-#    And click the Refund all button
-#    Then Add the refund reason in the free text
-#    And Click the payment type as Cash
-#    Then Click the done button
-#    When User verify the corresponding check in the refund tabs
-#    And Click the Logoff button
-#    Examples:
-#      | CustomerNum |
-#      | 123456      |
+  Scenario Outline: verify the refund check in cash with customer for Kit/Assembly item with upcharge
+    Given Login with the valid credentials
+    And Order the Multiple Kit Assembly item with Upcharge
+    And Get the Check number from the retail screen
+    Then Complete the payment using fast cash button
+    Then Click the sale history
+    And select the required check
+    And click the return button
+    Then Add the customer and the Customer Number is <CustomerNum>
+    Then Get the Customer Name from the retail screen
+    And click the Refund all button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
+    Then Add the refund reason in the free text
+    And Click the payment type as Cash
+    And Verify the refunded screen
+    Then Click the done button
+    When User verify the corresponding check in the refund tabs
+    And Click the Logoff button
+    Examples:
+      | CustomerNum |
+      | 123456      |
 
   Scenario Outline: verify the refund check in cash with customer for Open item with upcharge
     Given Login with the valid credentials
@@ -556,8 +589,11 @@ Feature: Refund Retail
     Then Add the customer and the Customer Number is <CustomerNum>
     Then Get the Customer Name from the retail screen
     And click the Refund all button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
     Then Add the refund reason in the free text
     And Click the payment type as Cash
+    And Verify the refunded screen
     Then Click the done button
     When User verify the corresponding check in the refund tabs
     And Click the Logoff button
@@ -569,7 +605,7 @@ Feature: Refund Retail
     Given Login with the valid credentials
     Then Order the Single Standard item With the Upcharge
     Then Order the Single Variant item With the Upcharge
-#    And Order the Single Kit Assembly item With the Upcharge
+    And Order the Single Kit Assembly item With the Upcharge
     And Order the Single Open item with Upcharge
     And Get the Check number from the retail screen
     Then Complete the payment using fast cash button
@@ -579,8 +615,11 @@ Feature: Refund Retail
     Then Add the customer and the Customer Number is <CustomerNum>
     Then Get the Customer Name from the retail screen
     And click the Refund all button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
     Then Add the refund reason in the free text
     And Click the payment type as Cash
+    And Verify the refunded screen
     Then Click the done button
     When User verify the corresponding check in the refund tabs
     And Click the Logoff button
@@ -588,22 +627,24 @@ Feature: Refund Retail
       | CustomerNum |
       | 123456      |
 
+
   #Unable to do the exchange as of now - unable to select the menu item while doing the exchange - 29-12-2023
-#  Scenario: verify the refund check along with exchange
-#    Given Login with the valid credentials
-#    And Order the Standard Item from the retail Screen
-#    And Get the Check number from the retail screen
-#    Then Complete the payment using fast cash button
-#    Then Click the sale history
-#    And select the required check
-#    And click the return button
-#    And Click the Exchange button and add more retail item
-#    And Click the retail item And Click the Exchange button
-#    Then Select the Exchange reason
-#    And Click the payment type as Cash
-#    And Click the Done button in Exchange popup
-#    And verify the Exchange check is available in Exchange tab in sale history
-#    And Click the Logoff button
+  Scenario: verify the refund check along with exchange
+    Given Login with the valid credentials
+    And Order the Standard Item from the retail Screen
+    And Get the Check number from the retail screen
+    Then Complete the payment using fast cash button
+    Then Click the sale history
+    And select the required check
+    And click the return button
+    And Click the Exchange button and add more retail item
+    And Click the retail item And Click the Exchange button
+    Then Select the Exchange reason
+    And Click the payment type as Cash
+    And Click the Done button in Exchange popup
+    And verify the Exchange check is available in Exchange tab in sale history
+    Then Click the retail button
+    And Click the Logoff button
 
   Scenario Outline: verify the refund check with minimum 100 retail item in refund tab with Cash Payment
     Given Login with the valid credentials
@@ -616,9 +657,11 @@ Feature: Refund Retail
     And select the required check
     And click the return button
     And click the Refund all button
+    And Refund screen should be displayed
     Then Add the refund reason
     And Click the payment type as Cash
     And Wait for fifteen seconds
+    And Verify the refunded screen
     Then Click the done button
     When User verify the corresponding check in the refund tab
     And Click the Logoff button
@@ -638,9 +681,11 @@ Feature: Refund Retail
 #    And select the required check
 #
 #    And click the return button
-#    And click the Refund all button
+#    And click the Refund all button   
+# And Refund screen should be displayed
 #    Then Add the refund reason
 #    And Click the payment type as Cash
+#        And Verify the refunded screen
 #    Then Click the done button
 #    When User verify the corresponding check in the refund tab
 #    And Click the Logoff button
@@ -659,12 +704,376 @@ Feature: Refund Retail
 #
 #    And select the required check
 #    And click the return button
-#    And click the Refund all button
+#    And click the Refund all button   
+# And Refund screen should be displayed
 #    Then Add the refund reason
 #    And Click the payment type as Cash
+#        And Verify the refunded screen
 #    Then Click the done button
 #    When User verify the corresponding check in the refund tab
 #    And Click the Logoff button
 #    Examples:
 #      | Number |
 #      | 400    |
+
+      # As of now Refund Item having some issue, After completing the sale user select the check for Refund in retail screen all the menu items are non selectable
+  #so we hold the refund item - 27/12/2023
+
+  Scenario Outline: verify the refund for particular retail item
+    Given Login with the valid credentials
+    And Add multiple standard item
+    And Get the Check number from the retail screen
+    Then Complete the payment using fast cash button
+    Then Click the sale history
+    And select the required check
+    And click the return button
+    Then Add the customer and the Customer Number is <CustomerNum>
+    Then Get the Customer Name from the retail screen
+    And click the Refund Item button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
+    Then Add the refund reason in the free text
+    And Click the payment type as Cash
+    And Verify the refunded screen
+    Then Click the done button
+    When User verify the corresponding check in the refund tabs
+    And Click the Logoff button
+    Examples:
+      | CustomerNum |
+      | 123456      |
+
+  Scenario Outline: verify the refund for particular retail item - with free text reason more than fifty characters(alphabetic)
+    Given Login with the valid credentials
+    And Add multiple standard item
+    And Get the Check number from the retail screen
+    Then Complete the payment using fast cash button
+    Then Click the sale history
+    And select the required check
+    And click the return button
+    Then Add the customer and the Customer Number is <CustomerNum>
+    Then Get the Customer Name from the retail screen
+    And click the Refund Item button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
+    Then Add the refund reason in the free text more than fifty characters - alphabetic
+    And Click the payment type as Cash
+    And Verify the refunded screen
+    Then Click the done button
+    When User verify the corresponding check in the refund tabs
+    And Click the Logoff button
+    Examples:
+      | CustomerNum |
+      | 123456      |
+
+  Scenario Outline: verify the refund for particular retail item - with free text reason more than fifty characters(alphanumeric)
+    Given Login with the valid credentials
+    And Add multiple standard item
+    And Get the Check number from the retail screen
+    Then Complete the payment using fast cash button
+    Then Click the sale history
+    And select the required check
+    And click the return button
+    Then Add the customer and the Customer Number is <CustomerNum>
+    Then Get the Customer Name from the retail screen
+    And click the Refund Item button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
+    Then Add the refund reason in the free text more than fifty characters - alphanumeric
+    And Click the payment type as Cash
+    And Verify the refunded screen
+    Then Click the done button
+    When User verify the corresponding check in the refund tabs
+    And Click the Logoff button
+    Examples:
+      | CustomerNum |
+      | 123456      |
+
+  Scenario Outline: verify the refund for particular retail item - with free text reason more than fifty characters(numeric)
+    Given Login with the valid credentials
+    And Add multiple standard item
+    And Get the Check number from the retail screen
+    Then Complete the payment using fast cash button
+    Then Click the sale history
+    And select the required check
+    And click the return button
+    Then Add the customer and the Customer Number is <CustomerNum>
+    Then Get the Customer Name from the retail screen
+    And click the Refund Item button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
+    Then Add the refund reason in the free text more than fifty characters - numeric
+    And Click the payment type as Cash
+    And Verify the refunded screen
+    Then Click the done button
+    When User verify the corresponding check in the refund tabs
+    And Click the Logoff button
+    Examples:
+      | CustomerNum |
+      | 123456      |
+
+  Scenario Outline: Verify able to add the existing customer under Customer from refund screen - retail item
+    Given Login with the valid credentials
+    And Add multiple standard item
+    And Get the Check number from the retail screen
+    Then Complete the payment using fast cash button
+    Then Click the sale history
+    And select the required check
+    And click the return button
+    And click the Refund Item button
+    And Refund screen should be displayed
+    Then Adds the customer and the Customer Number is <CustomerNum>
+    Then Get the Customer Name from the refund screen
+    Then Add the refund reason in the free text more than fifty characters - alphabetic
+    And Click the payment type as Cash
+    And Verify the refunded screen
+    Then Click the done button
+    When User verify the corresponding check in the refund tabs
+    And Click the Logoff button
+    Examples:
+      | CustomerNum |
+      | 123456      |
+
+  Scenario: Verify able to add the new customer under Customer - retail item
+    Given Login with the valid credentials
+    And Add multiple standard item
+    And Get the Check number from the retail screen
+    Then Complete the payment using fast cash button
+    Then Click the sale history
+    And select the required check
+    And click the return button
+    And click the Refund Item button
+    And Refund screen should be displayed
+    And Click the Add customer button in ordering screen
+    Then Add customer popup is open
+    When Add the customer Mobile number
+    And click the Add customer
+    Then Customer Profile screen is open to add the new customer details
+    And Enter the First Name
+    Then Gets the name from the First Name field
+    And Click the save button in customer profile window
+    Then Get the Customer Name from the refund screen
+    Then Add the refund reason in the free text more than fifty characters - alphabetic
+    And Click the payment type as Cash
+    And Verify the refunded screen
+    Then Click the done button
+    When User verify the corresponding check in the refunded tabs
+    And Click the Logoff button
+
+  Scenario Outline: Verify able to remove the existing customer under Customer - retail item
+    Given Login with the valid credentials
+    And Add multiple standard item
+    And Get the Check number from the retail screen
+    Then Complete the payment using fast cash button
+    Then Click the sale history
+    And select the required check
+    And click the return button
+    Then Add the customer and the Customer Number is <CustomerNum>
+    Then Get the Customer Name from the retail screen
+    And click the Refund Item button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
+    And Click the remove button of Customer
+    Then Add the refund reason in the free text
+    And Click the payment type as Cash
+    And Verify the refunded screen
+    Then Click the done button
+    When Verify the check no is changed in the Refunded tab
+    And Click the Logoff button
+    Examples:
+      | CustomerNum |
+      | 123456      |
+
+  Scenario Outline: Verify close icon is present in the Refund screen - retail item
+    Given Login with the valid credentials
+    And Add multiple standard item
+    And Get the Check number from the retail screen
+    Then Complete the payment using fast cash button
+    Then Click the sale history
+    And select the required check
+    And click the return button
+    Then Add the customer and the Customer Number is <CustomerNum>
+    Then Get the Customer Name from the retail screen
+    And click the Refund Item button
+    And Refund screen should be displayed
+    Then Click the close button
+    And Refund screen should not be displayed
+    And Verify the added customer is displayed in ordering screen
+    Then click the Refund all button
+    Then Verify the Customer name in the Refund screen
+    Then Add the refund reason in the free text more than fifty characters - alphabetic
+    And Click the payment type as Cash
+    And Verify the refunded screen
+    Then Click the done button
+    When User verify the corresponding check in the refund tabs
+    And Click the Logoff button
+    Examples:
+      | CustomerNum |
+      | 123456      |
+
+  Scenario Outline: verify the refund for particular refund all - with free text reason more than fifty characters(alphabetic)
+    Given Login with the valid credentials
+    And Add multiple standard item
+    And Get the Check number from the retail screen
+    Then Complete the payment using fast cash button
+    Then Click the sale history
+    And select the required check
+    And click the return button
+    Then Add the customer and the Customer Number is <CustomerNum>
+    Then Get the Customer Name from the retail screen
+    And click the Refund all button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
+    Then Add the refund reason in the free text more than fifty characters - alphabetic
+    And Click the payment type as Cash
+    And Verify the refunded screen
+    Then Click the done button
+    When User verify the corresponding check in the refund tabs
+    And Click the Logoff button
+    Examples:
+      | CustomerNum |
+      | 123456      |
+
+  Scenario Outline: verify the refund for particular refund all - with free text reason more than fifty characters(alphanumeric)
+    Given Login with the valid credentials
+    And Add multiple standard item
+    And Get the Check number from the retail screen
+    Then Complete the payment using fast cash button
+    Then Click the sale history
+    And select the required check
+    And click the return button
+    Then Add the customer and the Customer Number is <CustomerNum>
+    Then Get the Customer Name from the retail screen
+    And click the Refund all button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
+    Then Add the refund reason in the free text more than fifty characters - alphanumeric
+    And Click the payment type as Cash
+    And Verify the refunded screen
+    Then Click the done button
+    When User verify the corresponding check in the refund tabs
+    And Click the Logoff button
+    Examples:
+      | CustomerNum |
+      | 123456      |
+
+  Scenario Outline: verify the refund for particular refund all - with free text reason more than fifty characters(numeric)
+    Given Login with the valid credentials
+    And Add multiple standard item
+    And Get the Check number from the retail screen
+    Then Complete the payment using fast cash button
+    Then Click the sale history
+    And select the required check
+    And click the return button
+    Then Add the customer and the Customer Number is <CustomerNum>
+    Then Get the Customer Name from the retail screen
+    And click the Refund all button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
+    Then Add the refund reason in the free text more than fifty characters - numeric
+    And Click the payment type as Cash
+    And Verify the refunded screen
+    Then Click the done button
+    When User verify the corresponding check in the refund tabs
+    And Click the Logoff button
+    Examples:
+      | CustomerNum |
+      | 123456      |
+
+  Scenario Outline: Verify able to add the existing customer under Customer from refund screen - refund all
+    Given Login with the valid credentials
+    And Add multiple standard item
+    And Get the Check number from the retail screen
+    Then Complete the payment using fast cash button
+    Then Click the sale history
+    And select the required check
+    And click the return button
+    And click the Refund all button
+    And Refund screen should be displayed
+    Then Adds the customer and the Customer Number is <CustomerNum>
+    Then Get the Customer Name from the refund screen
+    Then Add the refund reason in the free text more than fifty characters - alphabetic
+    And Click the payment type as Cash
+    And Verify the refunded screen
+    Then Click the done button
+    When User verify the corresponding check in the refund tabs
+    And Click the Logoff button
+    Examples:
+      | CustomerNum |
+      | 123456      |
+
+  Scenario: Verify able to add the new customer under Customer - refund all
+    Given Login with the valid credentials
+    And Add multiple standard item
+    And Get the Check number from the retail screen
+    Then Complete the payment using fast cash button
+    Then Click the sale history
+    And select the required check
+    And click the return button
+    And click the Refund all button
+    And Refund screen should be displayed
+    And Click the Add customer button in ordering screen
+    Then Add customer popup is open
+    When Add the customer Mobile number
+    And click the Add customer
+    Then Customer Profile screen is open to add the new customer details
+    And Enter the First Name
+    Then Gets the name from the First Name field
+    And Click the save button in customer profile window
+    Then Get the Customer Name from the refund screen
+    Then Add the refund reason in the free text more than fifty characters - alphabetic
+    And Click the payment type as Cash
+    And Verify the refunded screen
+    Then Click the done button
+    When User verify the corresponding check in the refunded tabs
+    And Click the Logoff button
+
+  Scenario Outline: Verify able to remove the existing customer under Customer - refund all
+    Given Login with the valid credentials
+    And Add multiple standard item
+    And Get the Check number from the retail screen
+    Then Complete the payment using fast cash button
+    Then Click the sale history
+    And select the required check
+    And click the return button
+    Then Add the customer and the Customer Number is <CustomerNum>
+    Then Get the Customer Name from the retail screen
+    And click the Refund all button
+    And Refund screen should be displayed
+    Then Verify the Customer name in the Refund screen
+    And Click the remove button of Customer
+    Then Add the refund reason in the free text
+    And Click the payment type as Cash
+    And Verify the refunded screen
+    Then Click the done button
+    When Verify the check no is changed in the Refunded tab
+    And Click the Logoff button
+    Examples:
+      | CustomerNum |
+      | 123456      |
+
+  Scenario Outline: Verify close icon is present in the Refund screen - refund all
+    Given Login with the valid credentials
+    And Add multiple standard item
+    And Get the Check number from the retail screen
+    Then Complete the payment using fast cash button
+    Then Click the sale history
+    And select the required check
+    And click the return button
+    Then Add the customer and the Customer Number is <CustomerNum>
+    Then Get the Customer Name from the retail screen
+    And click the Refund all button
+    And Refund screen should be displayed
+    Then Click the close button
+    And Refund screen should not be displayed
+    And Verify the added customer is displayed in ordering screen
+    Then click the Refund all button
+    Then Verify the Customer name in the Refund screen
+    Then Add the refund reason in the free text more than fifty characters - alphabetic
+    And Click the payment type as Cash
+    And Verify the refunded screen
+    Then Click the done button
+    When User verify the corresponding check in the refund tabs
+    And Click the Logoff button
+    Examples:
+      | CustomerNum |
+      | 123456      |

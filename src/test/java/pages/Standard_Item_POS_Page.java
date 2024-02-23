@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
+import utility.Utility;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -65,6 +66,52 @@ public class Standard_Item_POS_Page extends Appium_Base_Class{
 
 	@AndroidFindBy(xpath = "//*[contains(@text,'Back')]")
 	WebElement Payment_Screen_Back_Btn;
+
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Refund']")
+	WebElement Refund_Refund_Head;
+
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Refund Reasons']")
+	WebElement Refund_Refund_Reasons;
+
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Refund Amount']")
+	WebElement Refund_Refund_Amount;
+
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Customer']")
+	WebElement Refund_Refund_Customer;
+
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Return By']")
+	WebElement Refund_Refund_ReturnBy;
+
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Free text']")
+	WebElement Refund_Refund_FreeText;
+
+	@AndroidFindBy(xpath = "//android.app.Dialog[@resource-id='refund-retail']/android.view.View[2]/android.view.View[12]/android.view.View[2]/android.widget.EditText[@text]")
+	WebElement Refund_Refund_Amount1;
+
+	@AndroidFindBy(xpath = "//*[contains(@text,'Remove')]")
+	WebElement Refund_Refund_Remove;
+
+	@AndroidFindBy(xpath = "//*[contains(@text,'REFUND COMPLETED FOR:')]")
+	WebElement Refund_Refund_Completed_For;
+
+	@AndroidFindBy(xpath = "//*[contains(@text,'REFUNDED')]")
+	WebElement Refund_Refunded;
+
+	@AndroidFindBy(xpath = "//*[contains(@text,'Subtotal')]")
+	WebElement Refund_Subtotal;
+
+	@AndroidFindBy(xpath = "//*[contains(@text,'Tax')]")
+	WebElement Refund_Tax;
+
+	@AndroidFindBy(xpath = "//*[contains(@text,'Total')]")
+	WebElement Refund_Total;
+
+	@AndroidFindBy(xpath = "//*[contains(@text,'Print Receipt')]")
+	WebElement Refund_Print_Receipt;
+
+	public WebElement getRefund_Refund_Remove(){
+		return Refund_Refund_Remove;
+	}
 
 	public WebElement getPayment_Screen_CashBtn() {
 		return Payment_Screen_Cash_Btn;
@@ -144,7 +191,7 @@ public class Standard_Item_POS_Page extends Appium_Base_Class{
 
 
 
-	@AndroidFindBy(xpath = "//*[@text='Receipt No']/../android.widget.EditText")
+	@AndroidFindBy(xpath = "//*[@text='Check No']/../android.widget.EditText")
 	WebElement AllOrders_Search_Fld;
 
 	public WebElement getAllOrders_Search_Fld() {
@@ -166,8 +213,29 @@ public class Standard_Item_POS_Page extends Appium_Base_Class{
 	@AndroidFindBy(xpath = "//*[@text='Refund All']")
 	WebElement AllOrders_Refund_All_Btn;
 
-	@AndroidFindBy(xpath = "//*[@text='Refund Items']")
+	@AndroidFindBy(xpath = "//*[contains(@text,'Refund Items') and @enabled='true']")
 	WebElement AllOrders_Refund_Items_Btn;
+
+	@AndroidFindBy(xpath = "//*[contains(@text,'Refund Items') and @enabled='false']")
+	WebElement AllOrders_Refund_Items_Btn_Disabled;
+
+	public void verifyTheRetailItemDisabled(){
+		if(AllOrders_Refund_Items_Btn_Disabled.isDisplayed()){
+			test.log(LogStatus.PASS,"Refund Items displayed and it is disabled");
+		}else{
+			test.log(LogStatus.FAIL,"Refund Items displayed and it is enabled");
+			ut.FailedCaptureScreenshotAsBASE64(driver,test);
+		}
+	}
+
+	public void verifyTheRetailItemEnabled(){
+		if(AllOrders_Refund_Items_Btn.isDisplayed()){
+			test.log(LogStatus.PASS,"Refund Items displayed and it is enabled after the retail item selected");
+		}else{
+			test.log(LogStatus.FAIL,"Refund Items displayed and it is disabled after the retail item selected");
+			ut.FailedCaptureScreenshotAsBASE64(driver,test);
+		}
+	}
 
 	@AndroidFindBy(xpath = "//*[@text='Exchange']")
 	WebElement AllOrders_Exchange_Btn;
@@ -177,7 +245,7 @@ public class Standard_Item_POS_Page extends Appium_Base_Class{
 
 
 
-	@AndroidFindBy(xpath = "(//android.view.View/android.view.View[7]/android.widget.Button/../..)[1]")
+	@AndroidFindBy(xpath = "//android.widget.GridView[@resource-id='checkTables']/android.view.View[2]/android.view.View/android.view.View/android.view.View[1]")
 	WebElement FirstCheck_InTheClosedTab;
 
 	@AndroidFindBy(xpath = "(//android.widget.GridView/android.view.View[2]//android.view.View[6]/..)[1]")
@@ -193,12 +261,61 @@ public class Standard_Item_POS_Page extends Appium_Base_Class{
 		ReasonTextBox.sendKeys("Refund reason : automation testing");
 	}
 
-	public void enterTheVoidReasonTextBox1() throws InterruptedException {
+	public void enterTheRefundReasonTextBox_withAlphabetic() throws InterruptedException {
 		//enter the text
 		ReasonTextBox.clear();
-		send_data(ReasonTextBox, RandomStringUtils.randomAlphabetic(30));
+		send_data(ReasonTextBox, RandomStringUtils.randomAlphabetic(60));
 
 		Thread.sleep(500);
+		Refund_Refund_Reasons.click();
+		Thread.sleep(500);
+
+		String s = ReasonTextBox.getText();
+
+		if(s.length() == 60){
+			test.log(LogStatus.FAIL,"Refund reason text box accept more than 50 characters");
+			ut.FailedCaptureScreenshotAsBASE64(driver,test);
+		}else if(s.length() == 50){
+			test.log(LogStatus.PASS,"Refund reason text box accept only 50 characters");
+		}
+	}
+
+	public void enterTheRefundReasonTextBox_withAlphaNumeric() throws InterruptedException {
+		//enter the text
+		ReasonTextBox.clear();
+		send_data(ReasonTextBox, RandomStringUtils.randomAlphanumeric(60));
+
+		Thread.sleep(500);
+		Refund_Refund_Reasons.click();
+		Thread.sleep(500);
+
+		String s = ReasonTextBox.getText();
+
+		if(s.length() == 60){
+			test.log(LogStatus.FAIL,"Refund reason text box accept more than 50 characters");
+			ut.FailedCaptureScreenshotAsBASE64(driver,test);
+		}else if(s.length() == 50){
+			test.log(LogStatus.PASS,"Refund reason text box accept only 50 characters");
+		}
+	}
+
+	public void enterTheRefundReasonTextBox_withNumeric() throws InterruptedException {
+		//enter the text
+		ReasonTextBox.clear();
+		send_data(ReasonTextBox, RandomStringUtils.randomNumeric(60));
+
+		Thread.sleep(500);
+		Refund_Refund_Reasons.click();
+		Thread.sleep(500);
+
+		String s = ReasonTextBox.getText();
+
+		if(s.length() == 60){
+			test.log(LogStatus.FAIL,"Refund reason text box accept more than 50 characters");
+			ut.FailedCaptureScreenshotAsBASE64(driver,test);
+		}else if(s.length() == 50){
+			test.log(LogStatus.PASS,"Refund reason text box accept only 50 characters");
+		}
 	}
 
 	public void enterTheVoidReasonTextBox() throws InterruptedException {
@@ -209,8 +326,10 @@ public class Standard_Item_POS_Page extends Appium_Base_Class{
 
 		if(s.length() == 60){
 			test.log(LogStatus.FAIL,"Reason text box accept more than 50 characters");
+			ut.FailedCaptureScreenshotAsBASE64(driver,test);
 		}else if(s.length() == 50){
 			test.log(LogStatus.PASS,"Reason text box accept only 50 characters");
+			ut.PassedCaptureScreenshotAsBASE64(driver,test);
 		}
 
 		Thread.sleep(500);
@@ -376,6 +495,50 @@ public class Standard_Item_POS_Page extends Appium_Base_Class{
 		click_Ele(getAllOrders_Exchange_Btn());
 	}
 
+	public void check_The_Closed_Check(String CheckNo) throws InterruptedException {
+		Thread.sleep(2000);
+		//clear the search field
+		ClearData_inputBOX(getAllOrders_Search_Fld());
+
+		Thread.sleep(500);
+
+		//enter the check number
+		send_data(getAllOrders_Search_Fld(), CheckNo);
+
+		Thread.sleep(2000);
+		//Check whether the check number is available or not
+		try {
+			if(driver.findElement(By.xpath("//android.widget.GridView[@resource-id='checkTables']//android.view.View[contains(@text,'"+CheckNo+"')]")).isDisplayed()) {
+				test.log(LogStatus.PASS, "The required check number is available");
+			}
+		}catch(Exception ds) {
+			test.log(LogStatus.FAIL, "The required check number is not available");
+		}
+	}
+
+	public void check_The_Closed_Check1(String CheckNo) throws InterruptedException {
+		Thread.sleep(2000);
+		//clear the search field
+		ClearData_inputBOX(getAllOrders_Search_Fld());
+
+		Thread.sleep(500);
+
+		//enter the check number
+		send_data(getAllOrders_Search_Fld(), CheckNo);
+
+		Thread.sleep(5000);
+		//Check whether the check number is available or not
+		try {
+			if(driver.findElement(By.xpath("//android.widget.GridView[@resource-id='checkTables']//android.view.View[contains(@text,'"+CheckNo+"')]")).isDisplayed()) {
+				test.log(LogStatus.FAIL, "The required check number is available");
+				ut.FailedCaptureScreenshotAsBASE64(driver,test);
+			}
+		}catch(Exception ds) {
+			test.log(LogStatus.PASS, "The required check number is not available");
+			ut.PassedCaptureScreenshotAsBASE64(driver,test);
+		}
+	}
+
 	public void select_The_Closed_Check(String CheckNo) throws InterruptedException {
 //		Thread.sleep(5000);
 		//clear the search field
@@ -461,6 +624,61 @@ public class Standard_Item_POS_Page extends Appium_Base_Class{
 		Thread.sleep(2000);
 	}
 
+	public void Verify_The_Refunded_Check3(String CheckNo,String CustomerName) throws InterruptedException {
+
+		String CheckNo1 = CheckNo.substring(CheckNo.indexOf("-")+1).trim();
+
+		//parse the check number
+		int cknum = Integer.parseInt(CheckNo1);
+
+		cknum = cknum + 1;
+		String cn;
+
+		if(cknum<10){
+			cn = String.valueOf(cknum);
+			cn = "00".concat(cn);
+		}
+		else{
+			cn = String.valueOf(cknum);
+			cn = "0".concat(cn);
+		}
+
+		String[] s = CheckNo.split("-");
+
+		String s1 = s[0];
+
+		//	String s2 = s[1];
+
+		CheckNo = s1.concat("-").concat(cn);
+
+		Thread.sleep(2000);
+		//clear the search field
+		ClearData_inputBOX(getAllOrders_Search_Fld());
+
+		Thread.sleep(500);
+
+		//enter the check number
+		send_data(getAllOrders_Search_Fld(), CheckNo);
+
+		Thread.sleep(2000);
+		//Check whether the check number is available or not
+		try {
+			if(driver.findElement(By.xpath("//*[contains(@text,'"+CheckNo+"')]")).isDisplayed()) {
+				test.log(LogStatus.PASS, "The required(Refunded) check number is available in the Refund tab after completing the Refund");
+			}
+		}catch(Exception ds) {
+			test.log(LogStatus.FAIL, "The required(Refunded) check number is not available in the Refund tab after completing the Refund");
+		}
+
+		checkTheCustomerAvailability1(CustomerName);
+
+		Thread.sleep(1000);
+		//click the retail button from the All orders page
+		click_Ele(AllOrders_Retail_Btn);
+
+		Thread.sleep(2000);
+	}
+
 	public void Verify_The_Refunded_Check1(String CheckNo) throws InterruptedException {
 
 		String CheckNo1 = CheckNo.substring(CheckNo.indexOf("-")+1).trim();
@@ -491,7 +709,7 @@ public class Standard_Item_POS_Page extends Appium_Base_Class{
 
 		Thread.sleep(2000);
 		//clear the search field
-		ClearData_inputBOX(getAllOrders_Search_Fld());
+		getAllOrders_Search_Fld().clear();
 
 		Thread.sleep(500);
 
@@ -1028,127 +1246,6 @@ public class Standard_Item_POS_Page extends Appium_Base_Class{
 		}
 	}
 
-//	@AndroidFindBy(xpath = "//*[@text='Add Customer']")
-//	WebElement OrderScreen_Add_Customer;
-//
-//	public WebElement getOrderScreen_Add_Customer() {
-//		return OrderScreen_Add_Customer;
-//	}
-//
-//	@AndroidFindBy(xpath = "//*[@text='1']")
-//	WebElement Numpad1;
-//
-//	public WebElement getNumpad1() {
-//		return Numpad1;
-//	}
-//
-//	@AndroidFindBy(xpath = "//*[@text='2']")
-//	WebElement OrderScreen_Add_Customer;
-//
-//	public WebElement getOrderScreen_Add_Customer() {
-//		return OrderScreen_Add_Customer;
-//	}
-//
-//	@AndroidFindBy(xpath = "//*[@text='3']")
-//	WebElement OrderScreen_Add_Customer;
-//
-//	public WebElement getOrderScreen_Add_Customer() {
-//		return OrderScreen_Add_Customer;
-//	}
-//
-//	@AndroidFindBy(xpath = "//*[@text='4']")
-//	WebElement OrderScreen_Add_Customer;
-//
-//	public WebElement getOrderScreen_Add_Customer() {
-//		return OrderScreen_Add_Customer;
-//	}
-//
-//	@AndroidFindBy(xpath = "//*[@text='5']")
-//	WebElement OrderScreen_Add_Customer;
-//
-//	public WebElement getOrderScreen_Add_Customer() {
-//		return OrderScreen_Add_Customer;
-//	}
-//
-//	@AndroidFindBy(xpath = "//*[@text='6']")
-//	WebElement OrderScreen_Add_Customer;
-//
-//	public WebElement getOrderScreen_Add_Customer() {
-//		return OrderScreen_Add_Customer;
-//	}
-//
-//	@AndroidFindBy(xpath = "//*[@text='7']")
-//	WebElement OrderScreen_Add_Customer;
-//
-//	public WebElement getOrderScreen_Add_Customer() {
-//		return OrderScreen_Add_Customer;
-//	}
-//
-//	@AndroidFindBy(xpath = "//*[@text='8']")
-//	WebElement OrderScreen_Add_Customer;
-//
-//	public WebElement getOrderScreen_Add_Customer() {
-//		return OrderScreen_Add_Customer;
-//	}
-//
-//	@AndroidFindBy(xpath = "//*[@text='9']")
-//	WebElement OrderScreen_Add_Customer;
-//
-//	public WebElement getOrderScreen_Add_Customer() {
-//		return OrderScreen_Add_Customer;
-//	}
-//
-//	@AndroidFindBy(xpath = "//*[@text='C']")
-//	WebElement OrderScreen_Add_Customer;
-//
-//	public WebElement getOrderScreen_Add_Customer() {
-//		return OrderScreen_Add_Customer;
-//	}
-//
-//	@AndroidFindBy(xpath = "//*[@text='0']")
-//	WebElement OrderScreen_Add_Customer;
-//
-//	public WebElement getOrderScreen_Add_Customer() {
-//		return OrderScreen_Add_Customer;
-//	}
-//
-//	@AndroidFindBy(xpath = "//*[@text='By Phone']")
-//	WebElement OrderScreen_Add_Customer;
-//
-//	public WebElement getOrderScreen_Add_Customer() {
-//		return OrderScreen_Add_Customer;
-//	}
-//
-//	@AndroidFindBy(xpath = "//android.widget.EditText")
-//	WebElement OrderScreen_Add_Customer;
-//
-//	public WebElement getOrderScreen_Add_Customer() {
-//		return OrderScreen_Add_Customer;
-//	}
-//
-//	@AndroidFindBy(xpath = "//android.widget.ListView/android.view.View/android.view.View/android.view.View[1]")
-//	WebElement OrderScreen_Add_Customer;
-//
-//	public WebElement getOrderScreen_Add_Customer() {
-//		return OrderScreen_Add_Customer;
-//	}
-//
-//	@AndroidFindBy(xpath = "//*[@text='Remove']/../../android.view.View[1]")
-//	WebElement OrderScreen_Add_Customer;
-//
-//	public WebElement getOrderScreen_Add_Customer() {
-//		return OrderScreen_Add_Customer;
-//	}
-//
-//
-//	@AndroidFindBy(xpath = "//*[@text='No Previous Order']")
-//	WebElement OrderScreen_Add_Customer;
-//
-//	public WebElement getOrderScreen_Add_Customer() {
-//		return OrderScreen_Add_Customer;
-//	}
-
-
 	@AndroidFindBy(xpath = "//*[contains(@text,'Gift Card')]")
 	WebElement Payment_Screen_GiftCard_Btn;
 
@@ -1343,6 +1440,13 @@ public class Standard_Item_POS_Page extends Appium_Base_Class{
 		click_Ele(getPayment_Screen_CashBtn());
 	}
 
+	public void clickRemoveBtn(){
+		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+
+		//click the remove button
+		click_Ele(getRefund_Refund_Remove());
+	}
+
 	public void clickSendToLayawayBtn() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
 		click_Ele(getLayaway_Payment_Screen_SendToLayaway_Btn());
@@ -1376,11 +1480,50 @@ public class Standard_Item_POS_Page extends Appium_Base_Class{
 
 	public void refundScreenVisibility(){
 		try{
-			if(driver.findElement(By.xpath("//*[contains(@text,'Refund Reasons')]/../android.view.View/android.widget.Button")).isDisplayed()){
+			if(Refund_Refund_Head.isDisplayed()){
 				test.log(LogStatus.PASS,"Refund Screen is displayed after clicking the Refund Items/Refund All button");
 			}
 		}catch (Exception e){
 			test.log(LogStatus.FAIL,"Refund Screen is not displayed after clicking the Refund Items/Refund All button");
+		}
+
+		try{
+			if(Refund_Refund_Reasons.isDisplayed() && Refund_Refund_Amount.isDisplayed() && Refund_Refund_Customer.isDisplayed() && Refund_Refund_ReturnBy.isDisplayed() && Refund_Refund_FreeText.isDisplayed() && Refund_Refund_Amount1.isDisplayed()){
+				test.log(LogStatus.PASS,"Refund Reasons, Refund Amount, Refund Amount Value, Free Text, Customer and Return By fields are displayed in the Refund Screen");
+			}
+		}catch (Exception e){
+			test.log(LogStatus.FAIL,"Refund Reasons, Refund Amount, Refund Amount Value, Free Text, Customer and Return By fields are not displayed in the Refund Screen");
+			ut.FailedCaptureScreenshotAsBASE64(driver,test);
+		}
+	}
+
+	public void refundScreenVisibility1(){
+		try{
+			if(Refund_Refund_Reasons.isDisplayed() && Refund_Refund_Amount.isDisplayed() && Refund_Refund_Customer.isDisplayed() && Refund_Refund_ReturnBy.isDisplayed() && Refund_Refund_FreeText.isDisplayed() && Refund_Refund_Amount1.isDisplayed()){
+				test.log(LogStatus.FAIL,"Refund Reasons, Refund Amount, Refund Amount Value, Free Text, Customer and Return By fields are displayed in the Refund Screen");
+			}
+		}catch (Exception e){
+			test.log(LogStatus.PASS,"Refund Reasons, Refund Amount, Refund Amount Value, Free Text, Customer and Return By fields are not displayed in the Refund Screen");
+			ut.PassedCaptureScreenshotAsBASE64(driver,test);
+		}
+	}
+
+	public void refundScreenVisibility2(){
+		try{
+			if(Refund_Refund_Head.isDisplayed()){
+				test.log(LogStatus.PASS,"Refund Screen is displayed after done the Refund");
+			}
+		}catch (Exception e){
+			test.log(LogStatus.FAIL,"Refund Screen is not displayed after done the Refund");
+		}
+
+		try{
+			if(Refund_Refund_Completed_For.isDisplayed() && Refund_Refunded.isDisplayed() && Refund_Subtotal.isDisplayed() && Refund_Tax.isDisplayed() && Refund_Total.isDisplayed() && Refund_Print_Receipt.isDisplayed()){
+				test.log(LogStatus.PASS,"Refunded Completed For, Refunded Amount, Subtotal, Tax, Total and Print Receipt fields are displayed in the Refunded Screen");
+			}
+		}catch (Exception e){
+			test.log(LogStatus.FAIL,"Refunded Completed For, Refunded Amount, Subtotal, Tax, Total and Print Receipt fields are not displayed in the Refunded Screen");
+			ut.FailedCaptureScreenshotAsBASE64(driver,test);
 		}
 	}
 
@@ -1445,8 +1588,9 @@ public class Standard_Item_POS_Page extends Appium_Base_Class{
 		}
 	}
 
-	public void checkTheCustomerAvailability(String CustomerName){
-		String s = getAllOrders_CustomerName_InExchange_Refund_Popup().getText();
+	public void checkTheCustomerAvailability(String CustomerName) throws Exception {
+		String s = Utility.getProperty("CustomerName");
+//		String s = getAllOrders_CustomerName_InExchange_Refund_Popup().getText();
 		if(s.contains(CustomerName)){
 			test.log(LogStatus.PASS,"The customer is attached with the Exchange Screen");
 		}else{
@@ -1455,11 +1599,25 @@ public class Standard_Item_POS_Page extends Appium_Base_Class{
 	}
 
 	public void checkTheCustomerAvailability1(String CustomerName){
-		String s =  new RetailPOS_Order_Page().getCustomerName();
-		if(s.contains(CustomerName)){
-			test.log(LogStatus.PASS,"The customer is attached with the Exchange Screen");
-		}else{
-			test.log(LogStatus.FAIL,"The customer is not attached with the Exchange Screen");
+		try{
+			String s =  new RetailPOS_Order_Page().getCustomerName_RefundScreen();
+			if(s.contains(CustomerName)){
+				test.log(LogStatus.PASS,"The customer is attached with the Refund Screen");
+			}
+		}
+		catch (Exception s){
+			test.log(LogStatus.FAIL,"The customer is not attached with the Refund Screen");
+		}
+	}
+
+	public void checkTheCustomerAvailability_Refund(String CustomerName){
+
+		try{String s =  new RetailPOS_Order_Page().getCustomerName_Refund();
+			if(s.contains(CustomerName)){
+				test.log(LogStatus.PASS,"The customer is attached with the Refund");
+			}
+		}catch (Exception e){
+			test.log(LogStatus.FAIL,"The customer is not attached with the Refund");
 		}
 	}
 
@@ -1686,6 +1844,7 @@ public class Standard_Item_POS_Page extends Appium_Base_Class{
 
 		Thread.sleep(6000);
 	}
+
 
 
 }

@@ -2,11 +2,11 @@ package steps;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
-import pages.Item_Selection_Page;
-import pages.Park_Sale_And_Retrieve_Sale_Page;
-import pages.Standard_Item_POS_Page;
+import io.cucumber.java.en.When;
+import pages.*;
 
 public class Park_Sale {
+
 
     @Then("Click the park button in ordering screen")
     public void clickTheParkButtonInOrderingScreen() {
@@ -33,10 +33,7 @@ public class Park_Sale {
         new Park_Sale_And_Retrieve_Sale_Page().verifyTheParkBtnInParkSalePopup();
     }
 
-    @And("Enter the reason and click the park button")
-    public void enterTheReasonAndClickTheParkButton() throws InterruptedException {
-        new Park_Sale_And_Retrieve_Sale_Page().enterTheParkSaleReasonAndClickTheParkButton();
-    }
+
 
     @Then("Sale is parked message is displaying {}")
     public void saleIsParkedMessageIsDisplaying(String msg) throws InterruptedException {
@@ -98,4 +95,32 @@ public class Park_Sale {
         new Standard_Item_POS_Page().Cash_Payment_Selection_And_Completed_ViaPaymentScreen1(msg);
     }
 
+
+    @And("Click the close button of first menu item")
+    public void clickTheCloseButtonOfFirstMenuItem() throws InterruptedException {
+        new Customer_Profile_Page().clickTheCloseBtn();
+    }
+
+    @Then("Enter the partial amount with cash option")
+    public void enterThePartialAmountWithCashOption() throws InterruptedException {
+        new Customer_Profile_Page().clickTheNumber1();
+        new Customer_Profile_Page().clickTheNumber0();
+        new Customer_Profile_Page().clickTheNumber0();
+        new Standard_Item_POS_Page().Cash_Option();
+    }
+
+    @When("Click the Submit button")
+    public void clickTheSubmitButton() {
+        new Customer_Profile_Page().clickTheSubmitBtn();
+    }
+
+    @And("Click the Cash Option")
+    public void clickTheCashOption() throws InterruptedException {
+        new Standard_Item_POS_Page().Cash_Option();
+    }
+
+    @Then("Verify the Please Pay popup")
+    public void verifyThePleasePayPopup() {
+        new RetailPOS_Order_Page().pleasePayPopup();
+    }
 }

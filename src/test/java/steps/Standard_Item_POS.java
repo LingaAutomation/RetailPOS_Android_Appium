@@ -12,7 +12,7 @@ public class Standard_Item_POS {
 //    ExtentReports rep=new DriverManager().getRep();
 //    ExtentTest test= DriverManager.test;
 
-    String CheckNumber, CustomerName, time, date,total,subtotal,dateAndTime,reason;
+    String CheckNumber, CustomerName, time, date,total,subtotal,dateAndTime,reason,firstName;
 
     String totalTax, gratuity, discount, serviceCharge, paidAmount,balanceAmount;
 
@@ -329,8 +329,23 @@ public class Standard_Item_POS {
 
     @When("User verify the corresponding check in the refund tabs")
     public void userVerifyTheCorrespondingCheckInTheRefundTabs() throws InterruptedException {
-        new Standard_Item_POS_Page().Verify_The_Refunded_Check(CheckNumber);
-        new Standard_Item_POS_Page().checkTheCustomerAvailability1(CustomerName);
+        new Standard_Item_POS_Page().Verify_The_Refunded_Check3(CheckNumber, CustomerName);
+    }
+
+    @Then("Gets the name from the First Name field")
+    public void getsTheNameFromTheFirstNameField() {
+        firstName = new Customer_Profile_Page().firstName_CustomerProfileScreen();
+    }
+
+    @When("User verify the corresponding check in the refunded tabs")
+    public void userVerifyTheCorrespondingCheckInTheRefundedTabs() throws InterruptedException {
+        CustomerName = firstName;
+        new Standard_Item_POS_Page().Verify_The_Refunded_Check3(CheckNumber, CustomerName);
+    }
+
+    @Then("Verify the Customer name in the Refund screen")
+    public void verifyTheCustomerNameInTheRefundScreen() {
+        new Standard_Item_POS_Page().checkTheCustomerAvailability_Refund(CustomerName);
     }
 
     @When("Verify the check no is changed in the Refunded tab")
@@ -404,14 +419,26 @@ public class Standard_Item_POS {
     }
 
     @Then("Exchange popup is open with same customer name")
-    public void exchangePopupIsOpenWithSameCustomerName() throws InterruptedException {
+    public void exchangePopupIsOpenWithSameCustomerName() throws Exception {
         new Standard_Item_POS_Page().Select_The_Exchange_Reasons();
         new Standard_Item_POS_Page().checkTheCustomerAvailability(CustomerName);
     }
 
+    @And("Click the retail item And Click the Exchange button")
+    public void clickTheRetailItemAndClickTheExchangeButton() throws Throwable {
+//        new Item_Selection_Page().Single_Random_Menu_Selection_Standard1();
+        new Item_Selection_Page().multipleMenu_Selection_Random();
+        Thread.sleep(500);
+//        CheckNumber = new RetailPOS_Order_Page().get_Check_NO();
+        new Standard_Item_POS_Page().Click_ExchangeBtn();
+    }
+
     @And("verify the Exchange check is available in Exchange tab in sale history")
     public void verifyTheExchangeCheckIsAvailableInExchangeTabInSaleHistory() throws Throwable {
-        new Standard_Item_POS_Page().Verify_The_Exchanged_Check(CheckNumber);
+        Thread.sleep(2000);
+//        new Standard_Item_POS_Page().Verify_The_Exchanged_Check(CheckNumber);
+        new Standard_Item_POS_Page().Verify_The_Refunded_Check1(CheckNumber);
+        CheckNumber = new Standard_Item_POS_Page().Verify_The_Refunded_Check2(CheckNumber);
     }
 
     @And("Exchanged records should be displayed for the current data default")
@@ -426,7 +453,7 @@ public class Standard_Item_POS {
 
     @And("select the same check")
     public void selectTheSameCheck() throws InterruptedException {
-        new Park_Sale_And_Retrieve_Sale_Page().selectTheParkedSale(CheckNumber);
+        new Park_Sale_And_Retrieve_Sale_Page().selectTheParkedSale(CheckNumber,reason);
     }
 
     @Then("In that check will be reopen in ordering screen")
@@ -611,6 +638,11 @@ public class Standard_Item_POS {
         new Standard_Item_POS_Page().Verify_The_Check_And_Customer(CheckNumber);
     }
 
+    @And("Enter the reason and click the park button")
+    public void enterTheReasonAndClickTheParkButton() throws InterruptedException {
+        reason = new Park_Sale_And_Retrieve_Sale_Page().enterTheParkSaleReasonAndClickTheParkButton();
+    }
+
     @Then("Verify the void check in the void tab")
     public void verifyTheVoidCheckInTheVoidTab() throws Throwable {
         new Standard_Item_POS_Page().Verify_The_Void_Check(CheckNumber);
@@ -782,6 +814,46 @@ public class Standard_Item_POS {
     public void viewTheReceiptTotalColumnInWhichTotalOfTheExchangedReceiptIsDisplayedInExchangedSaleHistoryTab() throws InterruptedException {
         total = total.replaceAll("[a-zA-Z $ ₹ £ , :]", "").substring(1);
         new Standard_Item_POS_Page().selectTheCheckFromClosedTab_WithCustomer(CheckNumber,total);
+    }
+
+    @Then("Delete first item from the ordered list")
+    public void deleteFirstItemFromTheOrderedList() throws Exception {
+        new Sale_History_Page().clickTheCloseButtonOfMenuItem();
+    }
+
+    @Then("Verify the check number in the retail screen while doing Exchange")
+    public void verifyTheCheckNumberInTheRetailScreenWhileDoingExchange() {
+        new RetailPOS_Order_Page().verifyTheCheckNumber_RetailScreenWhenDoingRefund(CheckNumber);
+    }
+
+    @When("verify the required check")
+    public void verifyTheRequiredCheck() throws InterruptedException {
+        new Standard_Item_POS_Page().check_The_Closed_Check(CheckNumber);
+    }
+
+    @When("verify the required checks")
+    public void verifyTheRequiredChecks() throws InterruptedException {
+        new Standard_Item_POS_Page().check_The_Closed_Check1(CheckNumber);
+    }
+
+    @And("select the same checks")
+    public void selectTheSameChecks() throws InterruptedException {
+        new Park_Sale_And_Retrieve_Sale_Page().selectTheParkedSale1(CheckNumber,reason);
+    }
+
+    @Then("Get the Customer Name from the refund screen")
+    public void getTheCustomerNameFromTheRefundScreen() {
+        CustomerName = new RetailPOS_Order_Page().getCustomerName_Refund();
+    }
+
+    @And("Click the Change Variant option")
+    public void clickTheChangeVariantOption() {
+        new RetailPOS_Order_Page().clickTheChangeVariantOption();
+    }
+
+    @Then("Change the required Variants option")
+    public void changeTheRequiredVariantsOption() throws Throwable {
+        new Appium_Base_Class().changeVariant();
     }
 }
 
