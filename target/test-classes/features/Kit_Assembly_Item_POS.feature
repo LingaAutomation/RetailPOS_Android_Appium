@@ -1,5 +1,5 @@
-@KitAssembly_Item
-Feature: Android - Retail POS - Variant Item
+@KitAssembly_Item  @Reg
+Feature: Kit Assembly - future file
 
   Scenario: Order the Kit Assembly Item and complete the payment with Cash
     Given Login with the valid credentials
@@ -90,7 +90,7 @@ Feature: Android - Retail POS - Variant Item
     Then Order the Multiple Kit Assembly item for the check based tax
     And Complete the payment using fast cash button
     And Click the Logoff button
-
+@err
   Scenario: Verify able to change the variant by clicking change variant
     Given Login with the valid credentials
     Then Order the Kit Assembly item from the retail Screen
@@ -108,3 +108,16 @@ Feature: Android - Retail POS - Variant Item
     And select the required check
     Then Click the retail button
     And Click the Logoff button
+
+    Scenario Outline: Verify the Change Variant option if sub attributes of variant item is selected in BO
+      Given Login with the valid credentials
+      Then Order the given retail item <Retail_Item> from the Kit Assembly
+      And Get the Change Variant option from the retail screen
+      Then Click all the Change Variant options and click done
+      And Verify all the Change variant options are available or not in the retail screen
+      And Complete the payment using fast cash button
+      And Click the Logoff button
+      Examples:
+        | Retail_Item          |
+        | Kit Accessible Item5 |
+

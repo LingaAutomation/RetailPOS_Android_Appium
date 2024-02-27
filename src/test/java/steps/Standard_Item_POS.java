@@ -14,7 +14,7 @@ public class Standard_Item_POS {
 
     String CheckNumber, CustomerName, time, date,total,subtotal,dateAndTime,reason,firstName;
 
-    String totalTax, gratuity, discount, serviceCharge, paidAmount,balanceAmount;
+    String totalTax, gratuity, discount, serviceCharge, paidAmount,balanceAmount,changeVariant;
 
     @Given("^Sign In with the valid credentials$")
     public void signInWithTheValidCredentials() throws Throwable {
@@ -248,6 +248,26 @@ public class Standard_Item_POS {
         new Standard_Item_POS_Page().Cash_Payment_Selection_And_Completed();
     }
 
+    @Then("Click the sale history")
+    public void clickTheSaleHistory() throws Throwable {
+        new Standard_Item_POS_Page().Click_Sale_HistoryBtn();
+    }
+
+    @Then("Screen will navigate to Receipt-Check Status screen")
+    public void screenWillNavigateToReceiptCheckStatusScreen() throws Exception {
+        new Sale_History_Page().verifyAll_Orders_All_Orders_Text();
+    }
+
+    @And("Columns such as Customer, Receipt No, Date, Time, Cashier, Total")
+    public void columnsSuchAsCustomerReceiptNoDateTimeCashierTotal() throws Exception {
+        new Sale_History_Page().verifyAll_Orders_Customer_Column_Text();
+        new Sale_History_Page().verifyAll_Orders_Receipt_No_Column_Text();
+        new Sale_History_Page().verifyAll_Orders_Date_Column_Text();
+        new Sale_History_Page().verifyAll_Orders_Time_Column_Text();
+        new Sale_History_Page().verifyAll_Orders_Cashier_Column_Text();
+        new Sale_History_Page().verifyAll_Orders_Total_Column_Text();
+    }
+
     @And("Complete the payment using gift card button and the card number is {}")
     public void completeThePaymentUsingGiftCardButtonAndTheCardNumberIs(String cardNum) throws Throwable {
         new Standard_Item_POS_Page().GiftCard_Payment_Selection_And_Completed_ViaPaymentScreen(cardNum);
@@ -260,7 +280,7 @@ public class Standard_Item_POS {
 
     @Then("Order the Standard Item from the retail Screen Single item")
     public void orderTheStandardItemFromTheRetailScreenSingleItem() throws Throwable {
-        new Item_Selection_Page().Single_Random_Menu_Selection();
+        new Item_Selection_Page().Single_Random_Menu_Selection_Standard1();
     }
 
     @And("verify the quantity of the menu item")
@@ -302,6 +322,11 @@ public class Standard_Item_POS {
     @Then("Order the Kit Assembly from the retail Screen Single item")
     public void orderTheKitAssemblyFromTheRetailScreenSingleItem() throws Throwable {
         new Item_Selection_Page().Single_Random_Menu_SelectionFor_KitAssembly();
+    }
+
+    @Then("Click the retail button")
+    public void clickTheRetailButton() throws InterruptedException {
+        new Standard_Item_POS_Page().ClickTheRetailBtn();
     }
 
     @And("select the required check")
@@ -360,7 +385,7 @@ public class Standard_Item_POS {
 
     @And("Verify all the subtotal, tax and total in the retail screen")
     public void verifyAllTheSubtotalTaxAndTotalInTheRetailScreen() throws Throwable {
-        new RetailPOS_Order_Page().Check_Values_Validations();
+        new RetailPOS_Order_Page().Check_Values_Validations1();
     }
 
     @Then("Order the standard item which have the markup percentage and the item is {}")
@@ -847,13 +872,100 @@ public class Standard_Item_POS {
     }
 
     @And("Click the Change Variant option")
-    public void clickTheChangeVariantOption() {
+    public void clickTheChangeVariantOption() throws Throwable {
         new RetailPOS_Order_Page().clickTheChangeVariantOption();
     }
 
     @Then("Change the required Variants option")
     public void changeTheRequiredVariantsOption() throws Throwable {
         new Appium_Base_Class().changeVariant();
+    }
+
+    @Then("Order the given retail item {} from the Kit Assembly")
+    public void orderTheGivenRetailItemFromTheKitAssembly(String item) throws Throwable {
+        new Item_Selection_Page().particular_Kit_Accessible(item);
+    }
+
+    @And("Get the Change Variant option from the retail screen")
+    public void getTheChangeVariantOptionFromTheRetailScreen() {
+        changeVariant = new RetailPOS_Order_Page().getTheSizeOfChangeVariant();
+    }
+
+    @Then("Click all the Change Variant options and click done")
+    public void clickAllTheChangeVariantOptionsAndClickDone() throws InterruptedException {
+        new RetailPOS_Order_Page().clickTheChangeVariantAndDone(changeVariant);
+    }
+
+
+    @And("Verify all the Change variant options are available or not in the retail screen")
+    public void verifyAllTheChangeVariantOptionsAreAvailableOrNotInTheRetailScreen() {
+        new RetailPOS_Order_Page().verifyTheChangeVariantCount(changeVariant);
+    }
+
+    @And("Click the number from retail screen")
+    public void clickTheNumberFromRetailScreen() throws InterruptedException {
+        new RetailPOS_Order_Page().clickTheNumber();
+    }
+
+    @And("Verify the SKU Code for all the listed item")
+    public void verifyTheSKUCodeForAllTheListedItem() throws Exception {
+        new Sale_History_Page().verifyTheSKUCode();
+    }
+
+    @And("verify the quantity of the menu items")
+    public void verifyTheQuantityOfTheMenuItems() throws Throwable {
+        new RetailPOS_Order_Page().Check_Quantity_Validations1();
+    }
+
+    @And("Click the Back button from the Payment Screen")
+    public void clickTheBackButtonFromThePaymentScreen() throws InterruptedException {
+        new Standard_Item_POS_Page().Back_Option();
+    }
+
+    @Then("Click the {string} discount and warning {string} should be displayed")
+    public void clickTheDiscountAndWarningShouldBeDisplayed(String discount, String msg) throws InterruptedException {
+        new Discount_Selection_Page().clickTheRequiredDiscount1(discount, msg);
+    }
+
+    @Then("Check the Till Management screen is displayed or not")
+    public void checkTheTillManagementScreenIsDisplayedOrNot() {
+        new Operation_Page().verifyTheTillManagementText();
+    }
+
+    @And("Check the Till option is displayed or not and it should selected by default")
+    public void checkTheTillOptionIsDisplayedOrNotAndItShouldSelectedByDefault() {
+        new Operation_Page().verifyTheTillOptionWithEnabled();
+    }
+
+    @And("Check the Set Till option is displayed or not and it should selected by default")
+    public void checkTheSetTillOptionIsDisplayedOrNotAndItShouldSelectedByDefault() {
+        new Operation_Page().verifyTheSetTillOptionWithEnabled();
+    }
+
+    @Then("Check the Active Till option is displayed or not")
+    public void checkTheActiveTillOptionIsDisplayedOrNot() {
+        new Operation_Page().verifyTheActiveTillOption();
+    }
+
+    @And("Check the Held Till option is displayed or not")
+    public void checkTheHeldTillOptionIsDisplayedOrNot() {
+        new Operation_Page().verifyTheHeldTillOption();
+    }
+
+    @Then("Check the Closed Till option is displayed or not")
+    public void checkTheClosedTillOptionIsDisplayedOrNot() {
+        new Operation_Page().verifyTheClosedTillOption();
+    }
+
+    @Then("Check the Cash Drop option is displayed or not")
+    public void checkTheCashDropOptionIsDisplayedOrNot() {
+        new Operation_Page().verifyTheCashDropOption();
+    }
+
+    @And("Click the Reports option and it should be selected")
+    public void clickTheReportsOptionAndItShouldBeSelected() {
+        new Operation_Page().clickTheReportsOption();
+        new Operation_Page().verifyTheReportsOptionWithEnabled();
     }
 }
 

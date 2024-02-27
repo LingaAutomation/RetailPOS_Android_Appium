@@ -629,22 +629,22 @@ Feature: Refund Retail
 
 
   #Unable to do the exchange as of now - unable to select the menu item while doing the exchange - 29-12-2023
-  Scenario: verify the refund check along with exchange
-    Given Login with the valid credentials
-    And Order the Standard Item from the retail Screen
-    And Get the Check number from the retail screen
-    Then Complete the payment using fast cash button
-    Then Click the sale history
-    And select the required check
-    And click the return button
-    And Click the Exchange button and add more retail item
-    And Click the retail item And Click the Exchange button
-    Then Select the Exchange reason
-    And Click the payment type as Cash
-    And Click the Done button in Exchange popup
-    And verify the Exchange check is available in Exchange tab in sale history
-    Then Click the retail button
-    And Click the Logoff button
+#  Scenario: verify the refund check along with exchange
+#    Given Login with the valid credentials
+#    And Order the Standard Item from the retail Screen
+#    And Get the Check number from the retail screen
+#    Then Complete the payment using fast cash button
+#    Then Click the sale history
+#    And select the required check
+#    And click the return button
+#    And Click the Exchange button and add more retail item
+#    And Click the retail item And Click the Exchange button
+#    Then Select the Exchange reason
+#    And Click the payment type as Cash
+#    And Click the Done button in Exchange popup
+#    And verify the Exchange check is available in Exchange tab in sale history
+#    Then Click the retail button
+#    And Click the Logoff button
 
   Scenario Outline: verify the refund check with minimum 100 retail item in refund tab with Cash Payment
     Given Login with the valid credentials

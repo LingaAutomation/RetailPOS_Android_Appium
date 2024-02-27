@@ -1,4 +1,4 @@
-@Retrieve
+@Retrieve  @Reg
 Feature:  Retrieve
 
   Scenario Outline: Retrieve button

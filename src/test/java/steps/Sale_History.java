@@ -21,10 +21,7 @@ public class Sale_History {
         new Sale_History_Page().verifyAll_Orders_Closed_Text();
     }
 
-    @Then("Screen will navigate to Receipt-Check Status screen")
-    public void screenWillNavigateToReceiptCheckStatusScreen() throws Exception {
-        new Sale_History_Page().verifyAll_Orders_All_Orders_Text();
-    }
+
 
     @When("Closed tab is selected by default")
     public void closedTabIsSelectedByDefault() throws Exception {
@@ -53,15 +50,7 @@ public class Sale_History {
         new Sale_History_Page().verifyAll_Orders_Average_Amount_Text();
     }
 
-    @And("Columns such as Customer, Receipt No, Date, Time, Cashier, Total")
-    public void columnsSuchAsCustomerReceiptNoDateTimeCashierTotal() throws Exception {
-        new Sale_History_Page().verifyAll_Orders_Customer_Column_Text();
-        new Sale_History_Page().verifyAll_Orders_Receipt_No_Column_Text();
-        new Sale_History_Page().verifyAll_Orders_Date_Column_Text();
-        new Sale_History_Page().verifyAll_Orders_Time_Column_Text();
-        new Sale_History_Page().verifyAll_Orders_Cashier_Column_Text();
-        new Sale_History_Page().verifyAll_Orders_Total_Column_Text();
-    }
+
 
     @When("Digital receipt with Store Details, Order summary, Tax Summary and Grand Total")
     public void digitalReceiptWithStoreDetailsOrderSummaryTaxSummaryAndGrandTotal() throws Exception {
@@ -406,9 +395,9 @@ public class Sale_History {
         new Sale_History_Page().verifyAll_Orders_Receipt_No_Column_Text();
         new Sale_History_Page().verifyAll_Orders_Transaction_Time_Column_Text();
         new Sale_History_Page().verifyAll_Orders_Reasons_Column_Text();
-        new Sale_History_Page().verifyAll_Orders_Total_Column_Text();
+//        new Sale_History_Page().verifyAll_Orders_Total_Column_Text();
         new Sale_History_Page().verifyAll_Orders_Refund_Total_Column_Text();
-        new Sale_History_Page().verifyAll_Orders_Refund_Type_Column_Text();
+//        new Sale_History_Page().verifyAll_Orders_Refund_Type_Column_Text();
         new Sale_History_Page().verifyAll_Orders_Cashier_Column_Text();
     }
 

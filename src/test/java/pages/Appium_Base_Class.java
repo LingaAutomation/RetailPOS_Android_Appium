@@ -136,6 +136,7 @@ public class Appium_Base_Class {
 				click_Ele((WebElement) driver.findElement(By.xpath("//*[contains(@text,'DONE')]")));
 			}
 		} catch (Exception ignored) {
+			click_Ele((WebElement) driver.findElement(By.xpath("//*[contains(@text,'DONE')]")));
 		}
 
 	}
@@ -289,6 +290,34 @@ public class Appium_Base_Class {
 //		click_Ele((WebElement) driver.findElement(By.xpath("//*[@text='CANCEL']")));
 	}
 
+
+	public void particular_KitAssembly(String element) throws Throwable {
+
+		// Selecting random value
+		click_Ele(driver.findElement(By.xpath(element)));Thread.sleep(1000);
+		System.out.println("Menu item clicked");
+
+		try {
+			if (driver.findElement(By.xpath("(//android.view.View[2]/android.view.View/android.view.View/android.view.View)//android.widget.Button/..")).isDisplayed() && driver.findElement(By.xpath("//*[contains(@text,'SELECT OPTIONS')]")).isDisplayed()) {
+				List<?> ListOfAttributes = driver.findElements(By.xpath("(//android.view.View[2]/android.view.View/android.view.View/android.view.View)//android.widget.Button/.."));
+				System.out.println("Arributes List Size : "+ListOfAttributes.size());
+
+				for (int i = 1; i <= ListOfAttributes.size(); i++) {
+
+					List<?> ListOfAttributesmapped = driver.findElements(By.xpath("(//android.view.View[2]/android.view.View/android.view.View/android.view.View)["+i+"]//android.widget.Button"));
+
+					System.out.println("Lists of Mapped"+ListOfAttributesmapped.size());
+					int randomNumber1 = ThreadLocalRandom.current().nextInt(0, ListOfAttributesmapped.size()-1);
+
+					click_Ele((WebElement) ListOfAttributesmapped.get(randomNumber1));
+				}
+				Thread.sleep(2000);
+				click_Ele((WebElement) driver.findElement(By.xpath("//*[contains(@text,'DONE')]")));
+			}
+		} catch (Exception ignored) {
+			click_Ele((WebElement) driver.findElement(By.xpath("//*[contains(@text,'DONE')]")));
+		}
+	}
 
 
 
@@ -519,6 +548,79 @@ public class Appium_Base_Class {
 		  return Total_Calculated_Total_Value;
 
 	}
+
+	public Double Get_Total_Amount_For_Every_MenuItem1()
+			throws Throwable {
+		double total = 0.0;
+		List<?> s = driver.findElements(By.xpath("//android.view.View[@resource-id='react-ordder-list-render']/android.view.View"));
+
+		int sa = s.size();
+		List<Double> tot = new ArrayList<>();
+
+		String t = Utility.getProperty("Exclusive_Tax_Percentage");
+
+		// for loop for clicking on every time in the list
+		for (int i = 1; i <= sa;  i++) {
+
+			String menu = driver.findElement(By.xpath("//android.view.View[@resource-id='react-ordder-list-render']/android.view.View["+i+"]/android.widget.TextView[7]")).getText();
+			double tax = Double.parseDouble(t);
+			tax= tax/100;
+
+			double sd = Double.parseDouble(menu);
+
+			double tot1 = tax * sd;
+
+			tot1 = tot1 + sd;
+			tot1 = Math.round(tot1*100.00)/100.00;
+
+			tot.add(tot1);
+
+		}			System.out.println("Total value(Array) is : "+tot);
+
+
+		for (Double aDouble : tot) {
+			total += aDouble;
+			total = Math.round(total*100.00)/100.00;
+//			System.out.println("Total value is : "+total);
+		}
+
+		return total;
+	}
+
+	public Double Get_Price_Amount_For_Every_MenuItem1()
+			throws Throwable {
+		double subTotal = 0.0;
+		List<?> s = driver.findElements(By.xpath("//android.view.View[@resource-id='react-ordder-list-render']/android.view.View"));
+
+		int sa = s.size();
+		List<Double> tot = new ArrayList<>();
+
+		// for loop for clicking on every time in the list
+		for (int i = 1; i <= sa;  i++) {
+
+			String menu = driver.findElement(By.xpath("//android.view.View[@resource-id='react-ordder-list-render']/android.view.View["+i+"]/android.widget.TextView[5]")).getText();
+			String quan = driver.findElement(By.xpath("//android.view.View[@resource-id='react-ordder-list-render']/android.view.View["+i+"]/android.widget.TextView[4]")).getText();
+			double quan1 = Double.parseDouble(quan);
+			double sd = Double.parseDouble(menu);
+
+			double SubTot1 = quan1 * sd;
+			SubTot1 = Math.round(SubTot1*100.00)/100.00;
+
+			tot.add(SubTot1);
+//			subTotal = Math.round(subTotal*100.00)/100.00;
+		}System.out.println("Sub Total value(Array) is : "+tot);
+
+		for (Double aDouble : tot) {
+			subTotal += aDouble;
+			subTotal = Math.round(subTotal*100.00)/100.00;
+//			System.out.println("Sub Total value is : "+subTotal);
+
+		}
+
+		return subTotal;
+
+	}
+
 
 	public double Get_ItemBasedDisc_Amount_AfterTax_For_Every_MenuItem(AppiumDriver driver, String xpath, String xpath2, String disc)
 			throws Throwable {

@@ -974,6 +974,16 @@ public class Customer_Profile_Page extends Appium_Base_Class{
         click_Ele(getCustomer_Profile_Screen_Mobile_Continue());
     }
 
+    public void verifyTheContinueButton(){
+        try{
+            if(getCustomer_Profile_Screen_Mobile_Continue().isDisplayed()){
+                test.log(LogStatus.PASS,"Continue option is displayed");
+            }
+        }catch (Exception e){
+            test.log(LogStatus.FAIL,"Continue option is not displayed");
+        }
+    }
+
     public void clickTheNumber1(){
         //click the required number
         click_Ele(getSearch_Screen_Number_1());
@@ -1043,7 +1053,20 @@ public class Customer_Profile_Page extends Appium_Base_Class{
         }
     }
 
-
+    public void verifyTheNumpad1(){
+        try{
+            if(getSearch_Screen_Number_0().isDisplayed() && getSearch_Screen_Number_1().isDisplayed()
+                    && getSearch_Screen_Number_2().isDisplayed() && getSearch_Screen_Number_3().isDisplayed()
+                    && getSearch_Screen_Number_4().isDisplayed() && getSearch_Screen_Number_5().isDisplayed()
+                    && getSearch_Screen_Number_6().isDisplayed() && getSearch_Screen_Number_7().isDisplayed()
+                    && getSearch_Screen_Number_8().isDisplayed() && getSearch_Screen_Number_9().isDisplayed()
+                    && getSearch_Screen_Number_C().isDisplayed()){
+                test.log(LogStatus.PASS,"Numpad is available in the till screen");
+            }
+        }catch (Exception e){
+            test.log(LogStatus.FAIL,"Numpad is not available in the till screen");
+        }
+    }
 
     public void clickTheAddCustomerBtn(){
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);

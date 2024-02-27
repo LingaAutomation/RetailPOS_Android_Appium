@@ -1,4 +1,4 @@
-@Customer_Profile
+@Customer_Profile @Reg
 Feature:  Customer Profile Screen
 
  Scenario: Verify able to Add Customer and Search Customer from retail screen

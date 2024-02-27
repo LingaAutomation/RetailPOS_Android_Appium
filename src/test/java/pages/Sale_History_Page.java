@@ -1928,6 +1928,32 @@ public class Sale_History_Page extends Appium_Base_Class{
         }
     }
 
+    public void verifyTheSKUCode(){
+        List<?> s = driver.findElements(By.xpath("//android.view.View[@resource-id='react-ordder-list-render']/android.view.View"));
+
+        int sa = s.size();
+        List<String> menus = new ArrayList<>();
+        List<String> menus1 = new ArrayList<>();
+        // for loop for clicking on every time in the list
+        for (int i = 1; i <= sa;  i++) {
+
+            menus.add("-");
+        }
+        for (int i = 1; i <= sa;  i++) {
+            String me = driver.findElement(By.xpath("//android.view.View[@resource-id='react-ordder-list-render']/android.view.View["+i+"]/android.widget.TextView[3]")).getText();
+            menus1.add(me);
+        }
+
+
+        String sku1 = menus.toString();
+        String SKU = menus1.toString();
+        if (SKU.equals(sku1)){
+            test.log(LogStatus.FAIL,"SKU Code not placed when user order the retail item");
+        }else{
+            test.log(LogStatus.PASS,"Correct SKU Code placed when user order the retail item");
+        }
+    }
+
     public String getTheVariantCode_FromRetailScreen(){
         List<?> s = driver.findElements(By.xpath("//android.view.View[@resource-id='react-ordder-list-render']/android.view.View"));
 

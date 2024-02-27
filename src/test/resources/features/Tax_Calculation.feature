@@ -2,7 +2,6 @@
 
   Feature: Tax calculation for all type of retail items
 
-@err1
     Scenario: Calculate the exclusive tax for the Standard Item with fast cash
       Given Login with the valid credentials
       Then Order the Standard Item from the retail Screen

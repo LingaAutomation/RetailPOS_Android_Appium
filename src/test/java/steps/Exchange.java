@@ -52,10 +52,7 @@ public class Exchange {
         new RetailPOS_Order_Page().ClickDoneBtn();
     }
 
-    @Then("Click the retail button")
-    public void clickTheRetailButton() throws InterruptedException {
-        new Standard_Item_POS_Page().ClickTheRetailBtn();
-    }
+
 
     @And("Place the single retail Standard item and Variant item with Exclusive tax")
     public void placeTheSingleRetailStandardItemAndVariantItemWithExclusiveTax() throws Throwable {
@@ -173,11 +170,6 @@ public class Exchange {
         new Item_Selection_Page().multipleMenu_Selection_Random_Variant();
     }
 
-    @Then("Place the Multiple retail KitAssembly item with Inclusive tax")
-    public void placeTheMultipleRetailKitAssemblyItemWithInclusiveTax() throws Throwable {
-        new RetailPOS_Order_Page().multipleMenu_Selection_Random_Inclusive_KitAssembly();
-    }
-
     @Then("Place the single retail KitAssembly item with Inclusive tax")
     public void placeTheSingleRetailKitAssemblyItemWithInclusiveTax() throws Throwable {
         new RetailPOS_Order_Page().Single_Random_Menu_Selection_ForInclusiveTaxes_KitAssembly();
@@ -188,8 +180,5 @@ public class Exchange {
         new Standard_Item_POS_Page().clickTheExchangedTab();
     }
 
-    @Then("Place the Multiple retail KitAssembly item with Exclusive tax and Inclusive tax")
-    public void placeTheMultipleRetailKitAssemblyItemWithExclusiveTaxAndInclusiveTax() throws Throwable {
-        new Item_Selection_Page().multipleMenu_Selection_Random_Exclusive_Inclusive_KitAssembly();
-    }
+
 }

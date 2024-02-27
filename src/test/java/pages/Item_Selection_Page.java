@@ -279,6 +279,16 @@ public class Item_Selection_Page extends Appium_Base_Class {
         Thread.sleep(1000);
     }
 
+    public void particular_Kit_Accessible(String item) throws Throwable {
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        click_Ele(Order_Screen_Category_Kit_Accessible_Item_Cat);
+        Thread.sleep(1000);
+        particular_KitAssembly("//*[contains(@text,'"+item+"')]");
+        Thread.sleep(1000);
+        click_Ele(Menu_Screen_Category_Cancel_Btn);
+        Thread.sleep(1000);
+    }
+
     public void multipleMenu_Selection_Random_Kit_Accessible() throws Throwable {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         click_Ele(Order_Screen_Category_Kit_Accessible_Item_Cat);

@@ -86,6 +86,30 @@ public class Discount_Selection_Page extends Appium_Base_Class {
         getOrder_Screen_CancelBtn().click();
     }
 
+    public void clickTheRequiredDiscount1(String discount, String msg) throws InterruptedException {
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        //click the discount after the search
+        Thread.sleep(2000);
+//        driver.findElement(By.xpath("//*[@text='"+discount+"']")).click();
+        Actions actions = new Actions(driver);
+        actions.click(driver.findElement(By.xpath("//android.widget.Button[@text='" + discount + "']"))).build().perform();
+        Thread.sleep(500);
+        ut.PassedCaptureScreenshotAsBASE64(driver,test);
+//        try {String d = driver.findElement(By.xpath("//*[contains(@text,'Paid amount exceeds the sale amount')]")).getText();
+//            if (d.equals(msg)) {
+//                test.log(LogStatus.PASS, "Paid amount exceeds the sale amount message is displayed, when user try to apply the discount for reopened check");
+//            }
+//        } catch (Exception e) {
+//            test.log(LogStatus.FAIL, "Paid amount exceeds the sale amount message is not displayed, when user try to apply the discount for reopened check");
+//            ut.FailedCaptureScreenshotAsBASE64(driver,test);
+//        }
+
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        //click the cancel button
+        getOrder_Screen_CancelBtn().click();
+    }
+
     public void ClickTheDiscount() {
         //click the discount button in the order screen
         getOrder_Screen_DiscountBtn().click();

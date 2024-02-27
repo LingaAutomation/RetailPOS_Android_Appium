@@ -64,16 +64,14 @@ public class Hooks {
             new Login_Page().Signin_Valid_Cred();
         }
         try{
-            Thread.sleep(2000);
-             new Pin_Screen_Page().validateThePinScreenText();
+            Thread.sleep(4000);
+            new Pin_Screen_Page().validateThePinScreenText();
        }catch (Exception e){
-            driver.quit();
-
-            Thread.sleep(7000);
+           // driver.quit();
+            Thread.sleep(2000);
             new DriverManager().initializeDriver();
-
             driver=new DriverManager().getDriver();
-            Thread.sleep(5000);
+            Thread.sleep(10000);
 
             new Login_Page().Signin_Valid_Cred();
         }

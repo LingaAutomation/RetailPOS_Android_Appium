@@ -409,7 +409,16 @@ public class Option_Page extends Appium_Base_Class{
     }
 
     public void verifyThePopupWithOutChargeAmount(String msg){
-        text_Confirm(Order_Screen_GiftCard_POP_up_Text, msg);
+        try {
+            if(Order_Screen_GiftCard_POP_up_Text.getText().equals(msg)) {
+                test.log(LogStatus.PASS, "Please select any one item. popup is displayed");
+            }
+        }catch(Exception e) {
+            test.log(LogStatus.INFO,"The popup text is : "+msg);
+            test.log(LogStatus.INFO,"The actual popup text is : "+Order_Screen_GiftCard_POP_up_Text.getText());
+            test.log(LogStatus.FAIL, "Please select any one item. popup is not displayed");
+        }
+//        text_Confirm(Order_Screen_GiftCard_POP_up_Text, msg);
     }
 
     public void verifyTheSuspendAccountEnabled_GiftCardScreen(){

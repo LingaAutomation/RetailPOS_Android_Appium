@@ -1,13 +1,20 @@
 package pages;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
+import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.testng.asserts.SoftAssert;
 import utility.Utility;
 import com.relevantcodes.extentreports.LogStatus;
@@ -15,6 +22,13 @@ import com.relevantcodes.extentreports.LogStatus;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 
 public class RetailPOS_Order_Page extends Appium_Base_Class{
+
+	FluentWait<AppiumDriver> wait = new FluentWait<>(driver)
+			.withTimeout(Duration.ofSeconds(30))
+			.pollingEvery(Duration.ofSeconds(5))
+			.ignoring(NoSuchElementException.class);
+
+
 
 	public Common_xpath cm;
 	public Pin_Screen_Page psp;
@@ -415,6 +429,13 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 	
 	@AndroidFindBy(xpath = "//*[contains(@text,'Search Customer')]/../../android.view.View/android.widget.Button[@text='00']")
 	WebElement Order_Screen_NumberPad_00;
+
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='2']")
+	WebElement Order_Screen_Quantity_NumberPad_2;
+
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='3']")
+	WebElement Order_Screen_Quantity_NumberPad_3;
+
 	
 	@AndroidFindBy(xpath = "//*[contains(@text,'Search Customer')]/../../android.view.View/android.widget.Button[@text='C']")
 	WebElement Order_Screen_NumberPad_Clear;
@@ -757,13 +778,50 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 	@AndroidFindBy(xpath = "//*[contains(@text,'Done')]")
 	WebElement done_btn;
 
+	@AndroidFindBy(xpath = "//*[contains(@text,'DONE')]")
+	WebElement done_btn1;
+
 	public void ClickDoneBtn(){
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
 
 		//Click the done button
 		done_btn.click();
 	}
-	
+
+	public void ClickDoneBtn1(){
+		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+
+		//Click the done button
+		done_btn1.click();
+	}
+
+	public void clickTheChangeVariantAndDone(String cv) throws InterruptedException {
+		int cva = Integer.parseInt(cv);
+		for(int i = 1; i <= cva; i++)
+		{
+			driver.findElement(By.xpath("(//*[contains(@text,'Change Variant')])["+i+"]")).click();
+
+			Thread.sleep(1500);
+
+			ClickDoneBtn1();
+		}
+	}
+
+	public void verifyTheChangeVariantCount(String cv){
+		String s = getTheSizeOfChangeVariant();
+		if(s.equals(cv)){
+			test.log(LogStatus.PASS,"All the Change Variants are displayed after click the Change variant button");
+		}else{
+			int sa = Integer.parseInt(s);
+			int sa1 = Integer.parseInt(cv);
+			int diff = sa1 - sa;
+			test.log(LogStatus.INFO,"Before click the Change Variant Count is : "+sa1);
+			test.log(LogStatus.INFO,"After click the Change Variant Count is : "+sa);
+			test.log(LogStatus.FAIL,"All the Change Variants are not displayed after click the Change variant button and the difference is : "+diff);
+		}
+	}
+
+
 	public WebElement done_btn() {
 		return done_btn;
 	}
@@ -1277,7 +1335,7 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 		// Convert the String value of the Net Sales element into float value
 		float actual_SubTotal_Value = Float.parseFloat(actualText);
 
-		System.out.println("Actual Sub-Total Value :" + actual_SubTotal_Value);
+		System.out.println("Actual Sub-Total Value : " + actual_SubTotal_Value);
 
 		String actualText2 = getOrder_Screen_Total_Value().getText();
 
@@ -1287,7 +1345,7 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 		// Convert the String value of the Net Sales element into float value
 		float actual_Total_Value = Float.parseFloat(actualText3);
 
-		System.out.println("Actual Total Value :" + actual_Total_Value);
+		System.out.println("Actual Total Value : " + actual_Total_Value);
 
 		// Check weather the Calculated Price amount and Actual Price amount is same or not
 		if (Calculated_Total_Price == actual_SubTotal_Value) {
@@ -1355,6 +1413,85 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 		}
 	}
 
+	public void Check_Values_Validations1() throws Throwable {
+
+		//Sub Total price value calculated in float
+		double Calculated_Total_Price = Get_Price_Amount_For_Every_MenuItem1();
+		//Total total amount value calculated in float
+		double Calculated_Total_Amount = Get_Total_Amount_For_Every_MenuItem1();
+
+		//Actual Sub Total value in ordre screen
+		String actualText1 = getOrder_Screen_SubTotal_Value().getText();
+
+		// Replace all commo's with empty space
+		String actualText = actualText1.replaceAll("[a-zA-Z $ ₹ £ , :]", "").substring(1);
+
+		// Convert the String value of the Net Sales element into float value
+		double actual_SubTotal_Value = Double.parseDouble(actualText);
+
+		System.out.println("Actual Sub-Total Value : " + actual_SubTotal_Value);
+
+		String actualText2 = getOrder_Screen_Total_Value().getText();
+
+		// Replace all commo's with empty space
+		String actualText3 = actualText2.replaceAll("[a-zA-Z $ ₹ £ , :]", "").substring(1);
+
+		// Convert the String value of the Net Sales element into float value
+		double actual_Total_Value = Double.parseDouble(actualText3);
+
+		System.out.println("Actual Total Value : " + actual_Total_Value);
+
+		// Check weather the Calculated Price amount and Actual Price amount is same or not
+		if (Calculated_Total_Price == actual_SubTotal_Value) {
+			test.log(LogStatus.PASS, "Actual and Expected Sub-Total amount are same");
+
+			// Print the actual value
+			System.out.println("The Actual Sub-Total Value is : " + actual_SubTotal_Value);
+
+			test.log(LogStatus.PASS, "The Actual Sub-Total Value is : " + actual_SubTotal_Value);
+		}
+		else {
+			test.log(LogStatus.FAIL, "Actual and Expected Sub-Total values are different");
+
+			// Get the different
+			double different = Calculated_Total_Price - actual_SubTotal_Value;
+
+			// Print the different value
+			System.out.println("Sub-Total Value different is : " + different);
+
+			test.log(LogStatus.FAIL, "Sub-Total Value different is : " + different);
+
+		}
+
+		// Check weather the Calculated Total amount and Actual Total amount is same or not
+		if (Calculated_Total_Amount == actual_Total_Value) {
+			test.log(LogStatus.PASS, "Actual and Expected Total amount are same");
+
+			// Print the actual value
+			System.out.println("The Actual Total Value is : " + actual_Total_Value);
+
+			test.log(LogStatus.PASS, "The Actual Total Value is : " + actual_Total_Value);
+		}
+		else {
+			test.log(LogStatus.FAIL, "Actual and Expected Total values are different");
+
+			System.out.println("******************");
+			System.out.println(Calculated_Total_Amount);
+			System.out.println(actual_Total_Value);
+			System.out.println("******************");
+
+			// Get the different
+			double different = Calculated_Total_Amount - actual_Total_Value;
+
+			// Print the different value
+			System.out.println("Total Value different is : " + different);
+
+			test.log(LogStatus.FAIL, "Total Value different is : " + different);
+			ut.FailedCaptureScreenshotAsBASE64(driver,test);
+		}
+	}
+
+
 	public void cancelBtn_DiscountSelectionScreen(){
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
 
@@ -1388,7 +1525,7 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 		// Convert the String value of the Net Sales element into float value
 		float actual_SubTotal_Value = Float.parseFloat(actualText);
 
-		System.out.println("Actual Sub-Total Value :" + actual_SubTotal_Value);
+		System.out.println("Actual Sub-Total Value : " + actual_SubTotal_Value);
 
 		String actualText2 = getOrder_Screen_Total_Value().getText();
 
@@ -1398,11 +1535,11 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 		// Convert the String value of the Net Sales element into float value
 		float actual_Total_Value = Float.parseFloat(actualText3);
 
-		System.out.println("Actual Total Value :" + actual_Total_Value);
+		System.out.println("Actual Total Value : " + actual_Total_Value);
 
 		String discount = getOrder_Screen_Discount_Value().getText().replaceAll("[a-zA-Z $ ₹ £ , :]", "").substring(1);
 		double disc1 = Double.parseDouble(discount);
-		System.out.println("Actual Discount Value :" + disc1);
+		System.out.println("Actual Discount Value : " + disc1);
 
 		// Check weather the Calculated Price amount and Actual Price amount is same or not
 		if (Calculated_Total_Price == actual_SubTotal_Value) {
@@ -1783,8 +1920,26 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 	@AndroidFindBy(xpath = "//*[contains(@text,'Change Variant')]")
 	WebElement Order_Screen_Change_Variant;
 
-	public void clickTheChangeVariantOption(){
-		click_Ele(Order_Screen_Change_Variant);
+	public WebElement getOrder_Screen_Change_Variant(){
+		return Order_Screen_Change_Variant;
+	}
+
+	public void clickTheChangeVariantOption() throws Throwable {
+		wait.until(ExpectedConditions.visibilityOf(getOrder_Screen_Change_Variant()));
+		try{
+			click_Ele(getOrder_Screen_Change_Variant());
+		}catch (Exception d){
+			new Item_Selection_Page().Multiple_Random_Menu_Selection_CBT_KitAssembly();
+			wait.until(ExpectedConditions.visibilityOf(getOrder_Screen_Change_Variant()));
+			click_Ele(getOrder_Screen_Change_Variant());
+		}
+	}
+
+	public String getTheSizeOfChangeVariant(){
+		List<WebElement> s = driver.findElements(By.xpath("//*[contains(@text,'Change Variant')]"));
+		int sa = s.size();
+
+		return String.valueOf(sa);
 	}
 
 	@AndroidFindBy(xpath = "//android.view.View//*[contains(@text,'For Taxes')]")
@@ -2027,7 +2182,7 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 		
 		String actualTextValue = getOrder_Screen_Tax_Value().getText();
 		String Report_Taxes = actualTextValue.replaceAll("[a-zA-Z $ ₹ £ , :]", "").substring(1);
-		//		System.out.println("Actual Total Tax Value :" + actual_Tax_Value);
+		//		System.out.println("Actual Total Tax Value : " + actual_Tax_Value);
 
 		double actual_Tax = Float.parseFloat(Report_Taxes);
 
@@ -2115,13 +2270,13 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 
 		String actualTextvalue = getOrder_Screen_Tax_Value().getText();
 		String Report_Taxes = actualTextvalue.replaceAll("[a-zA-Z $ ₹ £ , :]", "").substring(1);
-		//		System.out.println("Actual Total Tax Value :" + actual_Tax_Value);
+		//		System.out.println("Actual Total Tax Value : " + actual_Tax_Value);
 
 		double actual_Tax = Float.parseFloat(Report_Taxes);
 
 		actual_Tax = Math.round(actual_Tax*100.00)/100.00;
 
-		System.out.println("Actual Total Tax Value :" + actual_Tax);
+		System.out.println("Actual Total Tax Value : " + actual_Tax);
 
 		// Check weather the Calculated Total amount and Actual Total Tax amount is same or not
 		if (Calculated_Tax_Value == actual_Tax) {
@@ -2151,6 +2306,7 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 			System.out.println("Total Tax Value different is : " + different);
 
 			test.log(LogStatus.FAIL, "Total Tax Value different is : " + different);
+			ut.FailedCaptureScreenshotAsBASE64(driver,test);
 		}
 
 	}
@@ -2250,7 +2406,7 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 
 		String actualTextvalue = getOrder_Screen_Tax_Value().getText();
 		String Report_Taxes = actualTextvalue.replaceAll("[a-zA-Z $ ₹ £ , :]", "").substring(1);
-		//		System.out.println("Actual Total Tax Value :" + actual_Tax_Value);
+		//		System.out.println("Actual Total Tax Value : " + actual_Tax_Value);
 
 		double actual_Tax = Float.parseFloat(Report_Taxes);
 
@@ -2321,7 +2477,7 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 
 		String actualTextvalue = getOrder_Screen_Tax_Value().getText();
 		String Report_Taxes = actualTextvalue.replaceAll("[a-zA-Z $ ₹ £ , :]", "").substring(1);
-		//		System.out.println("Actual Total Tax Value :" + actual_Tax_Value);
+		//		System.out.println("Actual Total Tax Value : " + actual_Tax_Value);
 
 		double actual_Tax = Float.parseFloat(Report_Taxes);
 
@@ -2679,6 +2835,60 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 		getOrder_Screen_NumberPad_2().click();
 	}
 
+	public void clickTheNumber() throws InterruptedException {
+		Thread.sleep(2000);
+		//Click the number from numpad
+		getOrder_Screen_NumberPad_1().click();
+	}
+
+	public WebElement getOrder_Screen_Quantity_NumberPad_2(){
+		return Order_Screen_Quantity_NumberPad_2;
+	}
+
+	public WebElement getOrder_Screen_Quantity_NumberPad_3(){
+		return Order_Screen_Quantity_NumberPad_3;
+	}
+
+	public void Check_Quantity_Validations1() throws Throwable {
+		cm = new Common_xpath();
+
+		FirstMenuItemQuantity_OrderScreen.click();
+		Thread.sleep(1000);
+		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+		//Click the number from numpad
+		getOrder_Screen_Quantity_NumberPad_2().click();
+		//Click the continue button
+		click_Ele(driver.findElement(By.xpath("//*[contains(@text,'Continue')]")));
+		String upmenu1 = "2";
+
+		String menu1 = FirstMenuItemQuantity_OrderScreen.getText();
+
+		if(menu1.equals(upmenu1)) {
+			test.log(LogStatus.PASS, "Standard menu item Quantity got updated, after user order the item when user update it from the order screen");
+		}else
+		{
+			test.log(LogStatus.FAIL, "Standard menu item Quantity not updated, after user order the item when user update it from the order screen");
+		}
+
+		FirstMenuItemQuantity_OrderScreen.click();Thread.sleep(1000);
+		//Click the number from numpad
+		getOrder_Screen_Quantity_NumberPad_3().click();
+		//Click the continue button
+		click_Ele(driver.findElement(By.xpath("//*[contains(@text,'Continue')]")));
+
+		String upmenu2 = "3";
+
+		String menu2 = FirstMenuItemQuantity_OrderScreen.getText();
+
+		if(menu2.equals(upmenu2)) {
+			test.log(LogStatus.PASS, "Standard menu item Quantity got updated, after user order the item when user update second time it from the order screen");
+		}else
+		{
+			test.log(LogStatus.FAIL, "Standard menu item Quantity not updated, after user order the item when user update second time it from the order screen");
+		}
+	}
+
+
 	public void Check_Quantity_Validations() throws Throwable {
 		cm = new Common_xpath();
 
@@ -2691,10 +2901,10 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 		String menu1 = FirstMenuItemQuantity_OrderScreen.getText();
 
 		if(menu1.equals(upmenu1)) {
-			test.log(LogStatus.PASS, "Standard menu item Quantity got updated, after user order the item when user update it from the order screen");
+			test.log(LogStatus.PASS, "Item Quantity got updated, after user order the item when user update it from the order screen");
 		}else
 		{
-			test.log(LogStatus.FAIL, "Standard menu item Quantity not updated, after user order the item when user update it from the order screen");
+			test.log(LogStatus.FAIL, "Item Quantity not updated, after user order the item when user update it from the order screen");
 		}
 
 		//Click the number from numpad
@@ -2705,10 +2915,10 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 		String menu2 = FirstMenuItemQuantity_OrderScreen.getText();
 
 		if(menu2.equals(upmenu2)) {
-			test.log(LogStatus.PASS, "Standard menu item Quantity got updated, after user order the item when user update second time it from the order screen");
+			test.log(LogStatus.PASS, "Item Quantity got updated, after user order the item when user update second time it from the order screen");
 		}else
 		{
-			test.log(LogStatus.FAIL, "Standard menu item Quantity not updated, after user order the item when user update second time it from the order screen");
+			test.log(LogStatus.FAIL, "Item Quantity not updated, after user order the item when user update second time it from the order screen");
 		}
 	}
 

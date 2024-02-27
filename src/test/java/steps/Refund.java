@@ -9,10 +9,7 @@ import utility.Utility;
 public class Refund {
 
     String RetailItem;
-    @Then("Click the sale history")
-    public void clickTheSaleHistory() throws Throwable {
-        new Standard_Item_POS_Page().Click_Sale_HistoryBtn();
-    }
+
 
     @And("click the return button")
     public void clickTheReturnButton() throws InterruptedException {

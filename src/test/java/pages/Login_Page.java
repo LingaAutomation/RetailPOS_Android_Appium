@@ -67,7 +67,7 @@ public class Login_Page extends Appium_Base_Class {
 	public void Signin_Valid_Cred() throws Exception {
 		
 		cm = new Common_xpath();
-		Thread.sleep(4000);
+		Thread.sleep(6000);
 		try{
 			text_Confirm(Signin_StoreLogin_text, "Store Login");
 		}catch (Exception ignored){}

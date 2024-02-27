@@ -94,6 +94,16 @@ public class Tax_Calculations {
         new Item_Selection_Page().Multiple_Random_Menu_Selection_ForQBTaxes_KitAssembly();
     }
 
+    @Then("Place the Multiple retail KitAssembly item with Inclusive tax")
+    public void placeTheMultipleRetailKitAssemblyItemWithInclusiveTax() throws Throwable {
+        new RetailPOS_Order_Page().multipleMenu_Selection_Random_Inclusive_KitAssembly();
+    }
+
+    @Then("Place the Multiple retail KitAssembly item with Exclusive tax and Inclusive tax")
+    public void placeTheMultipleRetailKitAssemblyItemWithExclusiveTaxAndInclusiveTax() throws Throwable {
+        new Item_Selection_Page().multipleMenu_Selection_Random_Exclusive_Inclusive_KitAssembly();
+    }
+
     @Then("Order the Single Standard item for the tax on Item tax")
     public void orderTheSingleStandardItemForTheTaxOnItemTax() throws Throwable {
         new Item_Selection_Page().Single_Random_Menu_Selection_TOIT_Standard();

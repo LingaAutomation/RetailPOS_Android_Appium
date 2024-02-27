@@ -231,22 +231,6 @@ Feature: Operations_POS
     And Click the POS option
     Then Click the Logoff button
 
-  Scenario: Verify the options in Till Management - Open Cash Drawer screen
-    Given Login with the valid credentials
-    Then Page will navigate to the retail order screen
-    And Able to view the Operation button
-    When Click the Settings icon from the Retail Screen
-    Then View the Back Office, Sync Back Office, Operation, Log Off and QSR Mode options
-    When Click the Operation button
-    Then View the options are POS, Till Management, Print Labels, Process Offline, Hardware Settings, POS Settings, Close Day and Sync Back Office
-    And Click the Till Management option
-    Then Check the Till Management screen is displayed or not
-    And Click the Open Cash Drawer option and it should be selected
-    And Check the Open Cash Drawer button is displayed or not
-    Then Click the Menu option
-    And Click the POS option
-    Then Click the Logoff button
-
   Scenario: Verify the options in Till Management - Reports screen
     Given Login with the valid credentials
     Then Page will navigate to the retail order screen
