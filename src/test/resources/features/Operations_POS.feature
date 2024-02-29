@@ -1,4 +1,5 @@
-Feature: Operations_POS
+@Till
+Feature: Operations - POS and Till Management
 
   Scenario: Verify the visibility when user click the operation button
     Given Login with the valid credentials
@@ -258,13 +259,14 @@ Feature: Operations_POS
     And Check the Grand Sales is displayed or not
     And Check the Gross Receipt is displayed or not
     And Check the Gross Void is displayed or not
-    And Check the Net Void is displayed or not
+    And Check the Net Voids is displayed or not
     And Check the Payment Summary is displayed or not
     And Check the Credit Card is displayed or not
     And Check the Side CC is displayed or not
     And Check the Other Payment is displayed or not
     And Check the Total is displayed or not
     And Check the Summary is displayed or not
+    And Check the Opening Balance is displayed or not
     And Check the Print button is displayed or not
     And Check the Cashier Out button is displayed or not
     And Check the Close Day button is displayed or not
@@ -286,17 +288,19 @@ Feature: Operations_POS
     And Check the Set Till option is displayed or not and it should selected by default
     When Click the continue button
     Then Application should navigate to the Active Till screen with the created till
+    Then Get the till number from Active Till tab
     And Select the till from the Active Till
     Then Click the Close Till button
     And Check the "Do you want to close the till" popup and click the yes button
     Then Click the continue button
     And Click the Submit button
     Then Application should navigate to the Closed Till screen with the closed till
+    And Verify the same till is closed or not
     Then Click the Menu option
     And Click the POS option
     Then Click the Logoff button
 
-  Scenario: Verify user able to create the open till with zero balance and add menu item
+  Scenario: Verify user able to create the open till with zero balance and add menu item - Standard Item
     Given Login with the valid credentials
     Then Page will navigate to the retail order screen
     And Able to view the Operation button
@@ -310,13 +314,16 @@ Feature: Operations_POS
     And Check the Set Till option is displayed or not and it should selected by default
     When Click the continue button
     Then Application should navigate to the Active Till screen with the created till
+    Then Get the till number from Active Till tab
     And Click the Menu option
     And Click the POS option
     Then Order the Standard Item from the retail Screen
+    Then Get the Total amount
     And Complete the payment using fast cash button
     Then Click the Settings icon from the Retail Screen
     And Click the Operation button
     Then Click the Till Management option
+    And Verify the same till is available or not
     And Verify the Till amount should be update in the Active Till screen
     And Select the till from the Active Till
     Then Click the Close Till button
@@ -325,6 +332,234 @@ Feature: Operations_POS
     Then Click the continue button
     And Click the Submit button
     Then Application should navigate to the Closed Till screen with the closed till
+    And Verify the same till is closed or not
+    Then Click the Menu option
+    And Click the POS option
+    Then Click the Logoff button
+
+  Scenario: Verify user able to create the open till with zero balance and add menu item - Variant Item
+    Given Login with the valid credentials
+    Then Page will navigate to the retail order screen
+    And Able to view the Operation button
+    When Click the Settings icon from the Retail Screen
+    Then View the Back Office, Sync Back Office, Operation, Log Off and QSR Mode options
+    When Click the Operation button
+    Then View the options are POS, Till Management, Print Labels, Process Offline, Hardware Settings, POS Settings, Close Day and Sync Back Office
+    And Click the Till Management option
+    Then Check the Till Management screen is displayed or not
+    And Check the Till option is displayed or not and it should selected by default
+    And Check the Set Till option is displayed or not and it should selected by default
+    When Click the continue button
+    Then Application should navigate to the Active Till screen with the created till
+    Then Get the till number from Active Till tab
+    And Click the Menu option
+    And Click the POS option
+    Then Order the Variant item from the retail Screen
+    Then Get the Total amount
+    And Complete the payment using fast cash button
+    Then Click the Settings icon from the Retail Screen
+    And Click the Operation button
+    Then Click the Till Management option
+    And Verify the same till is available or not
+    And Verify the Till amount should be update in the Active Till screen
+    And Select the till from the Active Till
+    Then Click the Close Till button
+    And Check the "Do you want to close the till" popup and click the yes button
+    And Enter the Required amount
+    Then Click the continue button
+    And Click the Submit button
+    Then Application should navigate to the Closed Till screen with the closed till
+    And Verify the same till is closed or not
+    Then Click the Menu option
+    And Click the POS option
+    Then Click the Logoff button
+
+  Scenario: Verify user able to create the open till with zero balance and add menu item - Kit Assembly Item
+    Given Login with the valid credentials
+    Then Page will navigate to the retail order screen
+    And Able to view the Operation button
+    When Click the Settings icon from the Retail Screen
+    Then View the Back Office, Sync Back Office, Operation, Log Off and QSR Mode options
+    When Click the Operation button
+    Then View the options are POS, Till Management, Print Labels, Process Offline, Hardware Settings, POS Settings, Close Day and Sync Back Office
+    And Click the Till Management option
+    Then Check the Till Management screen is displayed or not
+    And Check the Till option is displayed or not and it should selected by default
+    And Check the Set Till option is displayed or not and it should selected by default
+    When Click the continue button
+    Then Application should navigate to the Active Till screen with the created till
+    Then Get the till number from Active Till tab
+    And Click the Menu option
+    And Click the POS option
+    Then Order the Kit Assembly item from the retail Screen
+    Then Get the Total amount
+    And Complete the payment using fast cash button
+    Then Click the Settings icon from the Retail Screen
+    And Click the Operation button
+    Then Click the Till Management option
+    And Verify the same till is available or not
+    And Verify the Till amount should be update in the Active Till screen
+    And Select the till from the Active Till
+    Then Click the Close Till button
+    And Check the "Do you want to close the till" popup and click the yes button
+    And Enter the Required amount
+    Then Click the continue button
+    And Click the Submit button
+    Then Application should navigate to the Closed Till screen with the closed till
+    And Verify the same till is closed or not
+    Then Click the Menu option
+    And Click the POS option
+    Then Click the Logoff button
+
+  Scenario: Verify user able to create the open till with zero balance and add menu item - Standard and Variant Item
+    Given Login with the valid credentials
+    Then Page will navigate to the retail order screen
+    And Able to view the Operation button
+    When Click the Settings icon from the Retail Screen
+    Then View the Back Office, Sync Back Office, Operation, Log Off and QSR Mode options
+    When Click the Operation button
+    Then View the options are POS, Till Management, Print Labels, Process Offline, Hardware Settings, POS Settings, Close Day and Sync Back Office
+    And Click the Till Management option
+    Then Check the Till Management screen is displayed or not
+    And Check the Till option is displayed or not and it should selected by default
+    And Check the Set Till option is displayed or not and it should selected by default
+    When Click the continue button
+    Then Application should navigate to the Active Till screen with the created till
+    Then Get the till number from Active Till tab
+    And Click the Menu option
+    And Click the POS option
+    And Order the Standard Item from the retail Screen
+    Then Order the Variant item from the retail Screen
+    Then Get the Total amount
+    And Complete the payment using fast cash button
+    Then Click the Settings icon from the Retail Screen
+    And Click the Operation button
+    Then Click the Till Management option
+    And Verify the same till is available or not
+    And Verify the Till amount should be update in the Active Till screen
+    And Select the till from the Active Till
+    Then Click the Close Till button
+    And Check the "Do you want to close the till" popup and click the yes button
+    And Enter the Required amount
+    Then Click the continue button
+    And Click the Submit button
+    Then Application should navigate to the Closed Till screen with the closed till
+    And Verify the same till is closed or not
+    Then Click the Menu option
+    And Click the POS option
+    Then Click the Logoff button
+
+  Scenario: Verify user able to create the open till with zero balance and add menu item - Standard and Kit Assembly Item
+    Given Login with the valid credentials
+    Then Page will navigate to the retail order screen
+    And Able to view the Operation button
+    When Click the Settings icon from the Retail Screen
+    Then View the Back Office, Sync Back Office, Operation, Log Off and QSR Mode options
+    When Click the Operation button
+    Then View the options are POS, Till Management, Print Labels, Process Offline, Hardware Settings, POS Settings, Close Day and Sync Back Office
+    And Click the Till Management option
+    Then Check the Till Management screen is displayed or not
+    And Check the Till option is displayed or not and it should selected by default
+    And Check the Set Till option is displayed or not and it should selected by default
+    When Click the continue button
+    Then Application should navigate to the Active Till screen with the created till
+    Then Get the till number from Active Till tab
+    And Click the Menu option
+    And Click the POS option
+    And Order the Standard Item from the retail Screen
+    Then Order the Kit Assembly item from the retail Screen
+    Then Get the Total amount
+    And Complete the payment using fast cash button
+    Then Click the Settings icon from the Retail Screen
+    And Click the Operation button
+    Then Click the Till Management option
+    And Verify the same till is available or not
+    And Verify the Till amount should be update in the Active Till screen
+    And Select the till from the Active Till
+    Then Click the Close Till button
+    And Check the "Do you want to close the till" popup and click the yes button
+    And Enter the Required amount
+    Then Click the continue button
+    And Click the Submit button
+    Then Application should navigate to the Closed Till screen with the closed till
+    And Verify the same till is closed or not
+    Then Click the Menu option
+    And Click the POS option
+    Then Click the Logoff button
+
+  Scenario: Verify user able to create the open till with zero balance and add menu item - Variant and Kit Assembly Item
+    Given Login with the valid credentials
+    Then Page will navigate to the retail order screen
+    And Able to view the Operation button
+    When Click the Settings icon from the Retail Screen
+    Then View the Back Office, Sync Back Office, Operation, Log Off and QSR Mode options
+    When Click the Operation button
+    Then View the options are POS, Till Management, Print Labels, Process Offline, Hardware Settings, POS Settings, Close Day and Sync Back Office
+    And Click the Till Management option
+    Then Check the Till Management screen is displayed or not
+    And Check the Till option is displayed or not and it should selected by default
+    And Check the Set Till option is displayed or not and it should selected by default
+    When Click the continue button
+    Then Application should navigate to the Active Till screen with the created till
+    Then Get the till number from Active Till tab
+    And Click the Menu option
+    And Click the POS option
+    Then Order the Variant item from the retail Screen
+    And Order the Kit Assembly item from the retail Screen
+    Then Get the Total amount
+    And Complete the payment using fast cash button
+    Then Click the Settings icon from the Retail Screen
+    And Click the Operation button
+    Then Click the Till Management option
+    And Verify the same till is available or not
+    And Verify the Till amount should be update in the Active Till screen
+    And Select the till from the Active Till
+    Then Click the Close Till button
+    And Check the "Do you want to close the till" popup and click the yes button
+    And Enter the Required amount
+    Then Click the continue button
+    And Click the Submit button
+    Then Application should navigate to the Closed Till screen with the closed till
+    And Verify the same till is closed or not
+    Then Click the Menu option
+    And Click the POS option
+    Then Click the Logoff button
+
+  Scenario: Verify user able to create the open till with zero balance and add menu item - All Item
+    Given Login with the valid credentials
+    Then Page will navigate to the retail order screen
+    And Able to view the Operation button
+    When Click the Settings icon from the Retail Screen
+    Then View the Back Office, Sync Back Office, Operation, Log Off and QSR Mode options
+    When Click the Operation button
+    Then View the options are POS, Till Management, Print Labels, Process Offline, Hardware Settings, POS Settings, Close Day and Sync Back Office
+    And Click the Till Management option
+    Then Check the Till Management screen is displayed or not
+    And Check the Till option is displayed or not and it should selected by default
+    And Check the Set Till option is displayed or not and it should selected by default
+    When Click the continue button
+    Then Application should navigate to the Active Till screen with the created till
+    Then Get the till number from Active Till tab
+    And Click the Menu option
+    And Click the POS option
+    Then Order the Standard Item from the retail Screen
+    And Order the Kit Assembly item from the retail Screen
+    Then Order the Variant item from the retail Screen
+    Then Get the Total amount
+    And Complete the payment using fast cash button
+    Then Click the Settings icon from the Retail Screen
+    And Click the Operation button
+    Then Click the Till Management option
+    And Verify the same till is available or not
+    And Verify the Till amount should be update in the Active Till screen
+    And Select the till from the Active Till
+    Then Click the Close Till button
+    And Check the "Do you want to close the till" popup and click the yes button
+    And Enter the Required amount
+    Then Click the continue button
+    And Click the Submit button
+    Then Application should navigate to the Closed Till screen with the closed till
+    And Verify the same till is closed or not
     Then Click the Menu option
     And Click the POS option
     Then Click the Logoff button
@@ -341,16 +576,18 @@ Feature: Operations_POS
     Then Check the Till Management screen is displayed or not
     And Check the Till option is displayed or not and it should selected by default
     And Check the Set Till option is displayed or not and it should selected by default
-    Then Enter the Required amount
+    Then Enter the Required amount as hundred
     When Click the continue button
     Then Application should navigate to the Active Till screen with the created till
     And Select the till from the Active Till
+    Then Get the till number from Active Till tab
     Then Click the Close Till button
     And Check the "Do you want to close the till" popup and click the yes button
-    And Enter the same amount what user entered while create the till
+    And Enter the Required amount as hundred
     Then Click the continue button
     And Click the Submit button
     Then Application should navigate to the Closed Till screen with the closed till
+    And Verify the same till is closed or not
     Then Click the Menu option
     And Click the POS option
     Then Click the Logoff button
@@ -367,24 +604,28 @@ Feature: Operations_POS
     Then Check the Till Management screen is displayed or not
     And Check the Till option is displayed or not and it should selected by default
     And Check the Set Till option is displayed or not and it should selected by default
-    Then Enter the Required amount
+    Then Enter the amount
     When Click the continue button
     Then Application should navigate to the Active Till screen with the created till
+    Then Get the till number from Active Till tab
     And Click the Menu option
     And Click the POS option
     Then Order the Standard Item from the retail Screen
+    Then Get the Total amount
     And Complete the payment using fast cash button
     Then Click the Settings icon from the Retail Screen
     And Click the Operation button
     Then Click the Till Management option
     And Verify the Till amount should be update in the Active Till screen
+    Then Verify the same till is available or not
     And Select the till from the Active Till
     Then Click the Close Till button
     And Check the "Do you want to close the till" popup and click the yes button
-    And Enter the Required amount
+    And Enter the Required amount with total
     Then Click the continue button
     And Click the Submit button
     Then Application should navigate to the Closed Till screen with the closed till
+    And Verify the same till is closed or not
     Then Click the Menu option
     And Click the POS option
     Then Click the Logoff button
@@ -403,6 +644,7 @@ Feature: Operations_POS
     And Check the Set Till option is displayed or not and it should selected by default
     When Click the continue button
     Then Application should navigate to the Active Till screen with the created till
+    Then Get the till number from Active Till tab
     Then Click the Set Till button the "Already Have an Active Till" message is displayed or not
     And Select the till from the Active Till
     Then Click the Close Till button
@@ -410,6 +652,7 @@ Feature: Operations_POS
     Then Click the continue button
     And Click the Submit button
     Then Application should navigate to the Closed Till screen with the closed till
+    And Verify the same till is closed or not
     Then Click the Menu option
     And Click the POS option
     Then Click the Logoff button
@@ -428,14 +671,16 @@ Feature: Operations_POS
     And Check the Set Till option is displayed or not and it should selected by default
     When Click the continue button
     Then Application should navigate to the Active Till screen with the created till
-    Then Click the Close Till button the "Select till to proceed" message is displayed or not
-    And Click the Hold Till button the "Select till to proceed" message is displayed or not
+    Then Get the till number from Active Till tab
+    Then Click the Close Till button the "Select Till to proceed" message is displayed or not
+    And Click the Hold Till button the "Select Till to proceed" message is displayed or not
     And Select the till from the Active Till
     Then Click the Close Till button
     And Check the "Do you want to close the till" popup and click the yes button
     Then Click the continue button
     And Click the Submit button
     Then Application should navigate to the Closed Till screen with the closed till
+    And Verify the same till is closed or not
     Then Click the Menu option
     And Click the POS option
     Then Click the Logoff button
@@ -452,20 +697,23 @@ Feature: Operations_POS
       Then Check the Till Management screen is displayed or not
       And Check the Till option is displayed or not and it should selected by default
       And Check the Set Till option is displayed or not and it should selected by default
-      Then Enter the Required amount
+      Then Enter the Required amount as hundred
       And Click the continue button
       Then Application should navigate to the Active Till screen with the created till
+      And Get the till number from Active Till tab
       And Select the till from the Active Till
       Then Click the Hold till button
       And Check the "Do you want to hold this till" popup and click the yes button
       Then Application should navigate to the Held Till screen with the created till
+      Then Verify the same till is available or not
       And Select the till from the Held Till
       Then Click the Close Till button
       And Check the "Do you want to close the till" popup and click the yes button
-      And Enter the same amount what user entered while create the till
+      And Enter the Required amount as hundred
       Then Click the continue button
       And Click the Submit button
       Then Application should navigate to the Closed Till screen with the closed till
+      And Verify the same till is closed or not
       Then Click the Menu option
       And Click the POS option
       Then Click the Logoff button
@@ -483,7 +731,7 @@ Feature: Operations_POS
     And Check the Till option is displayed or not and it should selected by default
     And Check the Set Till option is displayed or not and it should selected by default
     Then Click the Cash Drop option and it should be selected
-    Then Enter the Required amount
+    Then Enter the Required amount as hundred
     And Click the continue button
     Then "Till not found" pop up will appear
     Then Click the Menu option
@@ -503,7 +751,6 @@ Feature: Operations_POS
     And Check the Till option is displayed or not and it should selected by default
     And Check the Set Till option is displayed or not and it should selected by default
     Then Click the Cash Drop option and it should be selected
-    Then Enter the Required amount
     And Click the continue button and "Please enter the amount" message is displayed or not
     Then Click the Menu option
     And Click the POS option
@@ -524,17 +771,21 @@ Feature: Operations_POS
     Then Enter the Required amount as Thousand
     And Click the continue button
     Then Application should navigate to the Active Till screen with the created till
+    Then Get the till number from Active Till tab
     Then Click the Cash Drop option and it should be selected
     Then Enter the Required amount as hundred
     And Click the continue button and "Cash Drop Performed Successfully" message is displayed or not
     And Click the Till Option
+    Then Verify the same till is available or not
     Then The till amount should reduced as nine hundred
     And Select the till from the Active Till
     Then Click the Close Till button
     And Check the "Do you want to close the till" popup and click the yes button
+    Then Enter the Required amount as nine hundred
     Then Click the continue button
     And Click the Submit button
     Then Application should navigate to the Closed Till screen with the closed till
+    And Verify the same till is closed or not
     Then Click the Menu option
     And Click the POS option
     Then Click the Logoff button
@@ -554,19 +805,24 @@ Feature: Operations_POS
     Then Enter the Required amount as Thousand
     And Click the continue button
     Then Application should navigate to the Active Till screen with the created till
+    Then Get the till number from Active Till tab
     Then Click the Cash Drop option and it should be selected
     Then Enter the Required amount as thousand and hundred
+    And Click the continue button
     And "Insufficient amount entered" pop up will appear
     Then Enter the Required amount as hundred
     And Click the continue button and "Cash Drop Performed Successfully" message is displayed or not
     And Click the Till Option
+    And Verify the same till is available or not
     Then The till amount should reduced as nine hundred
     And Select the till from the Active Till
     Then Click the Close Till button
     And Check the "Do you want to close the till" popup and click the yes button
+    Then Enter the Required amount as nine hundred
     Then Click the continue button
     And Click the Submit button
     Then Application should navigate to the Closed Till screen with the closed till
+    And Verify the same till is closed or not
     Then Click the Menu option
     And Click the POS option
     Then Click the Logoff button
@@ -586,6 +842,7 @@ Feature: Operations_POS
     Then Enter the Required amount as Thousand
     And Click the continue button
     Then Application should navigate to the Active Till screen with the created till
+    Then Get the till number from Active Till tab
     Then Click the Pay In option and it should be selected
     And Enter the paid by text
     Then Enter the Required amount as hundred
@@ -593,13 +850,56 @@ Feature: Operations_POS
     Then Select the Reason from the list
     And Click the Add button and "Paid In Performed Successfully" message is displayed or not
     And Click the Till Option
-    Then The till amount should shows as "1100.00"
+    Then Verify the same till is available or not
+    Then The till amount should shows as thousand and hundred
     And Select the till from the Active Till
     Then Click the Close Till button
     And Check the "Do you want to close the till" popup and click the yes button
+    And Enter the Required amount as thousand and hundred
     Then Click the continue button
     And Click the Submit button
     Then Application should navigate to the Closed Till screen with the closed till
+    And Verify the same till is closed or not
+    Then Click the Menu option
+    And Click the POS option
+    Then Click the Logoff button
+
+  Scenario: Verify the Pay In amount without Paid By after that close the respective till
+    Given Login with the valid credentials
+    Then Page will navigate to the retail order screen
+    And Able to view the Operation button
+    When Click the Settings icon from the Retail Screen
+    Then View the Back Office, Sync Back Office, Operation, Log Off and QSR Mode options
+    When Click the Operation button
+    Then View the options are POS, Till Management, Print Labels, Process Offline, Hardware Settings, POS Settings, Close Day and Sync Back Office
+    And Click the Till Management option
+    Then Check the Till Management screen is displayed or not
+    And Check the Till option is displayed or not and it should selected by default
+    And Check the Set Till option is displayed or not and it should selected by default
+    Then Enter the Required amount as Thousand
+    And Click the continue button
+    Then Application should navigate to the Active Till screen with the created till
+    And Get the till number from Active Till tab
+    Then Click the Pay In option and it should be selected
+    Then Enter the Required amount as hundred
+    And Click the continue button
+    And "Enter the Paid From" pop up will appear
+    And Enter the paid by text
+    Then Enter the Required amount as hundred
+    And Click the continue button
+    Then Select the Reason from the list
+    And Click the Add button and "Paid In Performed Successfully" message is displayed or not
+    And Click the Till Option
+    Then Verify the same till is available or not
+    Then The till amount should shows as thousand and hundred
+    And Select the till from the Active Till
+    Then Click the Close Till button
+    And Check the "Do you want to close the till" popup and click the yes button
+    And Enter the Required amount as thousand and hundred
+    Then Click the continue button
+    And Click the Submit button
+    Then Application should navigate to the Closed Till screen with the closed till
+    And Verify the same till is closed or not
     Then Click the Menu option
     And Click the POS option
     Then Click the Logoff button
@@ -618,7 +918,7 @@ Feature: Operations_POS
     And Check the Set Till option is displayed or not and it should selected by default
     Then Click the Pay In option and it should be selected
     And Click the continue button and "Please enter the amount" message is displayed or not
-    Then Enter the Required amount
+    Then Enter the Required amount as hundred
     And Click the continue button
     Then "Enter the Paid From" pop up will appear
     Then Click the Menu option
@@ -640,6 +940,7 @@ Feature: Operations_POS
     Then Enter the Required amount as Thousand
     And Click the continue button
     Then Application should navigate to the Active Till screen with the created till
+    And Get the till number from Active Till tab
     Then Click the Pay Out option and it should be selected
     And Enter the paid to text
     Then Enter the Required amount as hundred
@@ -647,13 +948,56 @@ Feature: Operations_POS
     Then Select the Reason from the list
     And Click the Add button and "Paid Out Performed Successfully" message is displayed or not
     And Click the Till Option
-    Then The till amount should shows as "900.00"
+    Then Verify the same till is available or not
+    Then The till amount should reduced as nine hundred
     And Select the till from the Active Till
     Then Click the Close Till button
     And Check the "Do you want to close the till" popup and click the yes button
+    And Enter the Required amount as nine hundred
     Then Click the continue button
     And Click the Submit button
     Then Application should navigate to the Closed Till screen with the closed till
+    And Verify the same till is closed or not
+    Then Click the Menu option
+    And Click the POS option
+    Then Click the Logoff button
+
+  Scenario: Verify the Pay Out amount with out paid out after that close the till
+    Given Login with the valid credentials
+    Then Page will navigate to the retail order screen
+    And Able to view the Operation button
+    When Click the Settings icon from the Retail Screen
+    Then View the Back Office, Sync Back Office, Operation, Log Off and QSR Mode options
+    When Click the Operation button
+    Then View the options are POS, Till Management, Print Labels, Process Offline, Hardware Settings, POS Settings, Close Day and Sync Back Office
+    And Click the Till Management option
+    Then Check the Till Management screen is displayed or not
+    And Check the Till option is displayed or not and it should selected by default
+    And Check the Set Till option is displayed or not and it should selected by default
+    Then Enter the Required amount as Thousand
+    And Click the continue button
+    Then Application should navigate to the Active Till screen with the created till
+    And Get the till number from Active Till tab
+    Then Click the Pay Out option and it should be selected
+    Then Enter the Required amount as hundred
+    And Click the continue button
+    Then "Enter the Paid To" pop up will appear
+    And Enter the paid to text
+    Then Enter the Required amount as hundred
+    And Click the continue button
+    Then Select the Reason from the list
+    And Click the Add button and "Paid Out Performed Successfully" message is displayed or not
+    And Click the Till Option
+    Then Verify the same till is available or not
+    Then The till amount should reduced as nine hundred
+    And Select the till from the Active Till
+    Then Click the Close Till button
+    And Check the "Do you want to close the till" popup and click the yes button
+    And Enter the Required amount as nine hundred
+    Then Click the continue button
+    And Click the Submit button
+    Then Application should navigate to the Closed Till screen with the closed till
+    And Verify the same till is closed or not
     Then Click the Menu option
     And Click the POS option
     Then Click the Logoff button
@@ -672,7 +1016,7 @@ Feature: Operations_POS
     And Check the Set Till option is displayed or not and it should selected by default
     Then Click the Pay In option and it should be selected
     And Click the continue button and "Please enter the amount" message is displayed or not
-    Then Enter the Required amount
+    Then Enter the Required amount as hundred
     And Click the continue button
     Then "Enter the Paid To" pop up will appear
     Then Click the Menu option

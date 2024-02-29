@@ -67,15 +67,17 @@ public class Login_Page extends Appium_Base_Class {
 	public void Signin_Valid_Cred() throws Exception {
 		
 		cm = new Common_xpath();
-		Thread.sleep(6000);
+		Thread.sleep(8000);
 		try{
 			text_Confirm(Signin_StoreLogin_text, "Store Login");
+
 		}catch (Exception ignored){}
 		try {
 		text_Confirm_without_Screenshot(Signin_Page_forgotpws, "Forgot Password");
 		}catch (Exception ignored) {
 		}
 		send_data(Signin_Page_Username(), Utility.getProperty("Username"));
+
 //		driver.hideKeyboard();
 		send_data(Signin_Page_Password(), Utility.getProperty("Password"));
 //		driver.hideKeyboard();

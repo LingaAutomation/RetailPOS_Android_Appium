@@ -1,16 +1,25 @@
 package pages;
 
 import com.relevantcodes.extentreports.LogStatus;
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.testcontainers.shaded.org.apache.commons.lang.RandomStringUtils;
 import utility.Utility;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class Customer_Profile_Page extends Appium_Base_Class{
 
+    FluentWait<AppiumDriver> wait = new FluentWait<>(driver)
+            .withTimeout(Duration.ofSeconds(30))
+            .pollingEvery(Duration.ofSeconds(5))
+            .ignoring(NoSuchElementException.class);
     @AndroidFindBy(xpath = "//*[contains(@text,'Add Customer')]")
     WebElement Order_Screen_Add_Customer;
 
@@ -972,6 +981,13 @@ public class Customer_Profile_Page extends Appium_Base_Class{
     public void clickTheContinueBtn(){
             //click the continue button
         click_Ele(getCustomer_Profile_Screen_Mobile_Continue());
+    }
+
+    public void clickTheContinueOption_WithErrorMessage(String msg) throws InterruptedException {
+        //click the set till option
+        click_Ele(getCustomer_Profile_Screen_Mobile_Continue());Thread.sleep(1200);
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//*[contains(@text,'"+msg+"')]"))));
+        text_Confirm(driver.findElement(By.xpath("//*[contains(@text,'"+msg+"')]")),msg);
     }
 
     public void verifyTheContinueButton(){

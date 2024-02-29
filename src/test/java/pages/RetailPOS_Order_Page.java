@@ -393,6 +393,9 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 	
 	@AndroidFindBy(xpath = "//*[@text='Done']")
 	WebElement Order_Screen_Void_pop_up_Done_Btn;
+
+	@AndroidFindBy(xpath = "//*[@text='Yes']")
+	WebElement Order_Screen_pop_up_Yes_Btn;
 	
 	@AndroidFindBy(xpath = "//*[@resource-id='category-ui']/android.view.View/android.widget.Button/android.widget.Image")
 	WebElement Order_Screen_Category_Extent_Btn;
@@ -924,6 +927,11 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 		text_Confirm(Order_Screen_Void_POP_up_Text, msg);
 		click_Ele(Order_Screen_Void_pop_up_Done_Btn);
 	}
+
+	public void verifyThePopupAndConfirm(String msg){
+		text_Confirm(Order_Screen_Void_POP_up_Text, msg);
+		click_Ele(Order_Screen_pop_up_Yes_Btn);
+	}
 	
 	public void Log_Off_to_Pinscreen() {
 		psp = new Pin_Screen_Page();
@@ -1079,7 +1087,7 @@ public class RetailPOS_Order_Page extends Appium_Base_Class{
 	}
 
 	public String get_TotalAmount() {
-		return getOrder_Screen_Total_Value().getText();
+		return getOrder_Screen_Total_Value().getText().replaceAll("[a-zA-Z $₹£,:]", "").substring(1);
 	}
 
 	public String getDiscountAmount(){

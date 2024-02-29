@@ -3,12 +3,15 @@ package pages;
 import com.relevantcodes.extentreports.LogStatus;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 
 import java.time.Duration;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Operation_Page extends Appium_Base_Class{
     FluentWait<AppiumDriver> wait = new FluentWait<>(driver)
@@ -66,6 +69,12 @@ public class Operation_Page extends Appium_Base_Class{
     @AndroidFindBy(xpath = "//*[contains(@text,'Till') and @selected='true']")
     WebElement Operation_Till_Tab_Selected;
 
+    @AndroidFindBy(xpath = "//*[@text='Till']")
+    WebElement Operation_Till_Tab;
+
+    @AndroidFindBy(xpath = "//*[contains(@text,'Add')]")
+    WebElement Operation_Till_Add;
+
     @AndroidFindBy(xpath = "//*[contains(@text,'Cash Drop') and @selected='true']")
     WebElement Operation_Cash_Drop_Tab_Selected;
 
@@ -99,11 +108,20 @@ public class Operation_Page extends Appium_Base_Class{
     @AndroidFindBy(xpath = "//*[contains(@text,'Paid By')]")
     WebElement Operation_PaidBy_Text;
 
+    @AndroidFindBy(xpath = "//*[contains(@text,'Paid By')]/..//android.widget.EditText")
+    WebElement Operation_PaidBy_Text_inputBox;
+
     @AndroidFindBy(xpath = "//*[contains(@text,'Paid To')]")
     WebElement Operation_PaidTo_Text;
 
+    @AndroidFindBy(xpath = "//*[contains(@text,'Paid To')]/..//android.widget.EditText")
+    WebElement Operation_PaidTo_Text_inputBox;
+
     @AndroidFindBy(xpath = "//*[contains(@text,'Set Till') and @selected='true']")
     WebElement Operation_SetTill_Tab_Selected;
+
+    @AndroidFindBy(xpath = "//*[contains(@text,'Set Till')]")
+    WebElement Operation_SetTill_Tab;
 
     @AndroidFindBy(xpath = "//*[contains(@text,'Active Till') and @selected='true']")
     WebElement Operation_ActiveTill_Tab_Selected;
@@ -168,6 +186,156 @@ public class Operation_Page extends Appium_Base_Class{
     @AndroidFindBy(xpath = "//*[contains(@text,'Syncing with backoffice')]")
     WebElement syncing_Back_Office_txt;
 
+    @AndroidFindBy(xpath = "//*[contains(@text,'TOTAL NET SALE')]")
+    WebElement Operation_TotalNetSale;
+
+    @AndroidFindBy(xpath = "//*[contains(@text,'GROSS SALE')]")
+    WebElement Operation_GrossSale;
+
+    @AndroidFindBy(xpath = "//*[contains(@text,'NEW CUSTOMERS')]")
+    WebElement Operation_NewCustomers;
+
+    @AndroidFindBy(xpath = "//*[contains(@text,'NET VOID')]")
+    WebElement Operation_NetVoid;
+
+    @AndroidFindBy(xpath = "//*[contains(@text,'Details')]")
+    WebElement Operation_Details;
+
+    @AndroidFindBy(xpath = "//*[contains(@text,'Details')]/../../..//android.widget.Button")
+    WebElement Operation_UserButton;
+
+    @AndroidFindBy(xpath = "//*[contains(@text,'From')]")
+    WebElement Operation_From;
+
+    @AndroidFindBy(xpath = "//*[contains(@text,'To')]")
+    WebElement Operation_To;
+
+    @AndroidFindBy(xpath = "//*[contains(@text,'SALES')]")
+    WebElement Operation_Sales;
+
+    @AndroidFindBy(xpath = "//*[contains(@text,'Gross Sales')]")
+    WebElement Operation_GrossSales;
+
+    @AndroidFindBy(xpath = "//*[contains(@text,'Net Sales')]")
+    WebElement Operation_NetSales;
+
+    @AndroidFindBy(xpath = "//*[contains(@text,'Non-Taxable Net Sales')]")
+    WebElement Operation_NonTaxable_NetSales;
+
+    @AndroidFindBy(xpath = "//*[contains(@text,'Grand Sales')]")
+    WebElement Operation_GrandSales;
+
+    @AndroidFindBy(xpath = "//*[contains(@text,'Gross Receipt')]")
+    WebElement Operation_GrossReceipt;
+
+    @AndroidFindBy(xpath = "//*[contains(@text,'Gross Void')]")
+    WebElement Operation_GrossVoid;
+
+    @AndroidFindBy(xpath = "//*[contains(@text,'Net Void')]")
+    WebElement Operation_NetVoids;
+
+    @AndroidFindBy(xpath = "//*[contains(@text,'PAYMENT SUMMARY')]")
+    WebElement Operation_PaymentSummary;
+
+    @AndroidFindBy(xpath = "//*[contains(@text,'Credit Card')]")
+    WebElement Operation_CreditCard;
+
+    @AndroidFindBy(xpath = "//*[contains(@text,'SideCC')]")
+    WebElement Operation_SideCC;
+
+    @AndroidFindBy(xpath = "//*[contains(@text,'OTHER PAYMENT')]")
+    WebElement Operation_OtherPayment;
+
+    @AndroidFindBy(xpath = "//*[contains(@text,'Total')]")
+    WebElement Operation_Total;
+
+    @AndroidFindBy(xpath = "//*[@text='SUMMARY']")
+    WebElement Operation_Summary;
+
+    @AndroidFindBy(xpath = "//*[contains(@text,'Opening Balance')]")
+    WebElement Operation_OpeningBalance;
+
+    @AndroidFindBy(xpath = "//*[contains(@text,'Cashier Out')]")
+    WebElement Operation_CashierOut;
+
+    @AndroidFindBy(xpath = "//android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View[2]/android.view.View/android.widget.Button")
+    WebElement Operation_PrintButton;
+
+    @AndroidFindBy(xpath = "//android.widget.GridView/android.view.View[2]/android.view.View[1]")
+    WebElement Operation_ActiveTill_FirstRow;
+
+    @AndroidFindBy(xpath = "//android.widget.GridView/android.view.View[2]/android.view.View[1]/android.view.View[2]")
+    WebElement Operation_ActiveTill_FirstRow_TillNumber;
+
+    @AndroidFindBy(xpath = "//android.widget.GridView/android.view.View[2]/android.view.View[1]/android.view.View[5]")
+    WebElement Operation_ActiveTill_FirstRow_Amount;
+
+
+    public WebElement getOperation_PaidBy_Text_inputBox() {return Operation_PaidBy_Text_inputBox;}
+
+    public WebElement getOperation_PaidTo_Text_inputBox() {return Operation_PaidTo_Text_inputBox;}
+
+    public WebElement getOperation_Till_Add() {return Operation_Till_Add;}
+
+    public WebElement getOperation_Till_Tab() {return Operation_Till_Tab;}
+
+    public WebElement getOperation_SetTill_Tab() {return Operation_SetTill_Tab;}
+
+    public WebElement getOperation_ActiveTill_FirstRow_Amount() {return Operation_ActiveTill_FirstRow_Amount;}
+
+    public WebElement getOperation_ActiveTill_FirstRow_TillNumber() {return Operation_ActiveTill_FirstRow_TillNumber;}
+
+    public WebElement getOperation_ActiveTill_FirstRow() {return Operation_ActiveTill_FirstRow;}
+
+    public WebElement getOperation_CashierOut() {return Operation_CashierOut;}
+
+    public WebElement getOperation_CreditCard() {return Operation_CreditCard;}
+
+    public WebElement getOperation_Details() {return Operation_Details;}
+
+    public WebElement getOperation_GrossSale() {return Operation_GrossSale;}
+
+    public WebElement getOperation_From() {return Operation_From;}
+
+    public WebElement getOperation_NetVoid() {return Operation_NetVoid;}
+
+    public WebElement getOperation_To() {return Operation_To;}
+
+    public WebElement getOperation_NewCustomers() {return Operation_NewCustomers;}
+
+    public WebElement getOperation_TotalNetSale() {return Operation_TotalNetSale;}
+
+    public WebElement getOperation_GrandSales() {return Operation_GrandSales;}
+
+    public WebElement getOperation_GrossReceipt() {return Operation_GrossReceipt;}
+
+    public WebElement getOperation_UserButton() {return Operation_UserButton;}
+
+    public WebElement getOperation_GrossSales() {return Operation_GrossSales;}
+
+    public WebElement getOperation_GrossVoid() {return Operation_GrossVoid;}
+
+    public WebElement getOperation_NetSales() {return Operation_NetSales;}
+
+    public WebElement getOperation_NetVoids() {return Operation_NetVoids;}
+
+    public WebElement getOperation_NonTaxable_NetSales() {return Operation_NonTaxable_NetSales;}
+
+    public WebElement getOperation_OpeningBalance() {return Operation_OpeningBalance;}
+
+    public WebElement getOperation_OtherPayment() {return Operation_OtherPayment;}
+
+    public WebElement getOperation_PaymentSummary() {return Operation_PaymentSummary;}
+
+    public WebElement getOperation_PrintButton() {return Operation_PrintButton;}
+
+    public WebElement getOperation_Sales() {return Operation_Sales;}
+
+    public WebElement getOperation_SideCC() {return Operation_SideCC;}
+
+    public WebElement getOperation_Summary() {return Operation_Summary;}
+
+    public WebElement getOperation_Total() {return Operation_Total;}
 
     public WebElement getOperation_OpenCashDrawer_Text() {return Operation_OpenCashDrawer_Text;}
 
@@ -276,6 +444,201 @@ public class Operation_Page extends Appium_Base_Class{
     public WebElement getSyncing_Back_Office_txt() {return syncing_Back_Office_txt;}
 
 
+    public void enterThePaidByText(){
+        //enter the text
+        send_data(getOperation_PaidBy_Text_inputBox(),"Test");
+    }
+
+    public void  Select_The_Reasons() throws InterruptedException {
+        // Getting list of options
+        List<?> itemsInDropdown = driver.findElements(By.xpath("//android.app.Dialog[contains(@resource-id,'mat-dialog')]/android.view.View[2]/android.view.View/android.view.View[1]/android.view.View"));
+
+        // Getting size of options available
+        int size = itemsInDropdown.size();
+
+        if(size >= 12){
+            // Generate a random number with in range
+            int randnMumber = ThreadLocalRandom.current().nextInt(1, 12);
+
+            // Selecting random value
+            click_Ele((WebElement) itemsInDropdown.get(randnMumber));
+
+            Thread.sleep(2000);
+        }else{
+            // Generate a random number with in range
+            int randnMumber = ThreadLocalRandom.current().nextInt(1, size);
+
+            // Selecting random value
+            click_Ele((WebElement) itemsInDropdown.get(randnMumber));
+
+            Thread.sleep(2000);
+        }
+
+    }
+
+
+    public void enterThePaidToText(){
+        //enter the text
+        send_data(getOperation_PaidTo_Text_inputBox(),"Test");
+    }
+
+    public void clickTheTillOption(){
+        //click the Till option
+        click_Ele(getOperation_Till_Tab());
+    }
+
+    public void enterTheAmount(String tot){
+        tot = tot.replace(".","");
+
+        for(int i = 0; i < tot.length();i++){
+            String ss = String.valueOf(tot.charAt(i));
+//            System.out.println("----------dddddddd-------- "+ss);
+            driver.findElement(By.xpath("//android.widget.Button[contains(@text,'"+ss+"')]")).click();
+//            System.out.println("------------------ "+driver.findElement(By.xpath("//android.widget.Button[contains(@text,'"+ss+"')]")).getText());
+        }
+    }
+
+    public void enterTheAmount1() {
+        String tot = "10000";
+
+        for(int i = 0; i < tot.length();i++){
+            driver.findElement(By.xpath("//android.widget.Button[contains(@text,'"+tot.charAt(i)+"')]")).click();
+        }
+    }
+
+    public void enterTheAmount3() {
+        String tot = "100000";
+
+        for(int i = 0; i < tot.length();i++){
+            driver.findElement(By.xpath("//android.widget.Button[contains(@text,'"+tot.charAt(i)+"')]")).click();
+        }
+    }
+
+    public void enterTheAmount4() {
+        String tot = "90000";
+
+        for(int i = 0; i < tot.length();i++){
+            driver.findElement(By.xpath("//android.widget.Button[contains(@text,'"+tot.charAt(i)+"')]")).click();
+        }
+    }
+
+    public void enterTheAmount5(){
+        String tot = "110000";
+
+        for(int i = 0; i < tot.length();i++){
+            driver.findElement(By.xpath("//android.widget.Button[contains(@text,'"+tot.charAt(i)+"')]")).click();
+        }
+    }
+
+    public void enterTheAmount2(String total) {
+//        System.out.println("------------------ : "+total);
+        double s1 = Double.parseDouble(total);
+
+        double s2 = 100.00 + s1;
+
+        s2 = Math.round(s2*100.00)/100.00;
+
+        String tot = String.valueOf(s2);
+        tot=tot.replace(".","");
+        for(int i = 0; i < tot.length();i++){
+            driver.findElement(By.xpath("//android.widget.Button[contains(@text,'"+tot.charAt(i)+"')]")).click();
+        }
+    }
+
+    public void clickTheSetTillOption_WithErrorMessage(String msg){
+        //click the set till option
+        click_Ele(getOperation_SetTill_Tab());
+        text_Confirm(driver.findElement(By.xpath("//*[contains(@text,'"+msg+"')]")),msg);
+    }
+
+    public void clickTheAddOption_WithErrorMessage(String msg){
+        //click the set till option
+        click_Ele(getOperation_Till_Add());
+        text_Confirm(driver.findElement(By.xpath("//*[contains(@text,'"+msg+"')]")),msg);
+    }
+
+
+    public void clickTheCloseTillOption_WithErrorMessage(String msg){
+        //click the set till option
+        click_Ele(getOperation_CloseTill_Text());
+        text_Confirm(driver.findElement(By.xpath("//*[contains(@text,'"+msg+"')]")),msg);
+    }
+
+    public void clickTheHoldTillOption_WithErrorMessage(String msg){
+        //click the set till option
+        click_Ele(getOperation_HoldTill_Text());
+        text_Confirm(driver.findElement(By.xpath("//*[contains(@text,'"+msg+"')]")),msg);
+    }
+
+    public void clickTheHoldTillOption(){
+        //click the set till option
+        click_Ele(getOperation_HoldTill_Text());
+    }
+
+    public void verifyTheTillBalance_AmountInActiveTill(String tot){
+        String tillAmount = getOperation_ActiveTill_FirstRow_Amount().getText().replaceAll("[a-zA-Z $₹,:]", "").substring(1);
+
+        if(tillAmount.equals("0.00")){
+            test.log(LogStatus.FAIL,"Till Amount is not updated");
+        }else if(tillAmount.equals(tot)){
+            test.log(LogStatus.PASS,"Till amount updated correctly");
+        }
+    }
+
+    public void verifyTheTillBalance_AmountAfterCashDrop(){
+        String tillAmount = getOperation_ActiveTill_FirstRow_Amount().getText().replaceAll("[a-zA-Z $₹,:]", "").substring(1);
+
+        if(tillAmount.equals("0.00")){
+            test.log(LogStatus.FAIL,"Till Amount is not updated");
+        }else if(tillAmount.equals("900.00")){
+            test.log(LogStatus.PASS,"Till amount updated correctly");
+        }
+    }
+
+    public void verifyTheTillBalance_AmountAfterPaidBy(){
+        String tillAmount = getOperation_ActiveTill_FirstRow_Amount().getText().replaceAll("[a-zA-Z $₹,:]", "").substring(1);
+
+        if(tillAmount.equals("0.00")){
+            test.log(LogStatus.FAIL,"Till Amount is not updated");
+        }else if(tillAmount.equals("1100.00")){
+            test.log(LogStatus.PASS,"Till amount updated correctly");
+        }
+    }
+
+    public void verifyTheClosedTill(String tillNo){
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//*[@text='"+tillNo+"']"))));
+        String ss = driver.findElement(By.xpath("//*[@text='"+tillNo+"']")).getText();
+
+        if(ss.equals(tillNo)){
+            test.log(LogStatus.PASS,"The Closed Till is available in the Closed Tab");
+        }else{
+            test.log(LogStatus.FAIL,"The Closed Till is not available in the Closed Tab");
+            ut.FailedCaptureScreenshotAsBASE64(driver,test);
+        }
+    }
+
+    public void verifyTheClosedTill1(String tillNo){
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//*[@text='"+tillNo+"']"))));
+        String ss = driver.findElement(By.xpath("//*[@text='"+tillNo+"']")).getText();
+
+        if(ss.equals(tillNo)){
+            test.log(LogStatus.PASS,"The Till is available in the Active Tab");
+        }else{
+            test.log(LogStatus.FAIL,"The Till is not available in the Active Tab");
+            ut.FailedCaptureScreenshotAsBASE64(driver,test);
+        }
+    }
+
+    public void selectTheFirstTill(){
+        wait.until(ExpectedConditions.visibilityOf(getOperation_ActiveTill_FirstRow()));
+        //select the Active till
+        click_Ele(getOperation_ActiveTill_FirstRow());
+    }
+
+    public void clickTheCloseTill(){
+        //click the Close Till
+        click_Ele(getOperation_CloseTill_Text());
+    }
 
     public void Syncing_With_BO() {
         try {
@@ -283,6 +646,231 @@ public class Operation_Page extends Appium_Base_Class{
                 test.log(LogStatus.PASS, "Syncing with Backoffice text is displayed");
         }catch(Exception d) {
             test.log(LogStatus.FAIL, "Syncing with Backoffice text is not displayed");
+        }
+    }
+
+    public void verifyTheTotalNetSale() {
+        try {
+            if(getOperation_TotalNetSale().isDisplayed())
+                test.log(LogStatus.PASS, "Total Net Sale is displayed");
+        }catch(Exception d) {
+            test.log(LogStatus.FAIL, "Total Net Sale is not displayed");
+        }
+    }
+
+    public void verifyTheGrossSale() {
+        try {
+            if(getOperation_GrossSale().isDisplayed())
+                test.log(LogStatus.PASS, "Gross Sale is displayed");
+        }catch(Exception d) {
+            test.log(LogStatus.FAIL, "Gross Sale is not displayed");
+        }
+    }
+
+    public void verifyTheNewCustomers() {
+        try {
+            if(getOperation_NewCustomers().isDisplayed())
+                test.log(LogStatus.PASS, "New Customers is displayed");
+        }catch(Exception d) {
+            test.log(LogStatus.FAIL, "New Customers is not displayed");
+        }
+    }
+
+    public void verifyTheNetVoid() {
+        try {
+            if(getOperation_NetVoid().isDisplayed())
+                test.log(LogStatus.PASS, "Net Void is displayed");
+        }catch(Exception d) {
+            test.log(LogStatus.FAIL, "Net Void is not displayed");
+        }
+    }
+
+    public void verifyTheDetails() {
+        try {
+            if(getOperation_Details().isDisplayed())
+                test.log(LogStatus.PASS, "Details is displayed");
+        }catch(Exception d) {
+            test.log(LogStatus.FAIL, "Details is not displayed");
+        }
+    }
+
+    public void verifyTheUserButton() {
+        try {
+            if(getOperation_UserButton().isDisplayed())
+                test.log(LogStatus.PASS, "User button is displayed");
+        }catch(Exception d) {
+            test.log(LogStatus.FAIL, "User button is not displayed");
+        }
+    }
+
+    public void verifyThePrintButton() {
+        try {
+            if(getOperation_PrintButton().isDisplayed())
+                test.log(LogStatus.PASS, "Print Button is displayed");
+        }catch(Exception d) {
+            test.log(LogStatus.FAIL, "Print Button is not displayed");
+        }
+    }
+
+    public void verifyTheFrom() {
+        try {
+            if(getOperation_From().isDisplayed())
+                test.log(LogStatus.PASS, "From is displayed");
+        }catch(Exception d) {
+            test.log(LogStatus.FAIL, "From is not displayed");
+        }
+    }
+
+    public void verifyTheTo() {
+        try {
+            if(getOperation_To().isDisplayed())
+                test.log(LogStatus.PASS, "To is displayed");
+        }catch(Exception d) {
+            test.log(LogStatus.FAIL, "To is not displayed");
+        }
+    }
+
+    public void verifyTheSales() {
+        try {
+            if(getOperation_Sales().isDisplayed())
+                test.log(LogStatus.PASS, "Sales is displayed");
+        }catch(Exception d) {
+            test.log(LogStatus.FAIL, "Sales is not displayed");
+        }
+    }
+
+    public void verifyTheGrossSales() {
+        try {
+            if(getOperation_GrossSales().isDisplayed())
+                test.log(LogStatus.PASS, "Gross Sales is displayed");
+        }catch(Exception d) {
+            test.log(LogStatus.FAIL, "Gross Sales is not displayed");
+        }
+    }
+
+    public void verifyTheNetSales() {
+        try {
+            if(getOperation_NetSales().isDisplayed())
+                test.log(LogStatus.PASS, "Net Sales is displayed");
+        }catch(Exception d) {
+            test.log(LogStatus.FAIL, "Net Sales is not displayed");
+        }
+    }
+
+    public void verifyTheNonTaxableNetSales() {
+        try {
+            if(getOperation_NonTaxable_NetSales().isDisplayed())
+                test.log(LogStatus.PASS, "Non Taxable Net Sales is displayed");
+        }catch(Exception d) {
+            test.log(LogStatus.FAIL, "Non Taxable Net Sales is not displayed");
+        }
+    }
+
+    public void verifyTheGrandSales() {
+        try {
+            if(getOperation_GrandSales().isDisplayed())
+                test.log(LogStatus.PASS, "Grand Sales is displayed");
+        }catch(Exception d) {
+            test.log(LogStatus.FAIL, "Grand Sales is not displayed");
+        }
+    }
+
+    public void verifyTheGrossReceipt() {
+        try {
+            if(getOperation_GrossReceipt().isDisplayed())
+                test.log(LogStatus.PASS, "Gross Receipt is displayed");
+        }catch(Exception d) {
+            test.log(LogStatus.FAIL, "Gross Receipt is not displayed");
+        }
+    }
+
+    public void verifyTheGrossVoid() {
+        try {
+            if(getOperation_GrossVoid().isDisplayed())
+                test.log(LogStatus.PASS, "Gross Void is displayed");
+        }catch(Exception d) {
+            test.log(LogStatus.FAIL, "Gross Void is not displayed");
+        }
+    }
+
+    public void verifyTheNetVoids() {
+        try {
+            if(getOperation_NetVoids().isDisplayed())
+                test.log(LogStatus.PASS, "Net Void is displayed under Sales");
+        }catch(Exception d) {
+            test.log(LogStatus.FAIL, "Net Void is not displayed under Sales");
+        }
+    }
+
+    public void verifyThePaymentSummary() {
+        try {
+            if(getOperation_PaymentSummary().isDisplayed())
+                test.log(LogStatus.PASS, "Payment Summary is displayed");
+        }catch(Exception d) {
+            test.log(LogStatus.FAIL, "Payment Summary is not displayed");
+        }
+    }
+
+    public void verifyTheCreditCard() {
+        try {
+            if(getOperation_CreditCard().isDisplayed())
+                test.log(LogStatus.PASS, "Credit Card is displayed");
+        }catch(Exception d) {
+            test.log(LogStatus.FAIL, "Credit Card is not displayed");
+        }
+    }
+
+    public void verifyTheSideCC() {
+        try {
+            if(getOperation_SideCC().isDisplayed())
+                test.log(LogStatus.PASS, "SideCC is displayed");
+        }catch(Exception d) {
+            test.log(LogStatus.FAIL, "SideCC is not displayed");
+        }
+    }
+
+    public void verifyTheOtherPayment() {
+        try {
+            if(getOperation_OtherPayment().isDisplayed())
+                test.log(LogStatus.PASS, "Other Payment is displayed");
+        }catch(Exception d) {
+            test.log(LogStatus.FAIL, "Other Payment is not displayed");
+        }
+    }
+
+    public void verifyTheTotal() {
+        try {
+            if(getOperation_Total().isDisplayed())
+                test.log(LogStatus.PASS, "Total is displayed");
+        }catch(Exception d) {
+            test.log(LogStatus.FAIL, "Total is not displayed");
+        }
+    }
+
+    public void verifyTheSummary() {
+        try {
+            if(getOperation_Summary().isDisplayed())
+                test.log(LogStatus.PASS, "Summary is displayed");
+        }catch(Exception d) {
+            test.log(LogStatus.FAIL, "Summary is not displayed");
+        }
+    }
+
+    public void verifyTheOpeningBalance() {
+        try {
+            if(getOperation_OpeningBalance().isDisplayed())
+                test.log(LogStatus.PASS, "Opening Balance is displayed");
+        }catch(Exception d) {
+            test.log(LogStatus.FAIL, "Opening Balance is not displayed");
+        }
+    }
+
+    public void verifyTheCashierOut() {
+        try {
+            if(getOperation_CashierOut().isDisplayed())
+                test.log(LogStatus.PASS, "Cashier Out is displayed");
+        }catch(Exception d) {
+            test.log(LogStatus.FAIL, "Cashier Out is not displayed");
         }
     }
 
@@ -749,80 +1337,80 @@ public class Operation_Page extends Appium_Base_Class{
     public void verifyThePOSText(){
         try{
             if(getOperation_POS_Text().isDisplayed()){
-                test.log(LogStatus.PASS,"POS text/option is displayed when user click the operation button from the Sale History Screen");
+                test.log(LogStatus.PASS,"POS text/option is displayed when user click the operation button");
             }
         }catch (Exception e){
-            test.log(LogStatus.FAIL,"POS text/option is not displayed when user click the operation button from the Sale History Screen");
+            test.log(LogStatus.FAIL,"POS text/option is not displayed when user click the operation button");
         }
     }
 
     public void verifyTheTillManagementText(){
         try{
             if(getOperation_TillManagement_Text().isDisplayed()){
-                test.log(LogStatus.PASS,"Till Management text/option is displayed when user click the operation button from the Sale History Screen");
+                test.log(LogStatus.PASS,"Till Management text/option is displayed when user click the operation button");
             }
         }catch (Exception e){
-            test.log(LogStatus.FAIL,"Till Management text/option is not displayed when user click the operation button from the Sale History Screen");
+            test.log(LogStatus.FAIL,"Till Management text/option is not displayed when user click the operation button");
         }
     }
 
     public void verifyThePrintLabelsText(){
         try{
             if(getOperation_PrintLabels_Text().isDisplayed()){
-                test.log(LogStatus.PASS,"Print Labels text/option is displayed when user click the operation button from the Sale History Screen");
+                test.log(LogStatus.PASS,"Print Labels text/option is displayed when user click the operation button");
             }
         }catch (Exception e){
-            test.log(LogStatus.FAIL,"Print Labels text/option is not displayed when user click the operation button from the Sale History Screen");
+            test.log(LogStatus.FAIL,"Print Labels text/option is not displayed when user click the operation button");
         }
     }
 
     public void verifyTheProcessOfflineText(){
         try{
             if(getOperation_ProcessOffline_Text().isDisplayed()){
-                test.log(LogStatus.PASS,"Process Offline text/option is displayed when user click the operation button from the Sale History Screen");
+                test.log(LogStatus.PASS,"Process Offline text/option is displayed when user click the operation button");
             }
         }catch (Exception e){
-            test.log(LogStatus.FAIL,"Process Offline text/option is not displayed when user click the operation button from the Sale History Screen");
+            test.log(LogStatus.FAIL,"Process Offline text/option is not displayed when user click the operation button");
         }
     }
 
     public void verifyTheHardwareSettingsText(){
         try{
             if(getOperation_HardwareSettings_Text().isDisplayed()){
-                test.log(LogStatus.PASS,"Hardware Settings text/option is displayed when user click the operation button from the Sale History Screen");
+                test.log(LogStatus.PASS,"Hardware Settings text/option is displayed when user click the operation button");
             }
         }catch (Exception e){
-            test.log(LogStatus.FAIL,"Hardware Settings text/option is not displayed when user click the operation button from the Sale History Screen");
+            test.log(LogStatus.FAIL,"Hardware Settings text/option is not displayed when user click the operation button");
         }
     }
 
     public void verifyThePOSSettingsText(){
         try{
             if(getOperation_POSSettings_Text().isDisplayed()){
-                test.log(LogStatus.PASS,"POS Settings text/option is displayed when user click the operation button from the Sale History Screen");
+                test.log(LogStatus.PASS,"POS Settings text/option is displayed when user click the operation button");
             }
         }catch (Exception e){
-            test.log(LogStatus.FAIL,"POS Settings text/option is not displayed when user click the operation button from the Sale History Screen");
+            test.log(LogStatus.FAIL,"POS Settings text/option is not displayed when user click the operation button");
         }
     }
 
-    public void verifyTheCloseDayText(){
-        try{
-            if(getOperation_CloseDay_Text().isDisplayed()){
-                test.log(LogStatus.PASS,"Close Day text/option is displayed when user click the operation button from the Sale History Screen");
+        public void verifyTheCloseDayText(){
+            try{
+                if(getOperation_CloseDay_Text().isDisplayed()){
+                    test.log(LogStatus.PASS,"Close Day text/option is displayed");
+                }
+            }catch (Exception e){
+                test.log(LogStatus.FAIL,"Close Day text/option is not displayed");
             }
-        }catch (Exception e){
-            test.log(LogStatus.FAIL,"Close Day text/option is not displayed when user click the operation button from the Sale History Screen");
         }
-    }
 
     public void verifyTheSyncBackOfficeText(){
         try{
             if(getOperation_SyncBackOffice_Text().isDisplayed()){
-                test.log(LogStatus.PASS,"Sync Back Office text/option is displayed when user click the operation button from the Sale History Screen");
+                test.log(LogStatus.PASS,"Sync Back Office text/option is displayed when user click the operation button");
             }
         }catch (Exception e){
-            test.log(LogStatus.FAIL,"Sync Back Office text/option is not displayed when user click the operation button from the Sale History Screen");
+            test.log(LogStatus.FAIL,"Sync Back Office text/option is not displayed when user click the operation button");
         }
     }
 
@@ -834,10 +1422,10 @@ public class Operation_Page extends Appium_Base_Class{
     public void verifyTheUpgradeToNewVersionText(){
         try{
             if(getOperation_UpgradeToNewVersion_Text().isDisplayed()){
-                test.log(LogStatus.PASS,"Upgrade To New Version text/option is displayed when user click the operation button from the Sale History Screen");
+                test.log(LogStatus.PASS,"Upgrade To New Version text/option is displayed when user click the operation button");
             }
         }catch (Exception e){
-            test.log(LogStatus.FAIL,"Upgrade To New Version text/option is not displayed when user click the operation button from the Sale History Screen");
+            test.log(LogStatus.FAIL,"Upgrade To New Version text/option is not displayed when user click the operation button");
         }
     }
 

@@ -57,10 +57,8 @@ public class Hooks {
         if(driver==null)
         {
             new DriverManager().initializeDriver();
-
             driver=new DriverManager().getDriver();
             Thread.sleep(7000);
-
             new Login_Page().Signin_Valid_Cred();
         }
         try{

@@ -10,7 +10,8 @@ import org.junit.runner.RunWith;
 	,glue={"steps"},
 		monochrome=true,
 		dryRun = false,
-		tags = "@err",
+		tags = "@Till",
+		//tags = "@Till1 or @Till2",      //for executing multiple tags
 	    plugin= {"pretty",
 		"html:target/cucumber/report.html",
 		"de.monochromata.cucumber.report.PrettyReports:target/cucumber-html-reports",

@@ -967,6 +967,26 @@ public class Standard_Item_POS {
         new Operation_Page().clickTheReportsOption();
         new Operation_Page().verifyTheReportsOptionWithEnabled();
     }
+
+    @And("Verify the Till amount should be update in the Active Till screen")
+    public void verifyTheTillAmountShouldBeUpdateInTheActiveTillScreen() {
+        new Operation_Page().verifyTheTillBalance_AmountInActiveTill(total);
+    }
+
+    @And("Enter the Required amount")
+    public void enterTheRequiredAmount() throws InterruptedException {
+        new Operation_Page().enterTheAmount(total);
+    }
+
+    @And("Enter the same amount what user entered while create the till")
+    public void enterTheSameAmountWhatUserEnteredWhileCreateTheTill() throws InterruptedException {
+        new Operation_Page().enterTheAmount(total);
+    }
+
+    @And("Enter the Required amount with total")
+    public void enterTheRequiredAmountWithTotal() throws InterruptedException {
+        new Operation_Page().enterTheAmount2(total);
+    }
 }
 
 
